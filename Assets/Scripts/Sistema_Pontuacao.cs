@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class SistemaPontuacao : MonoBehaviour
 {
     public TempoFase tempoScript;    // Referência ao script que controla o tempo
@@ -9,7 +8,6 @@ public class SistemaPontuacao : MonoBehaviour
     public int vidaMaxima = 3;       // Máxima vida possível da caixa
     public float tempoMeta = 120f;   // Meta de tempo em segundos
     public Text textoPontuacao;
-
 
     private int pontuacaoFinal;
 
@@ -38,8 +36,13 @@ public class SistemaPontuacao : MonoBehaviour
         // Cálculo final da pontuação
         pontuacaoFinal = Mathf.RoundToInt(basePontos * multiplicadorVida + bonusTempo);
 
-        // Exibe no console a pontuação calculada
-        textoPontuacao.text = "Pontuação Final: " + pontuacaoFinal;
+        // Exibe no console a pontuação calculada (caso tenha um Text na fase)
+        if (textoPontuacao != null)
+            textoPontuacao.text = "Pontuação Final: " + pontuacaoFinal;
+    }
 
+    public int GetPontuacaoFinal()
+    {
+        return pontuacaoFinal;
     }
 }
