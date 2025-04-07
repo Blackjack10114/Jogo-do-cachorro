@@ -74,7 +74,7 @@ public class PlayerMov : MonoBehaviour
             MovePlayer(-1);
         }
 
-        if (Grounded && Input.GetKeyDown(KeyCode.Space))
+        if (Grounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
         {
             Jump();
         }
