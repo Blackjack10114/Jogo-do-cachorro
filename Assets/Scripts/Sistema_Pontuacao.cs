@@ -6,7 +6,7 @@ public class SistemaPontuacao : MonoBehaviour
     public TempoFase tempoScript;
     public Dano danoScript;
 
-    public int vidaMaxima = 3;
+    public int vidaMaxima = 100;
     public float tempoMeta = 120f;
 
     public int ossosColetados = 0;
@@ -14,6 +14,8 @@ public class SistemaPontuacao : MonoBehaviour
 
     public int penalidadePorColisao = 30;
     public int pontosPorOsso = 50;
+
+    public int totalDeOssosDaFase = 3;
 
     public Text textoPontuacao;
 
@@ -36,47 +38,53 @@ public class SistemaPontuacao : MonoBehaviour
         float vidaAtual = danoScript.pv;
         float tempoFinal = tempoScript.tempoAtual;
 
-        float multiplicadorVida = vidaAtual / vidaMaxima;
-
-        float bonusTempo = 0f;
-        if (tempoFinal < tempoMeta)
-        {
-            float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(100 * proporcaoTempo);
-        }
-
-        int basePontos = 500;
+        float multiplicadorVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
+        int pontosVida = Mathf.RoundToInt(500 * multiplicadorVida);
         int pontosOssos = ossosColetados * pontosPorOsso;
         int penalidade = numeroColisoes * penalidadePorColisao;
 
-        pontuacaoNumerica = Mathf.RoundToInt(basePontos * multiplicadorVida + bonusTempo + pontosOssos - penalidade);
-        pontuacaoNumerica = Mathf.Max(0, pontuacaoNumerica); // Garante que não seja negativo
+        int bonusTempo = 0;
+        if (tempoFinal < tempoMeta)
+        {
+            float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
+            bonusTempo = Mathf.RoundToInt(400 * proporcaoTempo);
+        }
 
-        int pontuacaoMaxima = basePontos + 100 + (ossosColetados * pontosPorOsso);
+        pontuacaoNumerica = pontosVida + pontosOssos + bonusTempo - penalidade;
+        pontuacaoNumerica = Mathf.Max(0, pontuacaoNumerica);
+
+        int pontuacaoMaxima = 500 + 400 + (totalDeOssosDaFase * pontosPorOsso);
         float proporcaoEstrelas = (float)pontuacaoNumerica / pontuacaoMaxima;
-        pontuacaoEstrelas = Mathf.Round(proporcaoEstrelas * 10f) / 2f; // Arredonda para 0.5 em 0.5
+        pontuacaoEstrelas = Mathf.Round(proporcaoEstrelas * 10f) / 2f;
 
-        // Classificação por letra
-        if (pontuacaoNumerica >= 1000) classificacaoLetra = "S+";
-        else if (pontuacaoNumerica >= 800) classificacaoLetra = "A";
+        // 🟩 Checagem especial para S+
+        if (
+            pontuacaoNumerica >= 950 &&
+            ossosColetados == totalDeOssosDaFase &&
+            numeroColisoes <= 1 &&
+            vidaAtual >= 90
+        )
+        {
+            classificacaoLetra = "S+";
+        }
+        else if (pontuacaoNumerica >= 850) classificacaoLetra = "S";
+        else if (pontuacaoNumerica >= 750) classificacaoLetra = "A";
         else if (pontuacaoNumerica >= 600) classificacaoLetra = "B";
         else if (pontuacaoNumerica >= 400) classificacaoLetra = "C";
-        else classificacaoLetra = "D";
+        else classificacaoLetra = "F";
 
-        // Salva dados para a próxima cena
         PlayerPrefs.SetFloat("PontuacaoFinal", pontuacaoEstrelas);
         PlayerPrefs.SetInt("PontuacaoNumerica", pontuacaoNumerica);
         PlayerPrefs.SetString("ClassificacaoLetra", classificacaoLetra);
         PlayerPrefs.Save();
 
-        // Mostra no UI se o Text estiver ligado
         if (textoPontuacao != null)
         {
             textoPontuacao.text = $"Pontuação Final: {pontuacaoNumerica} ({pontuacaoEstrelas} estrelas, Nota {classificacaoLetra})";
         }
     }
 
-    // Métodos auxiliares para acessar de fora
+    // Métodos auxiliares
     public float GetPontuacaoFinal() => pontuacaoEstrelas;
     public int GetPontuacaoFinalNumerica() => pontuacaoNumerica;
     public float GetPontuacaoEstrelas() => pontuacaoEstrelas;
