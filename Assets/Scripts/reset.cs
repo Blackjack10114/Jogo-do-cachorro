@@ -9,7 +9,7 @@ public class reset : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SampleScene_Gab");
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
