@@ -17,8 +17,15 @@ public class coletavel : MonoBehaviour
         {
             osso_coletado = true;
             Debug.Log("osso coletado!");
+
+            // Adiciona pontuação
+            var pontuacao = FindAnyObjectByType<SistemaPontuacao>();
+            if (pontuacao != null) pontuacao.AdicionarOsso();
+
+
             GetComponent<Renderer>().enabled = false;
             Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Ossinho.GetComponent<Collider2D>());
         }
+
     }
 }

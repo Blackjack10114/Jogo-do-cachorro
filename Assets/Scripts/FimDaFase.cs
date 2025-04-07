@@ -8,21 +8,27 @@ public class FimDaFase : MonoBehaviour
     void Start()
     {
         pontuacaoScript = Object.FindFirstObjectByType<SistemaPontuacao>();
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // Calcula e salva a pontuação
+            // Calcula a pontuação final
             pontuacaoScript.CalcularPontuacaoFinal();
-            int pontos = pontuacaoScript.GetPontuacaoFinal();
-            PlayerPrefs.SetInt("PontuacaoFinal", pontos);
 
-            // (opcional) Reseta o tempo se estiver pausado
+            // Salva os dados para serem usados na próxima cena
+            int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
+            string nota = pontuacaoScript.GetClassificacaoLetra();
+
+
+            PlayerPrefs.SetInt("PontuacaoFinal", pontos);
+            PlayerPrefs.SetString("NotaFinal", nota);
+
             Time.timeScale = 1f;
 
-            // Vai para a cena de fim de fase (certifique-se que "CenaFimDeFase" está no Build Settings)
+            // Carrega a cena de fim de fase
             SceneManager.LoadScene("CenaFimDeFase");
         }
     }

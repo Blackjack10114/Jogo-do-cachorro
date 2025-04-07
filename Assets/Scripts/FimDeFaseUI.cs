@@ -4,19 +4,20 @@ using UnityEngine.UI;
 
 public class FimDeFaseUI : MonoBehaviour
 {
-    public Text textoPontuacao;       // Arraste aqui o Text da pontuação
-    public Button botaoReiniciar;     // Arraste o botão aqui pelo Inspector
+    public Text textoPontuacao;
+    public Text textoNota;
+    public EstrelaPontuacaoUI estrelasUI;
 
     void Start()
     {
-        // Pega a pontuação salva
-        int pontuacao = PlayerPrefs.GetInt("PontuacaoFinal", 0);
-        textoPontuacao.text = "Pontuação: " + pontuacao;
+        int pontos = PlayerPrefs.GetInt("PontuacaoNumerica", 0);
+        string nota = PlayerPrefs.GetString("NotaFinal", "F");
 
-        // Adiciona o evento ao botão
-        botaoReiniciar.onClick.AddListener(ReiniciarFase);
+        textoPontuacao.text = "Pontuação: " + pontos;
+        textoNota.text = "Nota: " + nota;
+
+        estrelasUI.AtualizarEstrelasNota(nota);
     }
-
     void ReiniciarFase()
     {
         // Opcional: reseta o tempo do jogo (caso ele tenha sido pausado)

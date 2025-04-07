@@ -9,8 +9,11 @@ public class TempoFase : MonoBehaviour
     void Update()
     {
         tempoAtual += Time.deltaTime;
-        AtualizarTextoTempo();
+
+        if (Tempo_Text != null)
+            AtualizarTextoTempo();
     }
+
 
     void AtualizarTextoTempo()
     {

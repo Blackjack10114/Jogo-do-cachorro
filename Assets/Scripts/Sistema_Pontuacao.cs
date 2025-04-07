@@ -1,48 +1,84 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class SistemaPontuacao : MonoBehaviour
 {
-    public TempoFase tempoScript;    // Referência ao script que controla o tempo
-    public Dano danoScript;          // Referência ao script que contém a vida da caixa
-    public int vidaMaxima = 3;       // Máxima vida possível da caixa
-    public float tempoMeta = 120f;   // Meta de tempo em segundos
+    public TempoFase tempoScript;
+    public Dano danoScript;
+
+    public int vidaMaxima = 3;
+    public float tempoMeta = 120f;
+
+    public int ossosColetados = 0;
+    public int numeroColisoes = 0;
+
+    public int penalidadePorColisao = 30;
+    public int pontosPorOsso = 50;
+
     public Text textoPontuacao;
 
-    private int pontuacaoFinal;
+    private int pontuacaoNumerica;
+    private float pontuacaoEstrelas;
+    private string classificacaoLetra;
+
+    public void AdicionarOsso()
+    {
+        ossosColetados++;
+    }
+
+    public void AdicionarColisao()
+    {
+        numeroColisoes++;
+    }
 
     public void CalcularPontuacaoFinal()
     {
-        // Pega a vida atual da caixa diretamente do script Dano
         float vidaAtual = danoScript.pv;
-
-        // Pega o tempo final da fase
         float tempoFinal = tempoScript.tempoAtual;
 
-        // Multiplicador baseado na vida restante (escala entre 0 e 1)
         float multiplicadorVida = vidaAtual / vidaMaxima;
 
-        // Bônus baseado na velocidade (quanto mais rápido que a meta, maior o bônus)
         float bonusTempo = 0f;
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(100 * proporcaoTempo); // bônus até 100 pontos
+            bonusTempo = Mathf.RoundToInt(100 * proporcaoTempo);
         }
 
-        // Pontuação base (valor fixo que será multiplicado)
         int basePontos = 500;
+        int pontosOssos = ossosColetados * pontosPorOsso;
+        int penalidade = numeroColisoes * penalidadePorColisao;
 
-        // Cálculo final da pontuação
-        pontuacaoFinal = Mathf.RoundToInt(basePontos * multiplicadorVida + bonusTempo);
+        pontuacaoNumerica = Mathf.RoundToInt(basePontos * multiplicadorVida + bonusTempo + pontosOssos - penalidade);
+        pontuacaoNumerica = Mathf.Max(0, pontuacaoNumerica); // Garante que nÃ£o seja negativo
 
-        // Exibe no console a pontuação calculada (caso tenha um Text na fase)
+        int pontuacaoMaxima = basePontos + 100 + (ossosColetados * pontosPorOsso);
+        float proporcaoEstrelas = (float)pontuacaoNumerica / pontuacaoMaxima;
+        pontuacaoEstrelas = Mathf.Round(proporcaoEstrelas * 10f) / 2f; // Arredonda para 0.5 em 0.5
+
+        // ClassificaÃ§Ã£o por letra
+        if (pontuacaoNumerica >= 1000) classificacaoLetra = "S+";
+        else if (pontuacaoNumerica >= 800) classificacaoLetra = "A";
+        else if (pontuacaoNumerica >= 600) classificacaoLetra = "B";
+        else if (pontuacaoNumerica >= 400) classificacaoLetra = "C";
+        else classificacaoLetra = "D";
+
+        // Salva dados para a prÃ³xima cena
+        PlayerPrefs.SetFloat("PontuacaoFinal", pontuacaoEstrelas);
+        PlayerPrefs.SetInt("PontuacaoNumerica", pontuacaoNumerica);
+        PlayerPrefs.SetString("ClassificacaoLetra", classificacaoLetra);
+        PlayerPrefs.Save();
+
+        // Mostra no UI se o Text estiver ligado
         if (textoPontuacao != null)
-            textoPontuacao.text = "Pontuação Final: " + pontuacaoFinal;
+        {
+            textoPontuacao.text = $"PontuaÃ§Ã£o Final: {pontuacaoNumerica} ({pontuacaoEstrelas} estrelas, Nota {classificacaoLetra})";
+        }
     }
 
-    public int GetPontuacaoFinal()
-    {
-        return pontuacaoFinal;
-    }
+    // MÃ©todos auxiliares para acessar de fora
+    public float GetPontuacaoFinal() => pontuacaoEstrelas;
+    public int GetPontuacaoFinalNumerica() => pontuacaoNumerica;
+    public float GetPontuacaoEstrelas() => pontuacaoEstrelas;
+    public string GetClassificacaoLetra() => classificacaoLetra;
 }

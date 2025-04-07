@@ -6,12 +6,15 @@ public class Dano : MonoBehaviour
     public bool isInvincible = false;
     public bool contato;
     public float v, m;
+    public float pv = 30f; // Valor inicial de vida, pode ser ajustado no Inspetor
+
     private Rigidbody2D rb;
-    private float time = 0;
-    public GameObject shield; // Variável para armazenar a bolha
-    public float pv;
+    private float time = 0f;
+
+    public GameObject shield;
     public GameObject Sprite_Dog_Caixa_Normal_0;
     private Caixa bool_script;
+
     public Sprite Sprite_Dog_Caixa_Normal;
     public Sprite Sprite_Dog_Sem_Caixa;
 
@@ -27,60 +30,59 @@ public class Dano : MonoBehaviour
         {
             isInvincible = true;
 
-            // Se já existir uma bolha ativa, não cria outra
             if (shield == null)
             {
                 shield = Instantiate(Resources.Load<GameObject>("Bolha Protetora"), transform.position, Quaternion.identity);
-                shield.transform.SetParent(transform); // Faz a bolha seguir o jogador
+                shield.transform.SetParent(transform);
             }
 
             yield return new WaitForSeconds(duration);
 
-            // Quando o tempo acabar, remove o escudo se ele ainda existir
             if (shield != null)
             {
                 Destroy(shield);
                 shield = null;
             }
+
             isInvincible = false;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Spike")
+        if (collision.gameObject.CompareTag("Spike"))
         {
             if (isInvincible && shield != null)
             {
-                Destroy(shield); // Remove a bolha imediatamente
+                Destroy(shield);
                 shield = null;
                 StartCoroutine(DelayInvincibilityReset());
-
-                return; // Sai da função e evita que o dano seja aplicado
+                return;
             }
-            GameObject varGameObject = GameObject.FindWithTag("Player");
+
             GetComponent<PlayerMov>().enabled = false;
             rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-            time += Time.deltaTime;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
-            if (bool_script.caixaInstanciada == false)
+
+            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+
+            if (!bool_script.caixaInstanciada)
             {
-                pv = pv - 10;
-                if (pv < 0)
-                {
-                    pv = 0;
-                }
+                pv -= 10f;
+                if (pv < 0f) pv = 0f;
+
+                Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
             }
         }
     }
+
     private IEnumerator DelayInvincibilityReset()
     {
         yield return new WaitForSeconds(0.1f);
         isInvincible = false;
     }
 
-    private void Update()
+    void Update()
     {
         time += Time.deltaTime;
         if (time >= 1.0f)
