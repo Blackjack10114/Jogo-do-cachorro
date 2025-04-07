@@ -23,6 +23,6 @@ public class FimDeFaseUI : MonoBehaviour
         Time.timeScale = 1f;
 
         // Carrega de volta a cena principal (coloque o nome correto)
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("SampleSceneHugo");
     }
 }

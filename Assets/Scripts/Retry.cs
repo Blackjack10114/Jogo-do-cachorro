@@ -13,6 +13,6 @@ public class Retry : MonoBehaviour
     public void RecarregarCena()
     {
         Time.timeScale = 1f; // volta ao tempo normal
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("SampleSceneHugo");
     }
 }

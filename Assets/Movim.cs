@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Diagnostics;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class PlayerMov : MonoBehaviour
@@ -26,6 +25,8 @@ public class PlayerMov : MonoBehaviour
     private float time = 0;
     private bool isRunning = false;
     private bool wasRunningBeforeJump = false;
+
+    private PlataformaMovel plataformaAtual = null;
 
     void Start()
     {
@@ -72,6 +73,11 @@ public class PlayerMov : MonoBehaviour
         {
             MovePlayer(-1);
         }
+
+        if (Grounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
     }
 
     private void MovePlayer(int direction)
@@ -96,7 +102,7 @@ public class PlayerMov : MonoBehaviour
         }
 
         float airControl = wasRunningBeforeJump ? sprintSpeedMultiplier * turboMultiplier : 1f;
-        float turboAirControl = isTurboActive ? 0.6f : 1f; // Reduz a distância percorrida no ar com turbo
+        float turboAirControl = isTurboActive ? 0.6f : 1f;
 
         if (Grounded)
         {
@@ -110,7 +116,6 @@ public class PlayerMov : MonoBehaviour
         }
         else
         {
-            // Aplica a redução da velocidade no ar quando o Turbo está ativo
             rb.linearVelocity = new Vector2(direction * move * speed * airControl * turboAirControl, rb.linearVelocity.y);
         }
 
@@ -122,34 +127,63 @@ public class PlayerMov : MonoBehaviour
 
     private void Jump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        // Zera a velocidade vertical antes de pular
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+        // Aplica o pulo
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         Grounded = false;
+        plataformaAtual = null;
     }
+
+
+    // Adicione este trecho para aplicar movimento da plataforma ao jogador
+    void FixedUpdate()
+    {
+        if (plataformaAtual != null)
+        {
+            Vector3 movimentoPlataforma = plataformaAtual.GetComponent<Rigidbody2D>().linearVelocity * Time.fixedDeltaTime;
+            transform.position += movimentoPlataforma;
+        }
+    }
+
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             Grounded = true;
+            plataformaAtual = null;
         }
-        else if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Wall"))
+        else if (collision.gameObject.CompareTag("PlataformaMovel"))
         {
+            Grounded = true;
+            plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel"))
         {
             Grounded = false;
+            plataformaAtual = null;
         }
     }
 
-    // Adicione isso para garantir que Grounded continua true enquanto estiver no chão
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             Grounded = true;
+            plataformaAtual = null;
+        }
+        else if (collision.gameObject.CompareTag("PlataformaMovel"))
+        {
+            Grounded = true;
+            plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
         }
     }
 }
