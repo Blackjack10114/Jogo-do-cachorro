@@ -13,9 +13,9 @@ public class coletavel : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            bool osso_coletado = true;
+            osso_coletado = true;
             Debug.Log("osso coletado!");
             GetComponent<Renderer>().enabled = false;
             Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Ossinho.GetComponent<Collider2D>());
