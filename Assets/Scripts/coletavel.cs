@@ -5,11 +5,10 @@ public class coletavel : MonoBehaviour
 {
     public bool osso_coletado = false;
     private GameObject Player = null;
-    private GameObject Ossinho = null;
+    public GameObject Ossinho = null;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        Ossinho = GameObject.FindGameObjectWithTag("Osso");
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
