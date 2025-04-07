@@ -52,10 +52,9 @@ public class Dano : MonoBehaviour
         {
             if (isInvincible && shield != null)
             {
-                // Se o jogador tem escudo e colidiu, quebra o escudo e perde a invencibilidade
-                isInvincible = false;
                 Destroy(shield); // Remove a bolha imediatamente
                 shield = null;
+                StartCoroutine(DelayInvincibilityReset());
 
                 return; // Sai da função e evita que o dano seja aplicado
             }
@@ -74,6 +73,11 @@ public class Dano : MonoBehaviour
                 }
             }
         }
+    }
+    private IEnumerator DelayInvincibilityReset()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isInvincible = false;
     }
 
     private void Update()
