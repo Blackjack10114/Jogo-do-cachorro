@@ -157,7 +157,7 @@ public class PlayerMov : MonoBehaviour
             Grounded = true;
             plataformaAtual = null;
         }
-        else if (collision.gameObject.CompareTag("PlataformaMovel"))
+        else if (collision.gameObject.CompareTag("PlataformaMovel") || (collision.gameObject.CompareTag("PlataformaQuebradica")))
         {
             Grounded = true;
             plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4560289010605563357}
   - component: {fileID: 4964135331309861936}
   - component: {fileID: 4304476028754764409}
+  - component: {fileID: -6587501487279455814}
   m_Layer: 0
   m_Name: Caixa_Separada_0
   m_TagString: caixa
@@ -162,3 +163,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.36, y: 1.09}
   m_EdgeRadius: 0
+--- !u!114 &-6587501487279455814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098347952754204618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faead139ee5e1ea45a46e4d9c74047da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpforce: 100
+  speed: 5
+  move: 5
