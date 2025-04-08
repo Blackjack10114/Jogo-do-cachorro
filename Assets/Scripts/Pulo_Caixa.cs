@@ -17,4 +17,13 @@ public class Pulo_Caixa : MonoBehaviour
             rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // só usar se for fazer o checkpoint de forma melhor
+        if (other.CompareTag("Spike"))
+        {
+            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
+        }
+    }
 }
