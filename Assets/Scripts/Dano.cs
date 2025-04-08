@@ -163,10 +163,20 @@ public class Dano : MonoBehaviour
 
         if (dano > 0f)
         {
+            // Aplica o dano na vida da caixa
             pv -= dano;
             if (pv < 0f) pv = 0f;
+
+            // Aplica um "acerto" no sistema de stun
+            if (stun != null)
+            {
+                stun.TomarDano(dano);
+            }
+
+            // Contabiliza para o sistema de pontuação
             Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
         }
+
     }
 
     private bool TemCaixa()
