@@ -25,11 +25,13 @@ public class EstrelaPontuacaoUI : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject novaEstrela = Instantiate(estrelaPrefab, containerEstrelas);
+            if (novaEstrela == null)
+            {
+                Debug.LogError($"❌ Falha ao instanciar o prefab da estrela na posição {i}.");
+                continue;
+            }
 
-            // Tenta pegar o Image diretamente no objeto
             Image estrelaImg = novaEstrela.GetComponent<Image>();
-
-            // Se não achou no objeto principal, procura nos filhos
             if (estrelaImg == null)
             {
                 estrelaImg = novaEstrela.GetComponentInChildren<Image>();
@@ -37,13 +39,15 @@ public class EstrelaPontuacaoUI : MonoBehaviour
 
             if (estrelaImg == null)
             {
-                Debug.LogError($"Não foi encontrado um componente Image dentro da estrela instanciada ({novaEstrela.name})!");
+                Debug.LogError($"❌ Prefab da estrela instanciada ({novaEstrela.name}) não contém Image.");
                 continue;
             }
 
             estrelas[i] = estrelaImg;
         }
     }
+
+
 
     public void AtualizarEstrelasNota(string nota)
     {
@@ -64,19 +68,26 @@ public class EstrelaPontuacaoUI : MonoBehaviour
 
     public void AtualizarEstrelas(float estrelasFloat)
     {
+        if (estrelas == null || estrelas.Length == 0)
+        {
+            Debug.LogWarning("Todas estrelas foram criadas");
+            return;
+        }
+
         if (estrelasFloat >= 6f)
         {
-            // S+ → todas as 5 estrelas vermelhas
             for (int i = 0; i < estrelas.Length; i++)
             {
-                estrelas[i].sprite = estrelaVermelha;
+                if (estrelas[i] != null)
+                    estrelas[i].sprite = estrelaVermelha;
             }
             return;
         }
 
-        // S ou menor → calcula como antes
         for (int i = 0; i < estrelas.Length; i++)
         {
+            if (estrelas[i] == null) continue;
+
             float valor = estrelasFloat - i;
 
             if (valor >= 1f)
@@ -93,6 +104,7 @@ public class EstrelaPontuacaoUI : MonoBehaviour
             }
         }
     }
+
 
 
     private float NotaParaEstrelas(string nota)
