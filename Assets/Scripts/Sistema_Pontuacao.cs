@@ -23,68 +23,92 @@ public class SistemaPontuacao : MonoBehaviour
     private float pontuacaoEstrelas;
     private string classificacaoLetra;
 
-    public void AdicionarOsso()
-    {
-        ossosColetados++;
-    }
+    private int bonusVida = 0;
+    private int bonusTempo = 0;
+    private int bonusTotal = 0;
 
-    public void AdicionarColisao()
-    {
-        numeroColisoes++;
-    }
+    public void AdicionarOsso() => ossosColetados++;
+    public void AdicionarColisao() => numeroColisoes++;
 
     public void CalcularPontuacaoFinal()
     {
         float vidaAtual = danoScript.pv;
         float tempoFinal = tempoScript.tempoAtual;
 
-        float multiplicadorVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
-        int pontosVida = Mathf.RoundToInt(500 * multiplicadorVida);
+        // BÔNUS POR VIDA (proporcional, até 400)
+        float proporcaoVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
+        bonusVida = Mathf.RoundToInt(500 * proporcaoVida);
+
+        // BÔNUS POR OSSO
         int pontosOssos = ossosColetados * pontosPorOsso;
+
+        // PENALIDADE
         int penalidade = numeroColisoes * penalidadePorColisao;
 
-        int bonusTempo = 0;
+        // BÔNUS POR TEMPO
+        bonusTempo = 0;
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(400 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(500 * proporcaoTempo);
         }
 
-        pontuacaoNumerica = pontosVida + pontosOssos + bonusTempo - penalidade;
+        bonusTotal = bonusVida + bonusTempo;
+
+        pontuacaoNumerica = bonusVida + pontosOssos + bonusTempo - penalidade;
         pontuacaoNumerica = Mathf.Max(0, pontuacaoNumerica);
 
-        int pontuacaoMaxima = 500 + 400 + (totalDeOssosDaFase * pontosPorOsso);
+        int pontuacaoMaxima = 400 + 400 + (totalDeOssosDaFase * pontosPorOsso);
         float proporcaoEstrelas = (float)pontuacaoNumerica / pontuacaoMaxima;
         pontuacaoEstrelas = Mathf.Round(proporcaoEstrelas * 10f) / 2f;
 
-        // 🟩 Checagem especial para S+
-        if (
-            pontuacaoNumerica >= 950 &&
-            ossosColetados == totalDeOssosDaFase &&
-            numeroColisoes <= 1 &&
-            vidaAtual >= 90
-        )
-        {
+        // Classificação com intermediários
+        if (pontuacaoNumerica >= 950 && ossosColetados == totalDeOssosDaFase && numeroColisoes <= 1 && vidaAtual >= 95)
             classificacaoLetra = "S+";
-        }
-        else if (pontuacaoNumerica >= 850) classificacaoLetra = "S";
-        else if (pontuacaoNumerica >= 750) classificacaoLetra = "A";
-        else if (pontuacaoNumerica >= 600) classificacaoLetra = "B";
-        else if (pontuacaoNumerica >= 400) classificacaoLetra = "C";
-        else classificacaoLetra = "F";
+        else if (pontuacaoNumerica >= 850)
+            classificacaoLetra = "S";
+        else if (pontuacaoNumerica >= 800)
+            classificacaoLetra = "A+";
+        else if (pontuacaoNumerica >= 750)
+            classificacaoLetra = "A";
+        else if (pontuacaoNumerica >= 700)
+            classificacaoLetra = "A-";
+        else if (pontuacaoNumerica >= 650)
+            classificacaoLetra = "B+";
+        else if (pontuacaoNumerica >= 600)
+            classificacaoLetra = "B";
+        else if (pontuacaoNumerica >= 550)
+            classificacaoLetra = "C+";
+        else if (pontuacaoNumerica >= 500)
+            classificacaoLetra = "C";
+        else
+            classificacaoLetra = "F";
 
         PlayerPrefs.SetFloat("PontuacaoFinal", pontuacaoEstrelas);
         PlayerPrefs.SetInt("PontuacaoNumerica", pontuacaoNumerica);
         PlayerPrefs.SetString("ClassificacaoLetra", classificacaoLetra);
+        PlayerPrefs.SetInt("BonusVida", bonusVida);
+        PlayerPrefs.SetInt("BonusTempo", bonusTempo);
+        PlayerPrefs.SetInt("BonusTotal", bonusTotal);
+        PlayerPrefs.SetInt("PontosOssos", pontosOssos);
+        PlayerPrefs.SetInt("Penalidades", penalidade);
         PlayerPrefs.Save();
 
         if (textoPontuacao != null)
         {
             textoPontuacao.text = $"Pontuação Final: {pontuacaoNumerica} ({pontuacaoEstrelas} estrelas, Nota {classificacaoLetra})";
         }
+
+        Debug.Log($"===== PONTUAÇÃO FINAL =====\n" +
+                  $"Vida: {vidaAtual}/{vidaMaxima} → Bônus Vida: {bonusVida}\n" +
+                  $"Tempo: {tempoFinal}s / Meta: {tempoMeta}s → Bônus Tempo: {bonusTempo}\n" +
+                  $"Ossos Coletados: {ossosColetados} → Pontos Ossos: {pontosOssos}\n" +
+                  $"Colisões: {numeroColisoes} → Penalidade: {penalidade}\n" +
+                  $"Pontuação Final: {pontuacaoNumerica}\n" +
+                  $"Estrelas: {pontuacaoEstrelas}\n" +
+                  $"Nota: {classificacaoLetra}\n===========================");
     }
 
-    // Métodos auxiliares
     public float GetPontuacaoFinal() => pontuacaoEstrelas;
     public int GetPontuacaoFinalNumerica() => pontuacaoNumerica;
     public float GetPontuacaoEstrelas() => pontuacaoEstrelas;

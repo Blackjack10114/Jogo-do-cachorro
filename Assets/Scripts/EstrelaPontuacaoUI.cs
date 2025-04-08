@@ -101,11 +101,17 @@ public class EstrelaPontuacaoUI : MonoBehaviour
         {
             case "S+": return 6f;
             case "S": return 5f;
+            case "A+": return 4.5f;
             case "A": return 4f;
-            case "B": return 3f;
-            case "C": return 2f;
+            case "A-": return 3.5f;
+            case "B+": return 3f;
+            case "B": return 2.5f;
+            case "C+": return 2f;
+            case "C": return 1.5f;
             case "F": return 1f;
             default: return 0f;
         }
     }
+
 }
+
