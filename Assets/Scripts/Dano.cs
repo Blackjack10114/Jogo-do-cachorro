@@ -60,7 +60,7 @@ public class Dano : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Verifica dano por queda
-        if (collision.gameObject.CompareTag("Ground") && estaCaindo)
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica") && estaCaindo)
         {
             float alturaFinal = transform.position.y;
             float diferencaAltura = alturaInicialDaQueda - alturaFinal;
