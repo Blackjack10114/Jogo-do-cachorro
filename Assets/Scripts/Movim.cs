@@ -78,6 +78,8 @@ public class PlayerMov : MonoBehaviour
         {
             Jump();
         }
+        // No Update:
+        if (!podeMover) return; // bloqueia movimento se atordoado
     }
 
     private void MovePlayer(int direction)
@@ -136,6 +138,15 @@ public class PlayerMov : MonoBehaviour
         Grounded = false;
         plataformaAtual = null;
     }
+
+    public bool podeMover = true;
+
+    public void HabilitarMovimento(bool estado)
+    {
+        podeMover = estado;
+    }
+
+
 
 
     // Adicione este trecho para aplicar movimento da plataforma ao jogador

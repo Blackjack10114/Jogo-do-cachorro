@@ -1568,7 +1568,7 @@ Transform:
   m_GameObject: {fileID: 624817098}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.37, y: -0.68, z: 0}
+  m_LocalPosition: {x: 65.46, y: -0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1591,6 +1591,7 @@ GameObject:
   - component: {fileID: 642768946}
   - component: {fileID: 642768952}
   - component: {fileID: 642768953}
+  - component: {fileID: 642768954}
   m_Layer: 0
   m_Name: Sprite_Dog_Caixa_Normal_0
   m_TagString: Player
@@ -1765,6 +1766,7 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
+  podeMover: 1
 --- !u!114 &642768949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,6 +1832,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f438d5f4b19464fb7ad5b67eddd873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &642768954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642768943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c51fe2cdcafd3429199e534a989fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 30
+  vidaAtual: 0
+  duracaoStun: 3
+  tempoRecuperacaoVida: 3
+  velocidadeRecuperacao: 1
 --- !u!1 &710175585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3641,6 +3660,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   move: 5
+  Tatu: {fileID: 0}
+  Caixa_Separada_0: {fileID: 0}
 --- !u!50 &1592729901
 Rigidbody2D:
   serializedVersion: 5

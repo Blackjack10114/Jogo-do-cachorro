@@ -18,8 +18,11 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Caixa_Normal;
     public Sprite Sprite_Dog_Sem_Caixa;
 
+    private StunControllerComVida stun;
+
     void Start()
     {
+        stun = GetComponent<StunControllerComVida>();
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
     }
@@ -72,6 +75,9 @@ public class Dano : MonoBehaviour
                 if (pv < 0f) pv = 0f;
 
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
+
+                // Aplica dano para o sistema de stun com vida
+                stun.TomarDano(10f);
             }
         }
     }
