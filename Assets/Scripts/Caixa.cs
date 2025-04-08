@@ -72,6 +72,27 @@ public class Caixa : MonoBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Spike"))
+        {
+            if (caixaPrefab != null && !caixaInstanciada)
+            {
+                if (bool_script != null && bool_script.isInvincible == false)
+                {
+                    Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
+                    Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
+
+                    if (caixaRb != null)
+                    {
+                        caixaInstanciada = true;
+                        caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
+                        caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                    }
+                }
+            }
+        }
+    }
 
     // 🆕 Método para reduzir qualidade da caixa
     public void ReduzirQualidade(float dano)
