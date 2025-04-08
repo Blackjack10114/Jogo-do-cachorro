@@ -1716,6 +1716,7 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
+  podeMover: 1
 --- !u!114 &642768949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,6 +1752,7 @@ MonoBehaviour:
   Sprite_Dog_Caixa_Normal_0: {fileID: 642768943}
   Sprite_Dog_Caixa_Normal: {fileID: 410190730534090022, guid: 270efb28d4200ef469cf1f78a4bc3a98, type: 3}
   Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
+  alturaMinimaParaDano: 10
 --- !u!114 &642768952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,6 +1771,7 @@ MonoBehaviour:
   Sprite_Dog_Caixa_Normal: {fileID: 410190730534090022, guid: 270efb28d4200ef469cf1f78a4bc3a98, type: 3}
   Sprite_Dog_Caixa_Normal_0: {fileID: 642768943}
   caixaInstanciada: 0
+  qualidadeEntrega: 100
 --- !u!114 &642768953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2671,7 +2674,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -3646,7 +3649,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -3766,8 +3769,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   move: 5
-  Tatu: {fileID: 1592729899}
-  Caixa_Separada_0: {fileID: 4098347952754204618, guid: 79a6c3508e655794b92c8b200cc02cbe, type: 3}
 --- !u!50 &1592729901
 Rigidbody2D:
   serializedVersion: 5
@@ -3825,7 +3826,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
