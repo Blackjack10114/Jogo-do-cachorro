@@ -13,18 +13,23 @@ public class Dano : MonoBehaviour
 
     public GameObject shield;
     public GameObject Sprite_Dog_Caixa_Normal_0;
+    private Caixa bool_script;
 
     public Sprite Sprite_Dog_Caixa_Normal;
-    public Sprite Sprite_Dog_Sem_Caixa_0;
+    public Sprite Sprite_Dog_Sem_Caixa;
 
     private StunControllerComVida stun;
 
-    // 🆕 Variáveis para queda
-    private float velocidadeVerticalAnterior = 0f;
+    // Variáveis para queda
+    [SerializeField] private float alturaMinimaParaDano = 10f;
+    private float alturaInicialDaQueda = 0f;
+    private bool estaCaindo = false;
+    private float tempoNoAr = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
         stun = GetComponent<StunControllerComVida>();
     }
 
@@ -54,12 +59,40 @@ public class Dano : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Colidiu com: " + collision.gameObject.name);
-
-        if (collision.gameObject.CompareTag("Ground"))
+        // Verifica dano por queda
+        if (collision.gameObject.CompareTag("Ground") && estaCaindo)
         {
-            Debug.Log("Colidiu com chão. Verificando dano por queda...");
-            AplicarDanoPorImpactoVertical(velocidadeVerticalAnterior);
+            float alturaFinal = transform.position.y;
+            float diferencaAltura = alturaInicialDaQueda - alturaFinal;
+            estaCaindo = false;
+
+            Debug.Log($"Queda detectada: alturaInicial = {alturaInicialDaQueda:F2}, alturaFinal = {alturaFinal:F2}, diferença = {diferencaAltura:F2}");
+
+            if (!bool_script.caixaInstanciada)
+            {
+                if (diferencaAltura > alturaMinimaParaDano)
+                {
+                    if (isInvincible)
+                    {
+                        Debug.Log("🛡️ Queda causaria dano, mas o jogador está com bolha. Sem dano!");
+                        return;
+                    }
+
+                    pv -= 10f;
+                    if (pv < 0f) pv = 0f;
+
+                    Debug.Log($"➡️ Tomou dano por queda! Vida atual: {pv}");
+                    Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
+                }
+                else
+                {
+                    Debug.Log("✅ Queda sem dano: altura abaixo do limite.");
+                }
+            }
+            else
+            {
+                Debug.Log("📦 Estava com a caixa — queda ignorada.");
+            }
         }
 
         TratarColisao(collision.gameObject);
@@ -90,17 +123,18 @@ public class Dano : MonoBehaviour
             rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
 
-            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa_0;
+            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
 
             if (stun != null)
             {
                 stun.TomarDano(10f);
             }
 
-            if (!TemCaixa())
+            if (!bool_script.caixaInstanciada)
             {
                 pv -= 10f;
                 if (pv < 0f) pv = 0f;
+
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
             }
         }
@@ -114,76 +148,31 @@ public class Dano : MonoBehaviour
 
     void Update()
     {
+        // Detecta se está no chão com Raycast (ajuste a distância se necessário)
+        bool estaNoChao = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
+
+        if (!estaNoChao)
+        {
+            tempoNoAr += Time.deltaTime;
+
+            // Registra início da queda apenas se ficou no ar por tempo mínimo
+            if (rb.linearVelocity.y < -0.1f && !estaCaindo && tempoNoAr > 0.1f)
+            {
+                estaCaindo = true;
+                alturaInicialDaQueda = transform.position.y;
+                Debug.Log($"📏 Início da queda registrado: {alturaInicialDaQueda:F2}");
+            }
+        }
+        else
+        {
+            tempoNoAr = 0f;
+        }
+
         time += Time.deltaTime;
         if (time >= 1.0f)
         {
             GetComponent<PlayerMov>().enabled = true;
             time = 0f;
         }
-
-        if (rb != null)
-            velocidadeVerticalAnterior = rb.linearVelocity.y;
-    }
-
-    private void AplicarDanoPorImpactoVertical(float velocidade)
-    {
-        Debug.Log("Velocidade vertical: " + velocidade);
-
-        float velocidadeAbs = Mathf.Abs(velocidade);
-
-        if (velocidade > -3f) // ajustável conforme quiser
-        {
-            Debug.Log("Impacto muito fraco. Sem dano.");
-            return;
-        }
-
-        if (!TemCaixa())
-        {
-            Debug.Log("Sem caixa - Sem dano.");
-            return;
-        }
-
-        float dano = 0f;
-
-        if (velocidadeAbs >= 30f)
-        {
-            dano = 15f;
-            Debug.Log("⚠️ GRANDE IMPACTO - Dano 15%");
-        }
-        else if (velocidadeAbs >= 20f)
-        {
-            dano = 10f;
-            Debug.Log("⚠️ MÉDIO IMPACTO - Dano 10%");
-        }
-        else if (velocidadeAbs >= 10f)
-        {
-            dano = 5f;
-            Debug.Log("⚠️ PEQUENO IMPACTO - Dano 5%");
-        }
-
-        if (dano > 0f)
-        {
-            // Aplica o dano na vida da caixa
-            pv -= dano;
-            if (pv < 0f) pv = 0f;
-
-            // Aplica um "acerto" no sistema de stun
-            if (stun != null)
-            {
-                stun.TomarDano(dano);
-            }
-
-            // Contabiliza para o sistema de pontuação
-            Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
-        }
-
-    }
-
-    private bool TemCaixa()
-    {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr == null) return false;
-
-        return sr.sprite == Sprite_Dog_Caixa_Normal;
     }
 }

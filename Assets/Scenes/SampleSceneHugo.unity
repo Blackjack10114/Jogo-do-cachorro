@@ -202,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 119054928}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -46.77, y: 0.12, z: 0}
+  m_LocalPosition: {x: -28.9, y: 7.97, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1305,7 +1305,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0.2, z: -10}
+  m_LocalPosition: {x: -28.88, y: 7.87, z: -10}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1663,7 +1663,7 @@ Transform:
   m_GameObject: {fileID: 642768943}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0.2, z: 0}
+  m_LocalPosition: {x: -28.88, y: 7.87, z: 0}
   m_LocalScale: {x: 9, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1802,6 +1802,7 @@ MonoBehaviour:
   Sprite_Dog_Caixa_Normal_0: {fileID: 642768943}
   Sprite_Dog_Caixa_Normal: {fileID: 410190730534090022, guid: 270efb28d4200ef469cf1f78a4bc3a98, type: 3}
   Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
+  alturaMinimaParaDano: 10
 --- !u!114 &642768952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,6 +1821,7 @@ MonoBehaviour:
   Sprite_Dog_Caixa_Normal: {fileID: 410190730534090022, guid: 270efb28d4200ef469cf1f78a4bc3a98, type: 3}
   Sprite_Dog_Caixa_Normal_0: {fileID: 642768943}
   caixaInstanciada: 0
+  qualidadeEntrega: 100
 --- !u!114 &642768953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2776,7 +2778,7 @@ Transform:
   m_GameObject: {fileID: 945431878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0.2, z: -10}
+  m_LocalPosition: {x: -28.88, y: 7.87, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4170,13 +4172,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PlataformaMovel
       objectReference: {fileID: 0}
+    - target: {fileID: 4236787190194583292, guid: 74c7b098533b34d4fb8b1c33a369494b, type: 3}
+      propertyPath: distancia
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5038725407662999305, guid: 74c7b098533b34d4fb8b1c33a369494b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.75
+      value: -28.92
       objectReference: {fileID: 0}
     - target: {fileID: 5038725407662999305, guid: 74c7b098533b34d4fb8b1c33a369494b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 6.57
       objectReference: {fileID: 0}
     - target: {fileID: 5038725407662999305, guid: 74c7b098533b34d4fb8b1c33a369494b, type: 3}
       propertyPath: m_LocalPosition.z
