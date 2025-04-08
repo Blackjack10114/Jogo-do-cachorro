@@ -1844,11 +1844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c51fe2cdcafd3429199e534a989fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidaMaxima: 30
-  vidaAtual: 0
+  acertosParaStun: 3
   duracaoStun: 3
-  tempoRecuperacaoVida: 3
-  velocidadeRecuperacao: 1
 --- !u!1 &710175585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,8 +3657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   move: 5
-  Tatu: {fileID: 0}
-  Caixa_Separada_0: {fileID: 0}
+  Tatu: {fileID: 1592729899}
+  Caixa_Separada_0: {fileID: 642768943}
 --- !u!50 &1592729901
 Rigidbody2D:
   serializedVersion: 5

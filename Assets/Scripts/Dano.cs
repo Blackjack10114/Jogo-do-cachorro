@@ -6,7 +6,7 @@ public class Dano : MonoBehaviour
     public bool isInvincible = false;
     public bool contato;
     public float v, m;
-    public float pv = 30f; // Valor inicial de vida, pode ser ajustado no Inspetor
+    public float pv = 30f; // Vida inicial ajust�vel no Inspector
 
     private Rigidbody2D rb;
     private float time = 0f;
@@ -22,9 +22,9 @@ public class Dano : MonoBehaviour
 
     void Start()
     {
-        stun = GetComponent<StunControllerComVida>();
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
+        stun = GetComponent<StunControllerComVida>();
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -51,24 +51,41 @@ public class Dano : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Spike"))
+        TratarColisao(collision.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TratarColisao(other.gameObject);
+    }
+
+    private void TratarColisao(GameObject colisor)
+    {
+        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco"))
         {
-            if (isInvincible && shield != null)
+            if (isInvincible)
             {
-                Destroy(shield);
-                shield = null;
+                if (shield != null)
+                {
+                    Destroy(shield);
+                    shield = null;
+                }
+
                 StartCoroutine(DelayInvincibilityReset());
                 return;
             }
 
+            // Dano f�sico / feedback
             GetComponent<PlayerMov>().enabled = false;
-            rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y);
-            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y); // Knockback
+            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse); // Pulo
 
+            // Troca de sprite
             GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
 
+            // S� toma dano se n�o estiver com caixa
             if (!bool_script.caixaInstanciada)
             {
                 pv -= 10f;
@@ -76,8 +93,9 @@ public class Dano : MonoBehaviour
 
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
 
-                // Aplica dano para o sistema de stun com vida
-                stun.TomarDano(10f);
+                // Aplica dano no sistema de Stun (ex: 10f de dano)
+                if (stun != null)
+                    stun.TomarDano(10f);
             }
         }
     }

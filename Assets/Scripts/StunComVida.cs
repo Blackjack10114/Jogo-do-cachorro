@@ -3,45 +3,28 @@ using System.Collections;
 
 public class StunControllerComVida : MonoBehaviour
 {
-    public float vidaMaxima = 30f;
-    public float vidaAtual;
+    public int acertosParaStun = 3;
+    private int acertosTomados = 0;
 
     public float duracaoStun = 3f;
-    public float tempoRecuperacaoVida = 5f; // quanto tempo para recuperar vida se não tomar dano
-    public float velocidadeRecuperacao = 5f;
 
     private bool estaAtordoado = false;
     private PlayerMov playerMov;
-    private float tempoDesdeUltimoDano = 0f;
+    private Rigidbody2D rb; // <- Novo
 
     void Start()
     {
-        vidaAtual = vidaMaxima;
         playerMov = GetComponent<PlayerMov>();
-    }
-
-    void Update()
-    {
-        if (!estaAtordoado)
-        {
-            tempoDesdeUltimoDano += Time.deltaTime;
-
-            if (tempoDesdeUltimoDano >= tempoRecuperacaoVida && vidaAtual < vidaMaxima)
-            {
-                vidaAtual += velocidadeRecuperacao * Time.deltaTime;
-                vidaAtual = Mathf.Min(vidaAtual, vidaMaxima);
-            }
-        }
+        rb = GetComponent<Rigidbody2D>(); // <- Pegando o Rigidbody
     }
 
     public void TomarDano(float dano)
     {
         if (estaAtordoado) return;
 
-        tempoDesdeUltimoDano = 0f;
-        vidaAtual -= dano;
+        acertosTomados++;
 
-        if (vidaAtual <= 0f)
+        if (acertosTomados >= acertosParaStun)
         {
             StartCoroutine(Atordoar());
         }
@@ -50,20 +33,24 @@ public class StunControllerComVida : MonoBehaviour
     private IEnumerator Atordoar()
     {
         estaAtordoado = true;
+
         if (playerMov != null)
             playerMov.enabled = false;
 
-        Debug.Log("🐶 Cachorro Atordoado!");
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero; // <- Zera a velocidade na hora do stun
+
+        Debug.Log("Atordoado!");
 
         yield return new WaitForSeconds(duracaoStun);
 
-        vidaAtual = vidaMaxima;
         estaAtordoado = false;
+        acertosTomados = 0;
 
         if (playerMov != null)
             playerMov.enabled = true;
 
-        Debug.Log("🐶 Cachorro se recuperou!");
+        Debug.Log("Recuperado!");
     }
 
     public bool EstaAtordoado() => estaAtordoado;
