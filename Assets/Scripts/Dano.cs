@@ -122,8 +122,10 @@ public class Dano : MonoBehaviour
             GetComponent<PlayerMov>().enabled = false;
             rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-
-            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            if (colisor.CompareTag("Spike"))
+            {
+                GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            }
 
             if (stun != null)
             {
