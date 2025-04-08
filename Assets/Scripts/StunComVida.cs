@@ -10,19 +10,26 @@ public class StunControllerComVida : MonoBehaviour
 
     private bool estaAtordoado = false;
     private PlayerMov playerMov;
-    private Rigidbody2D rb; // <- Novo
+    private Rigidbody2D rb;
 
     void Start()
     {
         playerMov = GetComponent<PlayerMov>();
-        rb = GetComponent<Rigidbody2D>(); // <- Pegando o Rigidbody
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void TomarDano(float dano)
     {
-        if (estaAtordoado) return;
+        if (estaAtordoado)
+        {
+            Debug.Log("Jogador já está atordoado, ignorando dano.");
+            return;
+        }
 
         acertosTomados++;
+        int faltam = acertosParaStun - acertosTomados;
+
+        Debug.Log($"Jogador tomou dano! ({acertosTomados}/{acertosParaStun}) Faltam {Mathf.Max(faltam, 0)} para ficar atordoado.");
 
         if (acertosTomados >= acertosParaStun)
         {
@@ -34,13 +41,15 @@ public class StunControllerComVida : MonoBehaviour
     {
         estaAtordoado = true;
 
-        if (playerMov != null)
-            playerMov.enabled = false;
+        Debug.Log("JOGADOR ATORDOADO!");
 
         if (rb != null)
-            rb.linearVelocity = Vector2.zero; // <- Zera a velocidade na hora do stun
+            rb.linearVelocity = Vector2.zero;
 
-        Debug.Log("Atordoado!");
+        if (playerMov != null)
+            playerMov.HabilitarMovimento(false);
+
+        StartCoroutine(PiscarDuranteStun());
 
         yield return new WaitForSeconds(duracaoStun);
 
@@ -48,10 +57,32 @@ public class StunControllerComVida : MonoBehaviour
         acertosTomados = 0;
 
         if (playerMov != null)
-            playerMov.enabled = true;
+            playerMov.HabilitarMovimento(true);
 
-        Debug.Log("Recuperado!");
+        Debug.Log("Jogador se recuperou do atordoamento.");
     }
+
+    private IEnumerator PiscarDuranteStun()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            Debug.LogWarning("SpriteRenderer não encontrado!");
+            yield break;
+        }
+
+        float tempo = 0f;
+
+        while (tempo < duracaoStun)
+        {
+            sr.color = Color.red; // Cor visível para mostrar que está atordoado
+            yield return new WaitForSeconds(0.2f);
+            sr.color = Color.white;
+            yield return new WaitForSeconds(0.2f);
+            tempo += 0.4f;
+        }
+    }
+
 
     public bool EstaAtordoado() => estaAtordoado;
 }

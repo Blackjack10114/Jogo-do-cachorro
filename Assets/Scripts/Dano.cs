@@ -6,7 +6,7 @@ public class Dano : MonoBehaviour
     public bool isInvincible = false;
     public bool contato;
     public float v, m;
-    public float pv = 30f; // Vida inicial ajust�vel no Inspector
+    public float pv = 30f;
 
     private Rigidbody2D rb;
     private float time = 0f;
@@ -77,7 +77,7 @@ public class Dano : MonoBehaviour
                 return;
             }
 
-            // Dano f�sico / feedback
+            // Dano físico / feedback
             GetComponent<PlayerMov>().enabled = false;
             rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y); // Knockback
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse); // Pulo
@@ -85,17 +85,19 @@ public class Dano : MonoBehaviour
             // Troca de sprite
             GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
 
-            // S� toma dano se n�o estiver com caixa
+            // Sempre aplica dano para o sistema de stun
+            if (stun != null)
+            {
+                stun.TomarDano(10f);
+            }
+
+            // Só perde PV se estiver sem a caixa
             if (!bool_script.caixaInstanciada)
             {
                 pv -= 10f;
                 if (pv < 0f) pv = 0f;
 
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
-
-                // Aplica dano no sistema de Stun (ex: 10f de dano)
-                if (stun != null)
-                    stun.TomarDano(10f);
             }
         }
     }

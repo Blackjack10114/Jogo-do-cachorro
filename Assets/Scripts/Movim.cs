@@ -28,6 +28,8 @@ public class PlayerMov : MonoBehaviour
 
     private PlataformaMovel plataformaAtual = null;
 
+    public bool podeMover = true; // <- controle de stun
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +37,13 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
+        // 🔒 Bloqueia qualquer ação se atordoado
+        if (!podeMover)
+        {
+            rb.linearVelocity = Vector2.zero; // trava o movimento
+            return;
+        }
+
         if (Grounded)
         {
             isRunning = Input.GetKey(KeyCode.LeftShift) && (stamina > 0 || isGourmetActive);
@@ -78,8 +87,6 @@ public class PlayerMov : MonoBehaviour
         {
             Jump();
         }
-        // No Update:
-        if (!podeMover) return; // bloqueia movimento se atordoado
     }
 
     private void MovePlayer(int direction)
@@ -128,28 +135,18 @@ public class PlayerMov : MonoBehaviour
     }
 
     private void Jump()
-    {
-        // Zera a velocidade vertical antes de pular
+    {   
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-
-        // Aplica o pulo
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
         Grounded = false;
         plataformaAtual = null;
     }
-
-    public bool podeMover = true;
 
     public void HabilitarMovimento(bool estado)
     {
         podeMover = estado;
     }
 
-
-
-
-    // Adicione este trecho para aplicar movimento da plataforma ao jogador
     void FixedUpdate()
     {
         if (plataformaAtual != null)
@@ -159,8 +156,6 @@ public class PlayerMov : MonoBehaviour
         }
     }
 
-
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -168,7 +163,7 @@ public class PlayerMov : MonoBehaviour
             Grounded = true;
             plataformaAtual = null;
         }
-        else if (collision.gameObject.CompareTag("PlataformaMovel") || (collision.gameObject.CompareTag("PlataformaQuebradica")))
+        else if (collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica"))
         {
             Grounded = true;
             plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
