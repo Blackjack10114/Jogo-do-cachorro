@@ -23,7 +23,8 @@ public class Movim_tatu : MonoBehaviour
             collision.gameObject.CompareTag("Walld") ||
             collision.gameObject.CompareTag("Spike") ||
             collision.gameObject.CompareTag("Tatu") ||
-            collision.gameObject.CompareTag("Player"))
+            collision.gameObject.CompareTag("Player") ||
+            collision.gameObject.CompareTag("caixa"))
         {
             indoParaEsquerda = !indoParaEsquerda;
             GetComponent<SpriteRenderer>().flipX = !indoParaEsquerda;
