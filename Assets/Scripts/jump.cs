@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    [SerializeField] private float jumpForce;
+    [SerializeField] public float jumpForce;
     [SerializeField] private float turboJumpMultiplier;
     private Rigidbody2D rb;
     private bool Grounded;
