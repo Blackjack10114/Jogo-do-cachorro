@@ -5,7 +5,7 @@ public class coletavel : MonoBehaviour
 {
     public bool osso_coletado = false;
     private GameObject Player = null;
-    public GameObject Ossinho = null;
+    public GameObject Ossinho;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");

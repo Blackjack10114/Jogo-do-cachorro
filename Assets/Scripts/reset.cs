@@ -9,11 +9,11 @@ public class reset : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            SceneManager.LoadScene("SampleScene_Gab");
+            SceneManager.LoadScene("Fase_Playtest");
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            transform.position = new Vector2(-6f, 0.2f);
+            transform.position = new Vector2(100, 2.5f);
         }
     }
 }
