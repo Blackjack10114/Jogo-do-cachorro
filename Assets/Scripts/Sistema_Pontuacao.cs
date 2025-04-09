@@ -13,7 +13,7 @@ public class SistemaPontuacao : MonoBehaviour
     public int numeroColisoes = 0;
 
     public int penalidadePorColisao = 30;
-    public int pontosPorOsso = 50;
+    public int pontosPorOsso = 100;
 
     public int totalDeOssosDaFase = 3;
 
@@ -35,9 +35,9 @@ public class SistemaPontuacao : MonoBehaviour
         float vidaAtual = danoScript.pv;
         float tempoFinal = tempoScript.tempoAtual;
 
-        // BÔNUS POR VIDA (proporcional, até 500)
+        // BÔNUS POR VIDA (proporcional, até 600)
         float proporcaoVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
-        bonusVida = Mathf.RoundToInt(500 * proporcaoVida);
+        bonusVida = Mathf.RoundToInt(600 * proporcaoVida);
 
         // BÔNUS POR OSSO
         int pontosOssos = ossosColetados * pontosPorOsso;
@@ -50,7 +50,7 @@ public class SistemaPontuacao : MonoBehaviour
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(500 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(600 * proporcaoTempo);
         }
 
         bonusTotal = bonusVida + bonusTempo;

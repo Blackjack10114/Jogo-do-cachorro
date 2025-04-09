@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Dano : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Dano : MonoBehaviour
     private float alturaInicialDaQueda = 0f;
     private bool estaCaindo = false;
     private float tempoNoAr = 0f;
+
+    private bool entregaFalhou = false;
 
     void Start()
     {
@@ -178,6 +181,14 @@ public class Dano : MonoBehaviour
         {
             GetComponent<PlayerMov>().enabled = true;
             time = 0f;
+        }
+        if (!entregaFalhou && pv <= 0f)
+        {
+            entregaFalhou = true;
+            PlayerPrefs.SetInt("EntregaFalhou", 1);
+            PlayerPrefs.Save();
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("CenaFimDeFase");
         }
     }
 }
