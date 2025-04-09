@@ -19,8 +19,8 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Sem_Caixa;
 
     private StunControllerComVida stun;
+    private SpriteRenderer sr;
 
-    // Variáveis para queda
     [SerializeField] private float alturaMinimaParaDano = 10f;
     private float alturaInicialDaQueda = 0f;
     private bool estaCaindo = false;
@@ -31,6 +31,7 @@ public class Dano : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
         stun = GetComponent<StunControllerComVida>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -80,6 +81,7 @@ public class Dano : MonoBehaviour
                     pv -= 10f;
                     if (pv < 0f) pv = 0f;
 
+                    StartCoroutine(FeedbackDano());
                     Debug.Log($"➡️ Tomou dano por queda! Vida atual: {pv}");
                     Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
                 }
@@ -120,15 +122,13 @@ public class Dano : MonoBehaviour
 
             GetComponent<PlayerMov>().enabled = false;
 
-            // Direção do impacto: empurra o cachorro para longe do colisor
             float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
 
-            // Troca sprite apenas se foi espinho
             if (colisor.CompareTag("Spike"))
             {
-                GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+                sr.sprite = Sprite_Dog_Sem_Caixa;
             }
 
             if (stun != null)
@@ -141,10 +141,25 @@ public class Dano : MonoBehaviour
                 pv -= 10f;
                 if (pv < 0f) pv = 0f;
 
+                StartCoroutine(FeedbackDano());
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
             }
         }
+    }
 
+    private IEnumerator FeedbackDano()
+    {
+        isInvincible = true;
+
+        for (int i = 0; i < 4; i++)
+        {
+            sr.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            sr.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isInvincible = false;
     }
 
     private IEnumerator DelayInvincibilityReset()
