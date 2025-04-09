@@ -1,44 +1,33 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Movim_tatu : MonoBehaviour
 {
-    public float speed, move;
+    public float speed = 2f;
     private Rigidbody2D rb;
-    public bool Esquerda;
-    public bool Direita;
+    private bool indoParaEsquerda = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
-        Esquerda = true;
-        Direita = false;
     }
-    void OnTriggerEnter2D(Collider2D collision)
+
+    void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
-        if (collision.gameObject.tag == ("Wall"))
+        float direcao = indoParaEsquerda ? -1f : 1f;
+        rb.linearVelocity = new Vector2(direcao * speed, rb.linearVelocity.y);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") ||
+            collision.gameObject.CompareTag("Walld") ||
+            collision.gameObject.CompareTag("Spike") ||
+            collision.gameObject.CompareTag("Tatu") ||
+            collision.gameObject.CompareTag("Player"))
         {
-            rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
-            Esquerda = false;
-            Direita = true;
-        }
-        if (collision.gameObject.tag == ("Walld"))
-        {
-            rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
-            Esquerda = true;
-            Direita = false;
-        }
-        if (collision.gameObject.tag == ("Spike") && Esquerda)
-        {
-            rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
-            Esquerda = false;
-            Direita = true;
-        }
-        if (collision.gameObject.tag == ("Spike") && Direita)
-        {
-            rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
-            Esquerda = true;
-            Direita = false;
+            indoParaEsquerda = !indoParaEsquerda;
+            GetComponent<SpriteRenderer>().flipX = !indoParaEsquerda;
         }
     }
+
 }
