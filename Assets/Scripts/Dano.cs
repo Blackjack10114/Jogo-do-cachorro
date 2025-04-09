@@ -59,8 +59,7 @@ public class Dano : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Verifica dano por queda
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica") && estaCaindo)
+        if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica")) && estaCaindo)
         {
             float alturaFinal = transform.position.y;
             float diferencaAltura = alturaInicialDaQueda - alturaFinal;
@@ -105,7 +104,7 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco"))
+        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco") || colisor.CompareTag("Tatu"))
         {
             if (isInvincible)
             {
@@ -120,8 +119,13 @@ public class Dano : MonoBehaviour
             }
 
             GetComponent<PlayerMov>().enabled = false;
-            rb.linearVelocity = new Vector2(-m * v, rb.linearVelocity.y);
+
+            // Direção do impacto: empurra o cachorro para longe do colisor
+            float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
+            rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+
+            // Troca sprite apenas se foi espinho
             if (colisor.CompareTag("Spike"))
             {
                 GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
@@ -140,6 +144,7 @@ public class Dano : MonoBehaviour
                 Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
             }
         }
+
     }
 
     private IEnumerator DelayInvincibilityReset()
@@ -150,14 +155,12 @@ public class Dano : MonoBehaviour
 
     void Update()
     {
-        // Detecta se está no chão com Raycast (ajuste a distância se necessário)
         bool estaNoChao = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
 
         if (!estaNoChao)
         {
             tempoNoAr += Time.deltaTime;
 
-            // Registra início da queda apenas se ficou no ar por tempo mínimo
             if (rb.linearVelocity.y < -0.1f && !estaCaindo && tempoNoAr > 0.1f)
             {
                 estaCaindo = true;
