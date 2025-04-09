@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml.Linq;
 
 public class StunControllerComVida : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class StunControllerComVida : MonoBehaviour
     private bool estaAtordoado = false;
     private PlayerMov playerMov;
     private Rigidbody2D rb;
+    private Jump jump;
 
     void Start()
     {
@@ -48,6 +50,7 @@ public class StunControllerComVida : MonoBehaviour
 
         if (playerMov != null)
             playerMov.HabilitarMovimento(false);
+        GetComponent<Jump>().enabled = false;
 
         StartCoroutine(PiscarDuranteStun());
 
@@ -58,6 +61,7 @@ public class StunControllerComVida : MonoBehaviour
 
         if (playerMov != null)
             playerMov.HabilitarMovimento(true);
+        GetComponent<Jump>().enabled = true;
 
         Debug.Log("Jogador se recuperou do atordoamento.");
     }
@@ -75,7 +79,7 @@ public class StunControllerComVida : MonoBehaviour
 
         while (tempo < duracaoStun)
         {
-            sr.color = Color.red; // Cor visível para mostrar que está atordoado
+            sr.color = Color.yellow; // Cor visível para mostrar que está atordoado
             yield return new WaitForSeconds(0.2f);
             sr.color = Color.white;
             yield return new WaitForSeconds(0.2f);
