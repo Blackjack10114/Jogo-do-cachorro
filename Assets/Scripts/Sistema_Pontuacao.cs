@@ -12,7 +12,7 @@ public class SistemaPontuacao : MonoBehaviour
     public int ossosColetados = 0;
     public int numeroColisoes = 0;
 
-    public int penalidadePorColisao = 30;
+    public int penalidadePorColisao = 50;
     public int pontosPorOsso = 100;
 
     public int totalDeOssosDaFase = 3;
