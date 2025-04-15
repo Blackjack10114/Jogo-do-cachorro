@@ -98,18 +98,8 @@ public class FimDeFaseUI : MonoBehaviour
             textoNota.text = "Nota: " + nota;
 
         if (estrelasUI != null)
-        {
-            if (PlayerPrefs.GetInt("EntregaFalhou", 0) == 1)
-            {
-                estrelasUI.AtualizarEstrelas(0f); // todas vazias
+            estrelasUI.AtualizarEstrelasNota(nota);
             }
-            else
-            {
-                estrelasUI.AtualizarEstrelasNota(nota);
-            }
-        }
-
-    }
 
     void ReiniciarFase()
     {
