@@ -28,7 +28,7 @@ public class SistemaPontuacao : MonoBehaviour
     private int bonusTotal = 0;
 
     public void AdicionarOsso() => ossosColetados++;
-    public void AdicionarColisao() => numeroColisoes++;
+    
 
     void Start()
     {
@@ -45,25 +45,23 @@ public class SistemaPontuacao : MonoBehaviour
 
         // BÔNUS POR VIDA (proporcional, até 600)
         float proporcaoVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
-        bonusVida = Mathf.RoundToInt(650 * proporcaoVida);
+        bonusVida = Mathf.RoundToInt(550 * proporcaoVida);
 
         // BÔNUS POR OSSO
         int pontosOssos = ossosColetados * pontosPorOsso;
 
-        // PENALIDADE
-        int penalidade = numeroColisoes * penalidadePorColisao;
-
+        
         // BÔNUS POR TEMPO
         bonusTempo = 0;
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(650 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(550 * proporcaoTempo);
         }
 
         bonusTotal = bonusVida + bonusTempo;
 
-        pontuacaoNumerica = bonusVida + pontosOssos + bonusTempo - penalidade;
+        pontuacaoNumerica = bonusVida + pontosOssos + bonusTempo;
         pontuacaoNumerica = Mathf.Max(0, pontuacaoNumerica);
 
         int pontuacaoMaxima = 400 + 400 + (totalDeOssosDaFase * pontosPorOsso);
@@ -71,7 +69,7 @@ public class SistemaPontuacao : MonoBehaviour
         pontuacaoEstrelas = Mathf.Round(proporcaoEstrelas * 10f) / 2f;
 
         // Classificação com intermediários
-        if (pontuacaoNumerica >= 950 && ossosColetados == totalDeOssosDaFase && numeroColisoes <= 1 && vidaAtual >= 95)
+        if (pontuacaoNumerica >= 950 && ossosColetados == totalDeOssosDaFase && vidaAtual >= 95)
             classificacaoLetra = "S+";
         else if (pontuacaoNumerica >= 850)
             classificacaoLetra = "S";
@@ -98,8 +96,7 @@ public class SistemaPontuacao : MonoBehaviour
         PlayerPrefs.SetInt("BonusVida", bonusVida);
         PlayerPrefs.SetInt("BonusTempo", bonusTempo);
         PlayerPrefs.SetInt("BonusTotal", bonusTotal);
-        PlayerPrefs.SetInt("PontosOssos", pontosOssos);
-        PlayerPrefs.SetInt("Penalidades", penalidade);
+        PlayerPrefs.SetInt("PontosOssos", pontosOssos);      
         PlayerPrefs.SetFloat("TempoFinal", tempoFinal);
         PlayerPrefs.SetFloat("VidaFinal", vidaAtual);
         PlayerPrefs.SetInt("OssosColetados", ossosColetados);
@@ -114,7 +111,6 @@ public class SistemaPontuacao : MonoBehaviour
                   $"Vida: {vidaAtual}/{vidaMaxima} → Bônus Vida: {bonusVida}\n" +
                   $"Tempo: {tempoFinal}s / Meta: {tempoMeta}s → Bônus Tempo: {bonusTempo}\n" +
                   $"Ossos Coletados: {ossosColetados} → Pontos Ossos: {pontosOssos}\n" +
-                  $"Colisões: {numeroColisoes} → Penalidade: {penalidade}\n" +
                   $"Pontuação Final: {pontuacaoNumerica}\n" +
                   $"Estrelas: {pontuacaoEstrelas}\n" +
                   $"Nota: {classificacaoLetra}\n===========================");

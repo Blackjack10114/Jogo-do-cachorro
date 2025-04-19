@@ -19,7 +19,7 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Caixa_Normal;
     public Sprite Sprite_Dog_Sem_Caixa;
 
-    private StunControllerComVida stun;
+    
 
     // Variáveis para queda
     [SerializeField] private float alturaMinimaParaDano = 10f;
@@ -32,8 +32,7 @@ public class Dano : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
-        stun = GetComponent<StunControllerComVida>();
+        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();   
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -84,7 +83,6 @@ public class Dano : MonoBehaviour
                     if (pv < 0f) pv = 0f;
 
                     Debug.Log($"➡️ Tomou dano por queda! Vida atual: {pv}");
-                    Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
                 }
                 else
                 {
@@ -134,17 +132,11 @@ public class Dano : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
             }
 
-            if (stun != null)
-            {
-                stun.TomarDano(10f);
-            }
-
             if (!bool_script.caixaInstanciada)
             {
                 pv -= 10f;
                 if (pv < 0f) pv = 0f;
 
-                Object.FindFirstObjectByType<SistemaPontuacao>()?.AdicionarColisao();
             }
         }
 
