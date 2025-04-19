@@ -19,20 +19,12 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Caixa_Normal;
     public Sprite Sprite_Dog_Sem_Caixa;
 
-    
-
-    // Variáveis para queda
-    [SerializeField] private float alturaMinimaParaDano = 10f;
-    private float alturaInicialDaQueda = 0f;
-    private bool estaCaindo = false;
-    private float tempoNoAr = 0f;
-
     private bool entregaFalhou = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();   
+        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -61,40 +53,6 @@ public class Dano : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica")) && estaCaindo)
-        {
-            float alturaFinal = transform.position.y;
-            float diferencaAltura = alturaInicialDaQueda - alturaFinal;
-            estaCaindo = false;
-
-            Debug.Log($"Queda detectada: alturaInicial = {alturaInicialDaQueda:F2}, alturaFinal = {alturaFinal:F2}, diferença = {diferencaAltura:F2}");
-
-            if (!bool_script.caixaInstanciada)
-            {
-                if (diferencaAltura > alturaMinimaParaDano)
-                {
-                    if (isInvincible)
-                    {
-                        Debug.Log("🛡️ Queda causaria dano, mas o jogador está com bolha. Sem dano!");
-                        return;
-                    }
-
-                    pv -= 10f;
-                    if (pv < 0f) pv = 0f;
-
-                    Debug.Log($"➡️ Tomou dano por queda! Vida atual: {pv}");
-                }
-                else
-                {
-                    Debug.Log("✅ Queda sem dano: altura abaixo do limite.");
-                }
-            }
-            else
-            {
-                Debug.Log("📦 Estava com a caixa — queda ignorada.");
-            }
-        }
-
         TratarColisao(collision.gameObject);
     }
 
@@ -121,12 +79,10 @@ public class Dano : MonoBehaviour
 
             GetComponent<PlayerMov>().enabled = false;
 
-            // Direção do impacto: empurra o cachorro para longe do colisor
             float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
 
-            // Troca sprite apenas se foi espinho
             if (colisor.CompareTag("Spike"))
             {
                 GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
@@ -136,10 +92,8 @@ public class Dano : MonoBehaviour
             {
                 pv -= 10f;
                 if (pv < 0f) pv = 0f;
-
             }
         }
-
     }
 
     private IEnumerator DelayInvincibilityReset()
@@ -150,30 +104,13 @@ public class Dano : MonoBehaviour
 
     void Update()
     {
-        bool estaNoChao = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, LayerMask.GetMask("Ground"));
-
-        if (!estaNoChao)
-        {
-            tempoNoAr += Time.deltaTime;
-
-            if (rb.linearVelocity.y < -0.1f && !estaCaindo && tempoNoAr > 0.1f)
-            {
-                estaCaindo = true;
-                alturaInicialDaQueda = transform.position.y;
-                Debug.Log($"📏 Início da queda registrado: {alturaInicialDaQueda:F2}");
-            }
-        }
-        else
-        {
-            tempoNoAr = 0f;
-        }
-
         time += Time.deltaTime;
         if (time >= 1.0f)
         {
             GetComponent<PlayerMov>().enabled = true;
             time = 0f;
         }
+
         if (!entregaFalhou && pv <= 0f)
         {
             entregaFalhou = true;
