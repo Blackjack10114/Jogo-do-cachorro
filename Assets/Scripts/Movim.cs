@@ -5,12 +5,10 @@ public class PlayerMov : MonoBehaviour
 {
     public bool isGourmetActive = false;
     public bool isTurboActive = false;
-    private bool Grounded;
 
     public float speed = 5f;
     public float move = 1f;
     public float stamina = 100f;
-    public float jumpForce = 100f;
 
     public float sprintSpeedMultiplier = 2f;
     public float staminaConsumptionMultiplier = 1.0f;
@@ -27,24 +25,25 @@ public class PlayerMov : MonoBehaviour
     private bool wasRunningBeforeJump = false;
 
     private PlataformaMovel plataformaAtual = null;
+    private Jump pulo;
 
-    public bool podeMover = true; // <- controle de stun
+    public bool podeMover = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        pulo = GetComponent<Jump>(); // ← acessa o script Jump
     }
 
     void Update()
     {
-        // 🔒 Bloqueia qualquer ação se atordoado
         if (!podeMover)
         {
-            rb.linearVelocity = Vector2.zero; // trava o movimento
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        if (Grounded)
+        if (pulo != null && pulo.EstaNoChao)
         {
             isRunning = Input.GetKey(KeyCode.LeftShift) && (stamina > 0 || isGourmetActive);
         }
@@ -82,11 +81,6 @@ public class PlayerMov : MonoBehaviour
         {
             MovePlayer(-1);
         }
-
-        if (Grounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
-        {
-            Jump();
-        }
     }
 
     private void MovePlayer(int direction)
@@ -95,7 +89,7 @@ public class PlayerMov : MonoBehaviour
 
         float finalSpeed = speed;
 
-        if (Grounded && isRunning)
+        if (pulo != null && pulo.EstaNoChao && isRunning)
         {
             finalSpeed *= sprintSpeedMultiplier * turboMultiplier;
 
@@ -105,7 +99,7 @@ public class PlayerMov : MonoBehaviour
             }
         }
 
-        if (Grounded)
+        if (pulo != null && pulo.EstaNoChao)
         {
             wasRunningBeforeJump = isRunning;
         }
@@ -113,7 +107,7 @@ public class PlayerMov : MonoBehaviour
         float airControl = wasRunningBeforeJump ? sprintSpeedMultiplier * turboMultiplier : 1f;
         float turboAirControl = isTurboActive ? 0.6f : 1f;
 
-        if (Grounded)
+        if (pulo != null && pulo.EstaNoChao)
         {
             time += Time.deltaTime;
             rb.linearVelocity = new Vector2(direction * move * finalSpeed, rb.linearVelocity.y);
@@ -134,14 +128,6 @@ public class PlayerMov : MonoBehaviour
         }
     }
 
-    private void Jump()
-    {   
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        Grounded = false;
-        plataformaAtual = null;
-    }
-
     public void HabilitarMovimento(bool estado)
     {
         podeMover = estado;
@@ -158,37 +144,24 @@ public class PlayerMov : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica"))
         {
-            Grounded = true;
-            plataformaAtual = null;
-        }
-        else if (collision.gameObject.CompareTag("PlataformaMovel") || collision.gameObject.CompareTag("PlataformaQuebradica"))
-        {
-            Grounded = true;
             plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("PlataformaMovel"))
+        if (collision.gameObject.CompareTag("PlataformaMovel"))
         {
-            Grounded = false;
             plataformaAtual = null;
         }
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("PlataformaMovel"))
         {
-            Grounded = true;
-            plataformaAtual = null;
-        }
-        else if (collision.gameObject.CompareTag("PlataformaMovel"))
-        {
-            Grounded = true;
             plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
         }
     }
