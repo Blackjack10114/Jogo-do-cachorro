@@ -16,8 +16,9 @@ public class PlataformaMovel : MonoBehaviour
 
     public Vector3 ultimaPosicao;
     public Vector3 velocidadeCalculada;
-    public GameObject cachorro = null;
-    public GameObject Plataforma = null;
+    private GameObject cachorro = null;
+    private Vector3 offset;
+    private bool emPlataforma = true;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,15 +35,33 @@ public class PlataformaMovel : MonoBehaviour
 
         velocidadeCalculada = (transform.position - ultimaPosicao) / Time.fixedDeltaTime;
         ultimaPosicao = transform.position;
+        if (cachorro != null && emPlataforma)
+        {
+            PlayerMov mov = cachorro.GetComponent<PlayerMov>();
+            if (mov != null)
+            {
+                mov.AplicarVelocidadePlataforma(velocidadeCalculada.x);
+            }
+        }
     }
-    void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+    void OnCollisionStay2D(UnityEngine.Collision2D collision)
     {
-        cachorro.transform.parent = Plataforma.transform;
-        Debug.Log("vc é gay");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            cachorro = collision.gameObject;
+
+            offset = cachorro.transform.position - transform.position;
+            emPlataforma = true;
+        }
     }
-    private void OnCollisionExit(Collision collision)
+
+    void OnCollisionExit2D(UnityEngine.Collision2D collision)
     {
-        Debug.Log("vou comer sua mãe");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            cachorro = null;
+            emPlataforma = false;
+        }
     }
 }
 

@@ -28,11 +28,17 @@ public class PlayerMov : MonoBehaviour
     private Jump pulo;
 
     public bool podeMover = true;
+    private float velocidadePlataforma = 0f;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>(); // ← acessa o script Jump
+    }
+    public void AplicarVelocidadePlataforma(float vel)
+    {
+        velocidadePlataforma = vel;
     }
 
     void Update()
@@ -81,6 +87,18 @@ public class PlayerMov : MonoBehaviour
         {
             MovePlayer(-1);
         }
+        bool estaParado =
+    !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
+    !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
+
+        if (estaParado && plataformaAtual != null && pulo != null && pulo.EstaNoChao)
+        {
+            // Aplica só a velocidade da plataforma
+            rb.linearVelocity = new Vector2(velocidadePlataforma, rb.linearVelocity.y);
+        }
+
+        // Resetar depois de usar
+        velocidadePlataforma = 0f;
     }
 
     private void MovePlayer(int direction)
@@ -110,7 +128,14 @@ public class PlayerMov : MonoBehaviour
         if (pulo != null && pulo.EstaNoChao)
         {
             time += Time.deltaTime;
-            rb.linearVelocity = new Vector2(direction * move * finalSpeed, rb.linearVelocity.y);
+            float velX = direction * move * finalSpeed;
+
+            if (plataformaAtual != null && pulo != null && pulo.EstaNoChao)
+            {
+                velX += velocidadePlataforma;
+            }
+
+            rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
 
             if (time >= 0.8f)
             {
@@ -119,27 +144,19 @@ public class PlayerMov : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(direction * move * speed * airControl * turboAirControl, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction * move * speed * airControl * turboAirControl + velocidadePlataforma, rb.linearVelocity.y);
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
             time = 0;
         }
+        velocidadePlataforma = 0f;
     }
 
     public void HabilitarMovimento(bool estado)
     {
         podeMover = estado;
-    }
-
-    void FixedUpdate()
-    {
-        if (plataformaAtual != null)
-        {
-            Vector3 movimentoPlataforma = plataformaAtual.GetComponent<Rigidbody2D>().linearVelocity * Time.fixedDeltaTime;
-            transform.position += movimentoPlataforma;
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
