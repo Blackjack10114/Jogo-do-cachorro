@@ -16,7 +16,8 @@ public class PlataformaMovel : MonoBehaviour
 
     public Vector3 ultimaPosicao;
     public Vector3 velocidadeCalculada;
-
+    private GameObject cachorro = null;
+    public GameObject Plataforma = null;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +34,17 @@ public class PlataformaMovel : MonoBehaviour
 
         velocidadeCalculada = (transform.position - ultimaPosicao) / Time.fixedDeltaTime;
         ultimaPosicao = transform.position;
+    }
+    void OnCollisionStay2D(UnityEngine.Collision2D collision)
+    {
+        cachorro = collision.gameObject;
+        cachorro.transform.parent = Plataforma.transform;
+        Debug.Log("vc é gay");
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        cachorro = null;
+        Debug.Log("vou comer sua mãe");
     }
 }
 

@@ -9,7 +9,7 @@ public class Jogador_Plataforma : MonoBehaviour
     {
         target = null;
     }
-
+    
     void OnTriggerStay2D(Collider2D col)
     {
         target = col.gameObject;
