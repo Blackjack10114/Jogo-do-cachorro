@@ -3384,6 +3384,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &249868145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8269882897207243208, guid: a03daf4cb303cbd4888edfc7909f2c02, type: 3}
+  m_PrefabInstance: {fileID: 828078971}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &287362501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6282,7 +6287,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 107.56, y: 2.88, z: -10}
+  m_LocalPosition: {x: 283.7, y: 5.7, z: -10}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7518,7 +7523,7 @@ Transform:
   m_GameObject: {fileID: 642768943}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 107.56, y: 2.88, z: 0}
+  m_LocalPosition: {x: 283.7, y: 5.7, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7615,7 +7620,6 @@ MonoBehaviour:
   speed: 4
   move: 4
   stamina: 100
-  jumpForce: 100
   sprintSpeedMultiplier: 2
   staminaConsumptionMultiplier: 1
   turboTimer: 0
@@ -7637,6 +7641,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 130
   turboJumpMultiplier: 0.9
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
 --- !u!114 &642768950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9818,6 +9824,10 @@ PrefabInstance:
       value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 820953574475482042, guid: a03daf4cb303cbd4888edfc7909f2c02, type: 3}
+      propertyPath: Plataforma
+      value: 
+      objectReference: {fileID: 249868145}
+    - target: {fileID: 820953574475482042, guid: a03daf4cb303cbd4888edfc7909f2c02, type: 3}
       propertyPath: velocidade
       value: 15
       objectReference: {fileID: 0}
@@ -11683,7 +11693,7 @@ Transform:
   m_GameObject: {fileID: 945431878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 107.56, y: 2.88, z: -10}
+  m_LocalPosition: {x: 283.7, y: 5.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12686,7 +12696,7 @@ GameObject:
   - component: {fileID: 1105498382}
   m_Layer: 4
   m_Name: "p\xE9_cachorro"
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
