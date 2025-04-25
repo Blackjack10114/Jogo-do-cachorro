@@ -96,9 +96,6 @@ public class PlayerMov : MonoBehaviour
             // Aplica só a velocidade da plataforma
             rb.linearVelocity = new Vector2(velocidadePlataforma, rb.linearVelocity.y);
         }
-
-        // Resetar depois de usar
-        velocidadePlataforma = 0f;
     }
 
     private void MovePlayer(int direction)
