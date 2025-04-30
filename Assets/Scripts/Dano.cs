@@ -63,7 +63,8 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco") || colisor.CompareTag("Tatu") || colisor.CompareTag("RaizRotatoria"))
+        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco") || colisor.CompareTag("Tatu") 
+           || colisor.CompareTag("RaizRotatoria") || colisor.CompareTag("Passaro"))
         {
             if (isInvincible)
             {
