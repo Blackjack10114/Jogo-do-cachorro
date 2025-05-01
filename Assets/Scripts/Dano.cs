@@ -21,6 +21,10 @@ public class Dano : MonoBehaviour
 
     private bool entregaFalhou = false;
 
+    private static readonly string[] obstaculosQueCausamDano = {
+        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro"
+    };
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,38 +67,44 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        if (colisor.CompareTag("Spike") || colisor.CompareTag("Buraco") || colisor.CompareTag("Tatu") 
-           || colisor.CompareTag("RaizRotatoria") || colisor.CompareTag("Passaro"))
+        if (!TagCausaDano(colisor.tag)) return;
+
+        if (isInvincible)
         {
-            if (isInvincible)
+            if (shield != null)
             {
-                if (shield != null)
-                {
-                    Destroy(shield);
-                    shield = null;
-                }
-
-                StartCoroutine(DelayInvincibilityReset());
-                return;
+                Destroy(shield);
+                shield = null;
             }
-
-            GetComponent<PlayerMov>().enabled = false;
-
-            float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
-            rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
-            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-
-            if (colisor.CompareTag("Spike"))
-            {
-                GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
-            }
-
-            if (!bool_script.caixaInstanciada)
-            {
-                pv -= 10f;
-                if (pv < 0f) pv = 0f;
-            }
+            StartCoroutine(DelayInvincibilityReset());
+            return;
         }
+
+        GetComponent<PlayerMov>().enabled = false;
+
+        float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
+        rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
+        rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+
+        if (colisor.CompareTag("Spike"))
+        {
+            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+        }
+
+        if (!bool_script.caixaInstanciada)
+        {
+            pv -= 10f;
+            if (pv < 0f) pv = 0f;
+        }
+    }
+
+    private bool TagCausaDano(string tag)
+    {
+        foreach (string t in obstaculosQueCausamDano)
+        {
+            if (tag == t) return true;
+        }
+        return false;
     }
 
     private IEnumerator DelayInvincibilityReset()

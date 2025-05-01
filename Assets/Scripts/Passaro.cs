@@ -4,11 +4,10 @@ public class Passaro : MonoBehaviour
 {
     public float velocidade = 5f;
     public float distanciaVoo = 10f;
-    public Transform jogador;
-    public float distanciaAtivacao = 5f;
+
+    [HideInInspector] public Transform jogador; // ainda usado pelo spawner
 
     private Vector3 posicaoInicial;
-    private bool voando = false;
 
     void Start()
     {
@@ -17,21 +16,13 @@ public class Passaro : MonoBehaviour
 
     void Update()
     {
-        // Ativa o voo se o jogador estiver próximo
-        if (!voando && Vector3.Distance(jogador.position, transform.position) < distanciaAtivacao)
-        {
-            voando = true;
-        }
+        // Voa em linha reta para a direita
+        transform.Translate(Vector2.right * velocidade * Time.deltaTime);
 
-        // Se estiver voando, mover em linha reta
-        if (voando)
+        // Destroi o pássaro após percorrer a distância máxima
+        if (Vector3.Distance(posicaoInicial, transform.position) >= distanciaVoo)
         {
-            transform.Translate(Vector2.right * velocidade * Time.deltaTime);
-
-            if (Vector3.Distance(posicaoInicial, transform.position) >= distanciaVoo)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }
