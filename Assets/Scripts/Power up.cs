@@ -5,7 +5,7 @@ public class PowerUp : MonoBehaviour
 {
     public enum PowerUpType { Turbo, Gourmet, Bolha, DoubleJump }
     public PowerUpType type;
-    public float duration = 10f;      // Duração do efeito (definido no Inspector)
+    public float duration;     // Duração do efeito (definido no Inspector)
     public float turboMultiplier = 2f; // Multiplicador de velocidade do Turbo
     public float turboStaminaReduction = 0.5f; // Redução do consumo de stamina no Turbo (50%)
 
@@ -47,7 +47,6 @@ public class PowerUp : MonoBehaviour
 
                 }
             }
-            Destroy(gameObject);
         }
     }
 }
