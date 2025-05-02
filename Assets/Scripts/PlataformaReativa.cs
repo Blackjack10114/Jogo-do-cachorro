@@ -4,10 +4,15 @@ public class PlataformaReativa : MonoBehaviour
 {
     public float tempoAtiva = 2f;
     public float tempoInativa = 2f;
-    public Sprite spriteComEspinhos;
-    public Sprite spriteSemEspinhos;
 
-    public GameObject visualObj; // objeto filho com SpriteRenderer
+    // Para prefab com objetos filhos
+    public GameObject objetoEspinho;     // Triângulo (ativado/desativado)
+    public GameObject objetoPlataforma;  // Quadrado (plataforma base)
+
+    // Para prefab com SpriteRenderer
+    public GameObject visualObj;                // Objeto com SpriteRenderer (opcional)
+    public Sprite spriteComEspinhos;            // Sprite com espinhos
+    public Sprite spriteSemEspinhos;            // Sprite sem espinhos
 
     private SpriteRenderer sr;
     private Collider2D colisor;
@@ -16,18 +21,12 @@ public class PlataformaReativa : MonoBehaviour
 
     void Start()
     {
-        if (visualObj != null)
-        {
-            sr = visualObj.GetComponent<SpriteRenderer>();
-        }
-        else
-        {
-            Debug.LogWarning("Objeto visual não atribuído!");
-        }
-
         colisor = GetComponent<Collider2D>();
+        if (visualObj != null)
+            sr = visualObj.GetComponent<SpriteRenderer>();
+
         timer = tempoInativa;
-        SetEstado(false); // começa inativa
+        SetEstado(false); // começa desativada
     }
 
     void Update()
@@ -36,7 +35,7 @@ public class PlataformaReativa : MonoBehaviour
 
         if (timer <= 0f)
         {
-            SetEstado(!ativa); // alterna estado
+            SetEstado(!ativa);
             timer = ativa ? tempoAtiva : tempoInativa;
         }
     }
@@ -45,17 +44,21 @@ public class PlataformaReativa : MonoBehaviour
     {
         ativa = estadoAtivo;
 
-        if (ativa)
+        // Altera a tag do objeto principal
+        gameObject.tag = ativa ? "Spike" : "PlataformaReativa";
+
+        // Ativa/Desativa os objetos filhos
+        if (objetoEspinho != null)
+            objetoEspinho.SetActive(ativa); // ativa espinho apenas quando "ativa"
+
+        if (objetoPlataforma != null)
+            objetoPlataforma.SetActive(true); // sempre visível (ou também controlar se quiser)
+
+        // Opcional: troca sprites, se for usar spriteRenderer futuramente
+        if (sr != null)
         {
-            gameObject.tag = "Spike";
-            if (sr != null && spriteComEspinhos != null)
-                sr.sprite = spriteComEspinhos;
-        }
-        else
-        {
-            gameObject.tag = "PlataformaReativa";
-            if (sr != null && spriteSemEspinhos != null)
-                sr.sprite = spriteSemEspinhos;
+            sr.sprite = ativa ? spriteComEspinhos : spriteSemEspinhos;
         }
     }
+
 }

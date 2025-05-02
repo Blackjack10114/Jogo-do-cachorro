@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMov : MonoBehaviour
 {
+    [HideInInspector] public bool temPuloDuplo = false;
+
     public bool isGourmetActive = false;
     public bool isTurboActive = false;
 
@@ -30,12 +32,12 @@ public class PlayerMov : MonoBehaviour
     public bool podeMover = true;
     private float velocidadePlataforma = 0f;
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        pulo = GetComponent<Jump>(); // ← acessa o script Jump
+        pulo = GetComponent<Jump>();
     }
+
     public void AplicarVelocidadePlataforma(float vel)
     {
         velocidadePlataforma = vel;
@@ -87,13 +89,13 @@ public class PlayerMov : MonoBehaviour
         {
             MovePlayer(-1);
         }
+
         bool estaParado =
-    !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
-    !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
+            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
+            !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
 
         if (estaParado && plataformaAtual != null && pulo != null && pulo.EstaNoChao)
         {
-            // Aplica só a velocidade da plataforma
             rb.linearVelocity = new Vector2(velocidadePlataforma, rb.linearVelocity.y);
         }
     }
@@ -127,7 +129,7 @@ public class PlayerMov : MonoBehaviour
             time += Time.deltaTime;
             float velX = direction * move * finalSpeed;
 
-            if (plataformaAtual != null && pulo != null && pulo.EstaNoChao)
+            if (plataformaAtual != null)
             {
                 velX += velocidadePlataforma;
             }
@@ -148,12 +150,20 @@ public class PlayerMov : MonoBehaviour
         {
             time = 0;
         }
+
         velocidadePlataforma = 0f;
     }
 
     public void HabilitarMovimento(bool estado)
     {
         podeMover = estado;
+    }
+
+    public IEnumerator AtivarPuloDuploTemporario(float duracao)
+    {
+        temPuloDuplo = true;
+        yield return new WaitForSeconds(duracao);
+        temPuloDuplo = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    public enum PowerUpType { Turbo, Gourmet, Bolha }
+    public enum PowerUpType { Turbo, Gourmet, Bolha, DoubleJump }
     public PowerUpType type;
     public float duration = 10f;      // Duração do efeito (definido no Inspector)
     public float turboMultiplier = 2f; // Multiplicador de velocidade do Turbo
@@ -39,6 +39,12 @@ public class PowerUp : MonoBehaviour
                         if (dano != null)
                             StartCoroutine(dano.ActivateShield(duration));
                         break;
+
+                    case PowerUpType.DoubleJump:
+                        player.StartCoroutine(player.AtivarPuloDuploTemporario(duration));
+                        break;
+
+
                 }
             }
             Destroy(gameObject);

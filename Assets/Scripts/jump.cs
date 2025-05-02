@@ -10,6 +10,7 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
+    private bool pulouDuplo = false;
     private bool grounded = false;
     private int groundContacts = 0;
 
@@ -46,20 +47,28 @@ public class Jump : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
         }
 
-        // Executa pulo se dentro do tempo de toler�ncia
-        if (jumpBufferTimer > 0f && coyoteTimer > 0f)
+        bool podePular = jumpBufferTimer > 0f &&
+                         (coyoteTimer > 0f || (playerMov.temPuloDuplo && !pulouDuplo));
+
+        if (podePular)
         {
             float finalJumpForce = jumpForce;
+
             if (playerMov != null && playerMov.isTurboActive)
-            {
                 finalJumpForce *= turboJumpMultiplier;
-            }
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
 
-            grounded = false;
-            coyoteTimer = 0f;
+            if (grounded)
+            {
+                coyoteTimer = 0f;
+            }
+            else if (playerMov.temPuloDuplo)
+            {
+                pulouDuplo = true;
+            }
+
             jumpBufferTimer = 0f;
         }
     }
@@ -72,6 +81,10 @@ public class Jump : MonoBehaviour
         {
             groundContacts++;
             grounded = true;
+
+            // ✅ Resetar pulo duplo apenas se ele estiver ativo
+            if (playerMov.temPuloDuplo)
+                pulouDuplo = false;
         }
     }
 
@@ -83,9 +96,7 @@ public class Jump : MonoBehaviour
         {
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
-            {
                 grounded = false;
-            }
         }
     }
 }
