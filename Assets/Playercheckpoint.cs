@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class Playercheckpoint : MonoBehaviour
 {
-    private Vector3 lastCheckpointPosition;
+    private Vector2 lastCheckpointPosition;
 
     void Start()
     {
-        // Define a posição inicial como primeiro checkpoint
         lastCheckpointPosition = transform.position;
     }
 
@@ -14,7 +13,6 @@ public class Playercheckpoint : MonoBehaviour
     {
         if (other.CompareTag("Checkpoint"))
         {
-            // Atualiza o último checkpoint
             lastCheckpointPosition = other.transform.position;
         }
     }
@@ -22,7 +20,6 @@ public class Playercheckpoint : MonoBehaviour
     {
         if (other.gameObject.tag == ("Buraco"))
         {
-            // Teleporta o jogador de volta ao checkpoint
             transform.position = lastCheckpointPosition;
         }
     }
