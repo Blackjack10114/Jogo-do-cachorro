@@ -22,7 +22,7 @@ public class Dano : MonoBehaviour
     private bool entregaFalhou = false;
 
     private static readonly string[] obstaculosQueCausamDano = {
-        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro"
+        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
     void Start()
