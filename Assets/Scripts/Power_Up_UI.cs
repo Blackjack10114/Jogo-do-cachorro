@@ -9,11 +9,14 @@ public class Power_Up_UI : MonoBehaviour
     private PlayerMov duracao;
     bool turbo_ativado;
     bool gourmet_ativado;
+    bool bolha_ativada;
+    private Dano Bolha;
     void Start()
     {
         GetComponent<Renderer>().enabled = false;
         bool_script = Power_Up.GetComponent<Power_Up_Coletavel>();
         duracao = doguinho.GetComponent<PlayerMov>();
+        Bolha = doguinho.GetComponent<Dano>();
     }
     void Update()
     {
@@ -39,6 +42,17 @@ public class Power_Up_UI : MonoBehaviour
         if (gourmet_ativado == true)
         {
             if (duracao.isGourmetActive == false)
+            {
+                StartCoroutine(DelayVerificaçãotempo());
+            }
+        }
+        if (Bolha.isInvincible == true)
+        {
+            bolha_ativada = true;
+        }
+        if (bolha_ativada == true)
+        {
+            if (Bolha.isInvincible == false)
             {
                 StartCoroutine(DelayVerificaçãotempo());
             }

@@ -9,12 +9,15 @@ public class Power_Up_Coletavel : MonoBehaviour
     public GameObject Power_up;
     private PlayerMov duracao;
     public GameObject doguinho;
+    private Dano Bolha;
     bool turbo_ativado;
     bool gourmet_ativado;
+    bool bolha_ativada;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         duracao = doguinho.GetComponent<PlayerMov>();
+        Bolha = doguinho.GetComponent<Dano>();
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,6 +54,18 @@ public class Power_Up_Coletavel : MonoBehaviour
                 StartCoroutine(DelayVerificaçãotempo());
             }
         }
+        //verificação da bolha protetora
+        if (Bolha.isInvincible == true)
+        {
+            bolha_ativada = true;
+        }
+        if (bolha_ativada == true)
+        {
+            if (Bolha.isInvincible == false)
+            {
+                StartCoroutine(DelayVerificaçãotempo());
+            }
+        }
     }
     private IEnumerator DelayVerificaçãotempo()
     {
@@ -58,6 +73,5 @@ public class Power_Up_Coletavel : MonoBehaviour
         turbo_ativado = false;
         gourmet_ativado = false;
         PowerUp_coletado = false;
-        GetComponent<Renderer>().enabled = false;
     }
 }
