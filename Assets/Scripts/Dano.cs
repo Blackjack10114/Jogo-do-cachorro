@@ -96,6 +96,20 @@ public class Dano : MonoBehaviour
             pv -= 10f;
             if (pv < 0f) pv = 0f;
         }
+
+        if (colisor.CompareTag("Meteorito"))
+        {
+            
+            Meteorito m = colisor.GetComponent<Meteorito>();
+            if (m != null && m.efeitoExplosao != null)
+            {
+                Instantiate(m.efeitoExplosao, colisor.transform.position, Quaternion.identity);
+            }
+
+            Destroy(colisor);
+        }
+
+
     }
 
     private bool TagCausaDano(string tag)
