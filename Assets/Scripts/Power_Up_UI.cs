@@ -15,8 +15,6 @@ public class Power_Up_UI : MonoBehaviour
         bool_script = Power_Up.GetComponent<Power_Up_Coletavel>();
         duracao = doguinho.GetComponent<PlayerMov>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (bool_script.PowerUp_coletado == true && bool_script != null)
@@ -51,8 +49,8 @@ public class Power_Up_UI : MonoBehaviour
     private IEnumerator DelayVerificaçãotempo()
     {
         yield return new WaitForSeconds(0.1f);
-        GetComponent<Renderer>().enabled = false;
         turbo_ativado = false;
         gourmet_ativado = false;
+        GetComponent<Renderer>().enabled = false;
     }
 }
