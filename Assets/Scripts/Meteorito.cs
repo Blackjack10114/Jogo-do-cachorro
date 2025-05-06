@@ -14,6 +14,8 @@ public class Meteorito : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f; // gravidade desligada inicialmente
         rb.linearVelocity = Vector2.zero; // previne queda prematura
+
+        Destroy(gameObject, 12f);// destrói o meteorito após 12s se não colidir com nada
     }
 
     public void AtivarQueda()
@@ -33,9 +35,8 @@ public class Meteorito : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Colidiu com: " + collision.gameObject.name); // ADICIONE ESTA LINHA
-
         string tag = collision.gameObject.tag;
+        Debug.Log("Meteorito colidiu com: " + tag);
 
         if (tag == "Player" || tag == "Ground" || tag == "PlataformaMovel" || tag == "PlataformaQuebradica")
         {
@@ -44,8 +45,10 @@ public class Meteorito : MonoBehaviour
                 Instantiate(efeitoExplosao, transform.position, Quaternion.identity);
             }
 
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
+
+
 
 }
