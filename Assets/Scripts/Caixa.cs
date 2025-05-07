@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Caixa : MonoBehaviour
 {
@@ -85,18 +86,8 @@ public class Caixa : MonoBehaviour
     {
         if (caixaPrefab != null && !caixaInstanciada)
         {
-            
-            {
-                Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
-                Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
-                Debug.Log("Caixa instanciada");
-                if (caixaRb != null)
-                {
-                    caixaInstanciada = true;
-                    caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
-                    caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-                }
-            }
+            caixaInstanciada = true;
+            StartCoroutine(Delaycriarcaixa());
         }
     }
 
@@ -105,5 +96,25 @@ public class Caixa : MonoBehaviour
         qualidadeEntrega -= dano;
         qualidadeEntrega = Mathf.Clamp(qualidadeEntrega, 0f, 100f);
         Debug.Log("📦 Qualidade da entrega atual: " + qualidadeEntrega);
+    }
+    public void Criarcaixa()
+    {
+        Debug.Log("criando caixa");
+        if (bool_script != null && bool_script.isInvincible == false)
+        {
+            Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
+            Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
+            Debug.Log("Caixa instanciada");
+            if (caixaRb != null)
+            {
+                caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
+                caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            }
+        }
+    }
+    private IEnumerator Delaycriarcaixa()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Criarcaixa();
     }
 }
