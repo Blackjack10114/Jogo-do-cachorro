@@ -15,9 +15,21 @@ public class Caixa : MonoBehaviour
 
     public bool caixaInstanciada = false;
 
-    // 🆕 Variável de qualidade da caixa (de 100 a 0)
     [Range(0, 100)]
     public float qualidadeEntrega = 100f;
+
+    private static readonly string[] obstaculosQueCaemCaixa = {
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+    };
+    private bool TagCaiCaixa(string tagcaixa)
+    {
+        foreach (string t in obstaculosQueCaemCaixa)
+        {
+            if (tagcaixa == t) return true;
+        }
+        return false;
+    }
+
 
     void Start()
     {
@@ -45,23 +57,9 @@ public class Caixa : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Spike"))
+        if (TagCaiCaixa(collision.gameObject.tag))
         {
-            if (caixaPrefab != null && !caixaInstanciada)
-            {
-                if (bool_script != null && bool_script.isInvincible == false)
-                {
-                    Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
-                    Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
-
-                    if (caixaRb != null)
-                    {
-                        caixaInstanciada = true;
-                        caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
-                        caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-                    }
-                }
-            }
+            DerrubarCaixa();
         }
 
         if (collision.gameObject.CompareTag("caixa"))
@@ -72,29 +70,35 @@ public class Caixa : MonoBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
         }
     }
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Spike"))
         {
-            if (caixaPrefab != null && !caixaInstanciada)
-            {
-                if (bool_script != null && bool_script.isInvincible == false)
-                {
-                    Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
-                    Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
+            DerrubarCaixa();
+        }
+    }
 
-                    if (caixaRb != null)
-                    {
-                        caixaInstanciada = true;
-                        caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
-                        caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-                    }
+    public void DerrubarCaixa()
+    {
+        if (caixaPrefab != null && !caixaInstanciada)
+        {
+            if (bool_script != null && bool_script.isInvincible == false)
+            {
+                Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
+                Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
+
+                if (caixaRb != null)
+                {
+                    caixaInstanciada = true;
+                    caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
+                    caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
                 }
             }
         }
     }
 
-    // 🆕 Método para reduzir qualidade da caixa
     public void ReduzirQualidade(float dano)
     {
         qualidadeEntrega -= dano;
