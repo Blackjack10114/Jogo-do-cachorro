@@ -88,7 +88,7 @@ public class Caixa : MonoBehaviour
             {
                 Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
                 Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
-
+                Debug.Log("Caixa instanciada");
                 if (caixaRb != null)
                 {
                     caixaInstanciada = true;

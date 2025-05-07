@@ -111,8 +111,7 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        // Se for um meteorito, não tratamos aqui - deixe o script do meteorito lidar
-        if (colisor.CompareTag("Meteorito")) return;
+       
 
         if (!TagCausaDano(colisor.tag)) return;
 
