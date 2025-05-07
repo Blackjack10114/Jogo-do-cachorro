@@ -24,6 +24,11 @@ public class Dano : MonoBehaviour
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
+    private static readonly string[] obstaculosQueCaemCaixa = {
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+    };
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -96,6 +101,7 @@ public class Dano : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         TratarColisao(collision.gameObject);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -105,6 +111,9 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
+        // Se for um meteorito, não tratamos aqui - deixe o script do meteorito lidar
+        if (colisor.CompareTag("Meteorito")) return;
+
         if (!TagCausaDano(colisor.tag)) return;
 
         if (isInvincible)
@@ -122,6 +131,14 @@ public class Dano : MonoBehaviour
         TomarDano(10, colisor);
     }
 
+    private bool TagCaiCaixa(string tagcaixa)
+    {
+        foreach (string t in obstaculosQueCaemCaixa)
+        {
+            if (tagcaixa == t) return true;
+        }
+        return false;
+    }
 
     private bool TagCausaDano(string tag)
     {

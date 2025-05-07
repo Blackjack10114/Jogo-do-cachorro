@@ -12,7 +12,6 @@ public class Meteorito : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // inicialmente sem gravidade, sem movimento
         rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.zero;
     }
@@ -28,49 +27,41 @@ public class Meteorito : MonoBehaviour
 
     void IniciarQueda()
     {
-        // Agora sim aplica gravidade e deixa o Unity cuidar da queda
-        rb.gravityScale = 1f;
+        rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.down * forcaQueda;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Dano no jogador
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            Dano dano = other.GetComponent<Dano>();
+            var dano = collision.collider.GetComponent<Dano>();
             if (dano != null)
             {
                 dano.TomarDano(10, gameObject);
             }
         }
 
-        // Se colidir com chão ou plataformas, destruir também
-        if (other.CompareTag("Ground") ||
-            other.CompareTag("PlataformaMovel") ||
-            other.CompareTag("PlataformaQuebradica"))
+        if (!collision.collider.CompareTag("Meteorito"))
         {
-            if (efeitoExplosao != null)
-            {
-                Instantiate(efeitoExplosao, transform.position, Quaternion.identity);
-            }
-
-            Destroy(gameObject);
-        }
-
-        // Se colidiu com qualquer coisa relevante (player ou chão), destrói
-        if (other.CompareTag("Player") ||
-            other.CompareTag("Ground") ||
-            other.CompareTag("PlataformaMovel") ||
-            other.CompareTag("PlataformaQuebradica"))
-        {
-            if (efeitoExplosao != null)
-            {
-                Instantiate(efeitoExplosao, transform.position, Quaternion.identity);
-            }
-
-            Destroy(gameObject);
+            ExplodirEDestruir();
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Meteorito"))
+        {
+            ExplodirEDestruir();
+        }
+    }
+
+    void ExplodirEDestruir()
+    {
+        if (efeitoExplosao != null)
+        {
+            Instantiate(efeitoExplosao, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
+    }
 }
