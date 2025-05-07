@@ -85,7 +85,7 @@ public class Caixa : MonoBehaviour
     {
         if (caixaPrefab != null && !caixaInstanciada)
         {
-            if (bool_script != null && bool_script.isInvincible == false)
+            
             {
                 Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
                 Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
