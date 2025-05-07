@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2525064996841122029}
   - component: {fileID: 5950161469994086667}
   - component: {fileID: 1324124143280947909}
+  - component: {fileID: -8238590321336498327}
   m_Layer: 0
   m_Name: Meteorito
   m_TagString: Meteorito
@@ -152,3 +153,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8238590321336498327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948886834280611639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6ddcceb6531b743ba682ce91246378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayQueda: 1
+  forcaQueda: 15
+  efeitoExplosao: {fileID: 0}

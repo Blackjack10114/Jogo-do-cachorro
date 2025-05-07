@@ -33,17 +33,7 @@ public class Meteorito : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("BATATA");
-        if (collision.collider.CompareTag("Player"))
-        {
-            var dano = collision.collider.GetComponent<Dano>();
-            if (dano != null)
-            {
-                dano.TomarDano(10, gameObject);
-            }
-        }
-
-        if (collision.collider.CompareTag("Ground"))
+        if (!collision.collider.CompareTag("Meteorito"))
         {
             ExplodirEDestruir();
         }
