@@ -12,10 +12,9 @@ public class Meteorito : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f; // gravidade desligada inicialmente
-        rb.linearVelocity = Vector2.zero; // previne queda prematura
-
-        Destroy(gameObject, 12f);// destrói o meteorito após 12s se não colidir com nada
+        // inicialmente sem gravidade, sem movimento
+        rb.gravityScale = 0f;
+        rb.linearVelocity = Vector2.zero;
     }
 
     public void AtivarQueda()
@@ -29,16 +28,41 @@ public class Meteorito : MonoBehaviour
 
     void IniciarQueda()
     {
-        rb.gravityScale = 0f; // evita gravidade acumulada
-        rb.linearVelocity = Vector2.down * forcaQueda; // queda direta com velocidade definida
+        // Agora sim aplica gravidade e deixa o Unity cuidar da queda
+        rb.gravityScale = 1f;
+        rb.linearVelocity = Vector2.down * forcaQueda;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        string tag = collision.gameObject.tag;
-        Debug.Log("Meteorito colidiu com: " + tag);
+        // Dano no jogador
+        if (other.CompareTag("Player"))
+        {
+            Dano dano = other.GetComponent<Dano>();
+            if (dano != null)
+            {
+                dano.TomarDano(10, gameObject);
+            }
+        }
 
-        if (tag == "Player" || tag == "Ground" || tag == "PlataformaMovel" || tag == "PlataformaQuebradica")
+        // Se colidir com chão ou plataformas, destruir também
+        if (other.CompareTag("Ground") ||
+            other.CompareTag("PlataformaMovel") ||
+            other.CompareTag("PlataformaQuebradica"))
+        {
+            if (efeitoExplosao != null)
+            {
+                Instantiate(efeitoExplosao, transform.position, Quaternion.identity);
+            }
+
+            Destroy(gameObject);
+        }
+
+        // Se colidiu com qualquer coisa relevante (player ou chão), destrói
+        if (other.CompareTag("Player") ||
+            other.CompareTag("Ground") ||
+            other.CompareTag("PlataformaMovel") ||
+            other.CompareTag("PlataformaQuebradica"))
         {
             if (efeitoExplosao != null)
             {
@@ -48,7 +72,5 @@ public class Meteorito : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
 
 }

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class Dano : MonoBehaviour
 {
     public bool isInvincible = false;
-    public bool contato;
     public float v, m;
     public float pv = 30f;
 
@@ -29,6 +28,45 @@ public class Dano : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
+    }
+
+    public void TomarDano(int dano, GameObject origem = null)
+    {
+        if (isInvincible) return;
+
+        isInvincible = true;
+
+        // Destroi bolha se tiver
+        if (shield != null)
+        {
+            Destroy(shield);
+            shield = null;
+        }
+
+        // Reduz vida
+        if (!bool_script.caixaInstanciada)
+        {
+            pv -= dano;
+            if (pv < 0f) pv = 0f;
+        }
+
+        // Knockback
+        if (origem != null)
+        {
+            float direcao = (transform.position.x - origem.transform.position.x) >= 0 ? 1f : -1f;
+            rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
+            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+        }
+
+        // Sprite (caso espinho)
+        if (origem != null && origem.CompareTag("Spike"))
+        {
+            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+        }
+
+        GetComponent<PlayerMov>().enabled = false;
+
+        StartCoroutine(DelayInvincibilityReset());
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -80,37 +118,10 @@ public class Dano : MonoBehaviour
             return;
         }
 
-        GetComponent<PlayerMov>().enabled = false;
-
-        float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
-        rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
-        rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-
-        if (colisor.CompareTag("Spike"))
-        {
-            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
-        }
-
-        if (!bool_script.caixaInstanciada)
-        {
-            pv -= 10f;
-            if (pv < 0f) pv = 0f;
-        }
-
-        if (colisor.CompareTag("Meteorito"))
-        {
-            
-            Meteorito m = colisor.GetComponent<Meteorito>();
-            if (m != null && m.efeitoExplosao != null)
-            {
-                Instantiate(m.efeitoExplosao, colisor.transform.position, Quaternion.identity);
-            }
-
-            Destroy(colisor);
-        }
-
-
+        // Aplica dano padrão
+        TomarDano(10, colisor);
     }
+
 
     private bool TagCausaDano(string tag)
     {
