@@ -13,6 +13,7 @@ public class Power_Up_Coletavel : MonoBehaviour
     bool turbo_ativado;
     bool gourmet_ativado;
     bool bolha_ativada;
+    bool pulo_duplo_ativado;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -66,12 +67,25 @@ public class Power_Up_Coletavel : MonoBehaviour
                 StartCoroutine(DelayVerificaçãotempo());
             }
         }
+        //verificação do pulo duplo
+        if (duracao.temPuloDuplo == true)
+        {
+            pulo_duplo_ativado = true;
+        }
+        if (pulo_duplo_ativado == true)
+        {
+            if (duracao.temPuloDuplo == false)
+            {
+                StartCoroutine(DelayVerificaçãotempo());
+            }
+        }
     }
     private IEnumerator DelayVerificaçãotempo()
     {
         yield return new WaitForSeconds(0.1f);
         turbo_ativado = false;
         gourmet_ativado = false;
+        pulo_duplo_ativado = false;
         PowerUp_coletado = false;
     }
 }

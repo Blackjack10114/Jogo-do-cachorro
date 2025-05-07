@@ -10,6 +10,7 @@ public class Power_Up_UI : MonoBehaviour
     bool turbo_ativado;
     bool gourmet_ativado;
     bool bolha_ativada;
+    bool pulo_duplo_ativado;
     private Dano Bolha;
     void Start()
     {
@@ -24,6 +25,7 @@ public class Power_Up_UI : MonoBehaviour
         {
             GetComponent<Renderer>().enabled = true;
         }
+        // verificação do turbo
         if (duracao.isTurboActive == true)
         {
             turbo_ativado = true;
@@ -35,6 +37,7 @@ public class Power_Up_UI : MonoBehaviour
                 StartCoroutine(DelayVerificaçãotempo());
             }
         }
+        // verificação do gourmet
         if (duracao.isGourmetActive == true)
         {
             gourmet_ativado = true;
@@ -46,6 +49,7 @@ public class Power_Up_UI : MonoBehaviour
                 StartCoroutine(DelayVerificaçãotempo());
             }
         }
+        // verificação da bolha protetora
         if (Bolha.isInvincible == true)
         {
             bolha_ativada = true;
@@ -53,6 +57,18 @@ public class Power_Up_UI : MonoBehaviour
         if (bolha_ativada == true)
         {
             if (Bolha.isInvincible == false)
+            {
+                StartCoroutine(DelayVerificaçãotempo());
+            }
+        }
+        // verificação do pulo duplo
+        if (duracao.temPuloDuplo == true)
+        {
+            pulo_duplo_ativado = true;
+        }
+        if (pulo_duplo_ativado == true)
+        {
+            if (duracao.temPuloDuplo == false)
             {
                 StartCoroutine(DelayVerificaçãotempo());
             }
@@ -65,6 +81,7 @@ public class Power_Up_UI : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         turbo_ativado = false;
         gourmet_ativado = false;
+        pulo_duplo_ativado = false;
         GetComponent<Renderer>().enabled = false;
     }
 }
