@@ -74,11 +74,12 @@ public class Caixa : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Spike"))
+        if (other.CompareTag("Spike") || other.CompareTag("Tatu"))
         {
             DerrubarCaixa();
         }
     }
+
 
     public void DerrubarCaixa()
     {

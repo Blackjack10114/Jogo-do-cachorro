@@ -64,8 +64,8 @@ public class Dano : MonoBehaviour
         }
 
         // Sprite (caso espinho)
-        if (origem != null && origem.CompareTag("Spike"))
-        {
+        if (origem != null && (TagCaiCaixa(origem.tag)))
+         {
             GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
         }
 
