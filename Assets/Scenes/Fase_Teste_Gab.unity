@@ -6593,7 +6593,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 966.4, y: 27.9, z: -10}
+  m_LocalPosition: {x: 729.9, y: 1.7, z: -10}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7401,7 +7401,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000b7867da5670e1c2459fd4f23a5de2147b19534b3db4104209531f8bba9945138
+  m_ApplyToSortingLayers: 00000000b7867da5670e1c2459fd4f23a5de2147b19534b3db4104209531f8bba9945138a169da73
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -7759,6 +7759,7 @@ GameObject:
   - component: {fileID: 642768953}
   - component: {fileID: 642768955}
   - component: {fileID: 642768956}
+  - component: {fileID: 642768957}
   m_Layer: 0
   m_Name: Sprite_Dog_Caixa_Normal_0
   m_TagString: Player
@@ -7830,7 +7831,7 @@ Transform:
   m_GameObject: {fileID: 642768943}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 966.4, y: 27.9, z: 0}
+  m_LocalPosition: {x: 729.9, y: 1.7, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8035,6 +8036,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4a683e4e2d3e944977c7765c640c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &642768957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642768943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cee4c2d0cb581141929211b6fc9522f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeOut: {fileID: 4852143316860133368, guid: 3f838cd6cc533ed469bd4a3410b4ca55, type: 3}
 --- !u!4 &643847042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 571221941107367937, guid: 0b43e572c6310e8469246597e689dc3a, type: 3}
@@ -12196,7 +12210,7 @@ Transform:
   m_GameObject: {fileID: 945431878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 966.4, y: 27.9, z: -10}
+  m_LocalPosition: {x: 729.9, y: 1.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
