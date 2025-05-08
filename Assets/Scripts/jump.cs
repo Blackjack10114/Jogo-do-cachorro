@@ -99,4 +99,17 @@ public class Jump : MonoBehaviour
                 grounded = false;
         }
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        foreach (ContactPoint2D hitPos in collision.contacts)
+        {
+            if (hitPos.normal.x != 0)
+                grounded = false;
+            else if (hitPos.normal.y > 0)
+            {
+                grounded = true;
+            }
+            else grounded = false;
+        }
+    }
 }
