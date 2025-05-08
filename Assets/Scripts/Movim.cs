@@ -31,6 +31,8 @@ public class PlayerMov : MonoBehaviour
 
     public bool podeMover = true;
     private float velocidadePlataforma = 0f;
+    [HideInInspector] public bool IndoEsquerda;
+    [HideInInspector] public bool IndoDireita;
 
     void Start()
     {
@@ -84,13 +86,16 @@ public class PlayerMov : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             MovePlayer(1);
+            IndoEsquerda = false;
+            IndoDireita = true;
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             MovePlayer(-1);
+            IndoDireita = false;
+            IndoEsquerda = true;
         }
-
-        bool estaParado =
+            bool estaParado =
             !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
             !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
 

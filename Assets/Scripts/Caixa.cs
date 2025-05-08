@@ -13,6 +13,7 @@ public class Caixa : MonoBehaviour
     public Sprite Sprite_Dog_Caixa_Normal;
     private Dano bool_script;
     public GameObject Sprite_Dog_Caixa_Normal_0;
+    private PlayerMov Direcao;
 
     public bool caixaInstanciada = false;
 
@@ -38,6 +39,7 @@ public class Caixa : MonoBehaviour
         caixaPrefab = Resources.Load<GameObject>("Caixa_Separada_0");
         rb = Player.GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Dano>();
+        Direcao = Sprite_Dog_Caixa_Normal_0.GetComponent<PlayerMov>();
     }
 
     void Update()
@@ -105,9 +107,14 @@ public class Caixa : MonoBehaviour
             Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
             Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
             Debug.Log("Caixa instanciada");
-            if (caixaRb != null)
+            if (caixaRb != null && Direcao.IndoDireita)
             {
                 caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
+                caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            }
+            if (caixaRb != null && Direcao.IndoEsquerda)
+            {
+                caixaRb.linearVelocity = new Vector2(move * speed, caixaRb.linearVelocity.y);
                 caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
             }
         }
