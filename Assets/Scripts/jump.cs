@@ -11,7 +11,7 @@ public class Jump : MonoBehaviour
     private PlayerMov playerMov;
 
     private bool pulouDuplo = false;
-    private bool grounded = false;
+    public bool grounded = false;
     private int groundContacts = 0;
 
     private float coyoteTimer = 0f;
@@ -101,15 +101,18 @@ public class Jump : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+        bool isTouchingGround = false;
+
         foreach (ContactPoint2D hitPos in collision.contacts)
         {
-            if (hitPos.normal.x != 0)
-                grounded = false;
-            else if (hitPos.normal.y > 0)
+            if (hitPos.normal.y > 0.5f)
             {
-                grounded = true;
+                isTouchingGround = true;
+                break;
             }
-            else grounded = false;
         }
+
+        grounded = isTouchingGround;
     }
+
 }

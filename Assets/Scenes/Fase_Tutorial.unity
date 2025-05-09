@@ -795,7 +795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3432990929602610816, guid: 4b8866c220f7ae34db82cc96a12673e8, type: 3}
       propertyPath: m_TagString
-      value: PlataformaQuebradica
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 5762239356957215703, guid: 4b8866c220f7ae34db82cc96a12673e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1050,6 +1050,7 @@ MonoBehaviour:
   turboJumpMultiplier: 0.9
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  grounded: 0
 --- !u!114 &388148219
 MonoBehaviour:
   m_ObjectHideFlags: 0
