@@ -55,7 +55,7 @@ public class PlayerMov : MonoBehaviour
 
         if (pulo != null && pulo.EstaNoChao)
         {
-            isRunning = Input.GetKey(KeyCode.LeftShift) && (stamina > 0 || isGourmetActive);
+            isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) && (stamina > 0 || isGourmetActive);
         }
 
         if (!isRunning && stamina < 100)
