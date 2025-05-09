@@ -76,8 +76,13 @@ public class Jump : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground") ||
-            collision.gameObject.CompareTag("PlataformaMovel") ||
-            collision.gameObject.CompareTag("PlataformaQuebradica"))
+        collision.gameObject.CompareTag("PlataformaMovel") ||
+        collision.gameObject.CompareTag("PlataformaQuebradica") ||
+        collision.gameObject.CompareTag("Spike") ||
+        collision.gameObject.CompareTag("RaizRotatoria") ||
+        collision.gameObject.CompareTag("Meteorito") ||
+        collision.gameObject.CompareTag("Passaro") ||
+        collision.gameObject.CompareTag("Tatu"))
         {
             groundContacts++;
             grounded = true;
@@ -92,7 +97,12 @@ public class Jump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") ||
             collision.gameObject.CompareTag("PlataformaMovel") ||
-            collision.gameObject.CompareTag("PlataformaQuebradica"))
+            collision.gameObject.CompareTag("PlataformaQuebradica") ||
+            collision.gameObject.CompareTag("Spike") ||
+            collision.gameObject.CompareTag("RaizRotatoria") ||
+            collision.gameObject.CompareTag("Meteorito") ||
+            collision.gameObject.CompareTag("Passaro") ||
+            collision.gameObject.CompareTag("Tatu"))
         {
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
