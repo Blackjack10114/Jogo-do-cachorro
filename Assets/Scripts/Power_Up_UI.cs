@@ -5,8 +5,8 @@ public class Power_Up_UI : MonoBehaviour
 {
     private Power_Up_Coletavel bool_script;
     public GameObject Power_Up;
-    public GameObject doguinho;
     private PlayerMov duracao;
+    private GameObject Player;
     bool turbo_ativado;
     bool gourmet_ativado;
     bool bolha_ativada;
@@ -15,9 +15,10 @@ public class Power_Up_UI : MonoBehaviour
     void Start()
     {
         GetComponent<Renderer>().enabled = false;
+        Player = GameObject.FindWithTag("Player");
         bool_script = Power_Up.GetComponent<Power_Up_Coletavel>();
-        duracao = doguinho.GetComponent<PlayerMov>();
-        Bolha = doguinho.GetComponent<Dano>();
+        duracao = Player.GetComponent<PlayerMov>();
+        Bolha = Player.GetComponent<Dano>();
     }
     void Update()
     {
