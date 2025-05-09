@@ -14,8 +14,10 @@ public class Caixa : MonoBehaviour
     private Dano bool_script;
     public GameObject Sprite_Dog_Caixa_Normal_0;
     private PlayerMov Direcao;
+    [HideInInspector] public bool CaixaPega;
 
     public bool caixaInstanciada = false;
+    [HideInInspector] public bool CaixaIndoEsquerda, CaixaIndoDireita;
 
     [Range(0, 100)]
     public float qualidadeEntrega = 100f;
@@ -47,7 +49,7 @@ public class Caixa : MonoBehaviour
         if (Player != null && Caixa_Separada_0 != null)
         {
             time += Time.deltaTime;
-            if (time < 0.5f)
+            if (time < 0.8f)
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             }
@@ -71,6 +73,7 @@ public class Caixa : MonoBehaviour
             time = 0;
             caixaInstanciada = false;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
+            CaixaPega = true;
         }
     }
 
@@ -111,17 +114,20 @@ public class Caixa : MonoBehaviour
             {
                 caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
                 caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                CaixaIndoEsquerda = true;
             }
             if (caixaRb != null && Direcao.IndoEsquerda)
             {
                 caixaRb.linearVelocity = new Vector2(move * speed, caixaRb.linearVelocity.y);
                 caixaRb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                CaixaIndoDireita = true;
             }
         }
     }
     private IEnumerator Delaycriarcaixa()
     {
         yield return new WaitForSeconds(0.1f);
+        CaixaPega = false;
         Criarcaixa();
     }
 }

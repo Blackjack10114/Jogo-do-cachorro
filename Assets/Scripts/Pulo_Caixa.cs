@@ -5,25 +5,45 @@ public class Pulo_Caixa : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] public float jumpforce;
     public float speed, move;
+    private Caixa direcao;
+    private static readonly string[] obstaculosQuePulamcaixa = {
+        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+    };
+    private GameObject Player = null;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Player = GameObject.FindWithTag("Player");
+        direcao = Player.GetComponent<Caixa>();
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Spike"))
+       GameObject origem = collision.gameObject;
+        if (TagPulaCaixa(origem.tag) && direcao.CaixaIndoEsquerda)
         {
             rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
             rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
         }
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // só usar se for fazer o checkpoint de forma melhor
-        if (other.CompareTag("Spike"))
+        if (TagPulaCaixa(origem.tag) && direcao.CaixaIndoDireita)
         {
             rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-            rb.linearVelocity = new Vector2(-move * speed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
+        }
+    }
+    private bool TagPulaCaixa(string tag)
+    {
+        foreach (string t in obstaculosQuePulamcaixa)
+        {
+            if (tag == t) return true;
+        }
+        return false;
+    }
+    private void Update()
+    {
+        if (direcao.CaixaPega == true)
+        {
+            direcao.CaixaIndoDireita = false;
+            direcao.CaixaIndoEsquerda = false;
         }
     }
 }
