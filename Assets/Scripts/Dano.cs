@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +19,7 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Sem_Caixa;
 
     private bool entregaFalhou = false;
+    private SpriteRenderer sr;
 
     private static readonly string[] obstaculosQueCausamDano = {
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
@@ -28,10 +29,10 @@ public class Dano : MonoBehaviour
         "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
     }
 
@@ -41,21 +42,18 @@ public class Dano : MonoBehaviour
 
         isInvincible = true;
 
-        // Destroi bolha se tiver
         if (shield != null)
         {
             Destroy(shield);
             shield = null;
         }
 
-        // Reduz vida
         if (!bool_script.caixaInstanciada)
         {
             pv -= dano;
             if (pv < 0f) pv = 0f;
         }
 
-        // Knockback
         if (origem != null)
         {
             float direcao = (transform.position.x - origem.transform.position.x) >= 0 ? 1f : -1f;
@@ -63,15 +61,15 @@ public class Dano : MonoBehaviour
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
         }
 
-        // Sprite (caso espinho)
-        if (origem != null && (TagCaiCaixa(origem.tag)))
-         {
-            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+        if (origem != null && TagCaiCaixa(origem.tag))
+        {
+            sr.sprite = Sprite_Dog_Sem_Caixa;
         }
 
         GetComponent<PlayerMov>().enabled = false;
 
         StartCoroutine(DelayInvincibilityReset());
+        StartCoroutine(Piscar(1f, 0.1f));
     }
 
     public IEnumerator ActivateShield(float duration)
@@ -86,6 +84,7 @@ public class Dano : MonoBehaviour
                 shield.transform.SetParent(transform);
             }
 
+            StartCoroutine(Piscar(duration, 0.1f));
             yield return new WaitForSeconds(duration);
 
             if (shield != null)
@@ -98,21 +97,18 @@ public class Dano : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         TratarColisao(collision.gameObject);
-
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         TratarColisao(other.gameObject);
     }
 
-    private void TratarColisao(GameObject colisor)
+    void TratarColisao(GameObject colisor)
     {
-       
-
         if (!TagCausaDano(colisor.tag)) return;
 
         if (isInvincible)
@@ -126,20 +122,30 @@ public class Dano : MonoBehaviour
             return;
         }
 
-        // Aplica dano padrão
         TomarDano(10, colisor);
     }
 
-    private bool TagCaiCaixa(string tagcaixa)
+    IEnumerator DelayInvincibilityReset()
     {
-        foreach (string t in obstaculosQueCaemCaixa)
-        {
-            if (tagcaixa == t) return true;
-        }
-        return false;
+        yield return new WaitForSeconds(1f);
+        isInvincible = false;
     }
 
-    private bool TagCausaDano(string tag)
+    IEnumerator Piscar(float duracao, float intervalo)
+    {
+        float t = 0f;
+        while (t < duracao)
+        {
+            sr.color = Color.gray;
+            yield return new WaitForSeconds(intervalo / 2f);
+            sr.color = Color.white;
+            yield return new WaitForSeconds(intervalo / 2f);
+            t += intervalo;
+        }
+        sr.color = Color.white;
+    }
+
+    bool TagCausaDano(string tag)
     {
         foreach (string t in obstaculosQueCausamDano)
         {
@@ -148,10 +154,13 @@ public class Dano : MonoBehaviour
         return false;
     }
 
-    private IEnumerator DelayInvincibilityReset()
+    bool TagCaiCaixa(string tag)
     {
-        yield return new WaitForSeconds(0.1f);
-        isInvincible = false;
+        foreach (string t in obstaculosQueCaemCaixa)
+        {
+            if (tag == t) return true;
+        }
+        return false;
     }
 
     void Update()
