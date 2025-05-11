@@ -7,14 +7,17 @@ public class Pulo_Caixa : MonoBehaviour
     public float speed, move;
     private Caixa direcao;
     private static readonly string[] obstaculosQuePulamcaixa = {
-        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
     private GameObject Player = null;
+    private Dano VerCaixa;
+    public Sprite dog_caixa;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Player = GameObject.FindWithTag("Player");
         direcao = Player.GetComponent<Caixa>();
+        VerCaixa = GetComponent<Dano>();
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -28,6 +31,12 @@ public class Pulo_Caixa : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
             rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
+        }
+        if (collision.gameObject.tag == "Buraco")
+        {
+            Destroy(gameObject);
+            direcao.caixaInstanciada = false;
+            Player.GetComponent<SpriteRenderer>().sprite = dog_caixa;
         }
     }
     private bool TagPulaCaixa(string tag)

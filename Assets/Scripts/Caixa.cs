@@ -49,7 +49,7 @@ public class Caixa : MonoBehaviour
         if (Player != null && Caixa_Separada_0 != null)
         {
             time += Time.deltaTime;
-            if (time < 0.8f)
+            if (time < 1f)
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             }
