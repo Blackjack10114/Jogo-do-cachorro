@@ -25,7 +25,7 @@ public class Dano : MonoBehaviour
     };
 
     private static readonly string[] obstaculosQueCaemCaixa = {
-        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
     };
 
 

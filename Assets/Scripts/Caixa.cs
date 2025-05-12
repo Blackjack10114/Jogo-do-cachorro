@@ -23,7 +23,7 @@ public class Caixa : MonoBehaviour
     public float qualidadeEntrega = 100f;
 
     private static readonly string[] obstaculosQueCaemCaixa = {
-        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
     };
     private bool TagCaiCaixa(string tagcaixa)
     {
