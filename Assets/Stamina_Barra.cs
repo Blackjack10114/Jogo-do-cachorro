@@ -21,7 +21,15 @@ public class Stamina_Barra : MonoBehaviour
         {
             Stamina = 0;
         }
+        // não troca a cor ainda
+        if (VerStamina.stamina <= VerStamina.stamina / 2) 
+        {
+            Barrastamina.color = CorMetade;
+        }
+        if (VerStamina.stamina <= VerStamina.stamina / 4) 
+        { 
+            Barrastamina.color = CorFinal; 
+        }
         Barrastamina.fillAmount = Stamina / StaminaMax;
-        Debug.Log(VerStamina.stamina);
     }
 }

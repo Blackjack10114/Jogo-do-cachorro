@@ -22,6 +22,5 @@ public class Barra_Caixa : MonoBehaviour
             Vida = 0;
         }
         Barravida.fillAmount = Vida / VidaMax;
-        Debug.Log(Vervida.pv);
     }
 }
