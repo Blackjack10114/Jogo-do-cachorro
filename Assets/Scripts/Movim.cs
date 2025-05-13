@@ -103,6 +103,10 @@ public class PlayerMov : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(velocidadePlataforma, rb.linearVelocity.y);
         }
+        if (stamina <= 0)
+        {
+            stamina = 0;
+        }
     }
 
     private void MovePlayer(int direction)
@@ -111,7 +115,7 @@ public class PlayerMov : MonoBehaviour
 
         float finalSpeed = speed;
 
-        if (pulo != null && pulo.EstaNoChao && isRunning)
+        if (pulo != null && pulo.EstaNoChao && isRunning && stamina > 0)
         {
             finalSpeed *= sprintSpeedMultiplier * turboMultiplier;
 
