@@ -13,6 +13,5 @@ public class Barra_Caixa : MonoBehaviour
 
     void Update()
     {
-        Barravida.fillAmount = Player.Oxigenio / Player.MaxOxigen;
     }
 }
