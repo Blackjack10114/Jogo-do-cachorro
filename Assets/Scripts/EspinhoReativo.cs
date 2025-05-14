@@ -2,26 +2,36 @@ using UnityEngine;
 
 public class EspinhoReativo : MonoBehaviour
 {
-    public bool estaAtivo = false;
+    [SerializeField] private float tempoAtivo = 1.5f;     // tempo que fica com espinho pra fora
+    [SerializeField] private float tempoInativo = 2.0f;    // tempo que fica retraído
 
-    // Função chamada quando o espinho atingir o estado ativo
-    public void AtivarEspinho()
+    private Animator animator;
+    private bool estaAtivo = false;
+
+    void Start()
     {
-        estaAtivo = true;
-        Debug.Log("Espinho ativado");
+        animator = GetComponent<Animator>();
+        StartCoroutine(ControlarEspinho());
     }
 
-    // Função chamada quando o espinho atingir o estado inativo
-    public void DesativarEspinho()
+    System.Collections.IEnumerator ControlarEspinho()
     {
-        estaAtivo = false;
-        Debug.Log("Espinho Desativado");
+        while (true)
+        {
+            estaAtivo = true;
+            animator.SetBool("estaAtivo", true);
+            Debug.Log("Espinho ativado");
+            yield return new WaitForSeconds(tempoAtivo);
+
+            estaAtivo = false;
+            animator.SetBool("estaAtivo", false);
+            Debug.Log("Espinho desativado");
+            yield return new WaitForSeconds(tempoInativo);
+        }
     }
 
- 
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Colidiu com " + other.name);
         if (!estaAtivo) return;
 
         if (other.CompareTag("Player"))
@@ -33,5 +43,4 @@ public class EspinhoReativo : MonoBehaviour
             }
         }
     }
-
 }
