@@ -23,6 +23,7 @@ public class Up_UI_Teste : MonoBehaviour
         TurboPrefab = Resources.Load<GameObject>("PowerUp_Ração_Turbo_UI");
         GourmetPrefab = Resources.Load<GameObject>("PowerUp_Racao_Dourada_UI");
         BolhaPrefab = Resources.Load<GameObject>("PowerUp_Bolha_UI");
+        PuloPrefab = Resources.Load<GameObject>("PowerUp_PuloDuplo_UI");
         Bolha = Player.GetComponent<Dano>();
         objetoreferencia = this.gameObject;
     }
@@ -60,6 +61,7 @@ public class Up_UI_Teste : MonoBehaviour
                 gourmet_ativado = false;
             }
         }
+        // verificação bolha
         if (Bolha.isInvincible == true && !bolha_insta)
         {
             bolha_ativada = true;
@@ -75,6 +77,22 @@ public class Up_UI_Teste : MonoBehaviour
             {
                 Destroy(BolhaPrefab);
                 bolha_ativada = false;
+            }
+        }
+        // verificação pulo duplo
+        if (duracao.temPuloDuplo == true && PuloPrefab != null && !pulo_insta)
+        {
+            pulo_duplo_ativado = true;
+            PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
+            PuloPrefab.transform.parent = this.transform;
+            pulo_insta = true;
+        }
+        if (pulo_duplo_ativado == true)
+        {
+            if (duracao.temPuloDuplo == false)
+            {
+                Destroy(PuloPrefab);
+                pulo_duplo_ativado = false;
             }
         }
     }
