@@ -37,7 +37,7 @@ public class PowerUp : MonoBehaviour
 
                     case PowerUpType.Bolha:
                         if (dano != null)
-                            StartCoroutine(dano.ActivateShield(duration));
+                            dano.ActivateShield();
                         break;
 
                     case PowerUpType.DoubleJump:

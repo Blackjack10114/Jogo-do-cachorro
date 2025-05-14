@@ -6,25 +6,22 @@ public class PassaroSpawner : MonoBehaviour
 {
     public GameObject prefabPassaro;
     public Transform jogador;
-    public float distanciaAtivacao = 5f;
-    public float tempoRespawn = 8f;
+    public float distanciaAtivacao = 1000f;
+    public float tempoRespawn = 2f;
 
     private float timer = 0f;
-    private bool jogadorProximo = false;
-    private bool passaroAtivo = false;
+
+    public int maxPassaros = 3;
+    private List<GameObject> passarosAtivos = new List<GameObject>();
 
     void Update()
     {
         float distancia = Vector3.Distance(jogador.position, transform.position);
 
-        // Ativa o temporizador se o jogador estiver perto
-        if (distancia < distanciaAtivacao)
-        {
-            jogadorProximo = true;
-        }
+        // Remove da lista pássaros que já foram destruídos
+        passarosAtivos.RemoveAll(p => p == null);
 
-        // Se o jogador está perto e o pássaro não está ativo, começa o respawn
-        if (jogadorProximo && !passaroAtivo)
+        if (distancia < distanciaAtivacao && passarosAtivos.Count < maxPassaros)
         {
             timer += Time.deltaTime;
             if (timer >= tempoRespawn)
@@ -40,15 +37,7 @@ public class PassaroSpawner : MonoBehaviour
         GameObject novo = Instantiate(prefabPassaro, transform.position, Quaternion.identity);
         Passaro p = novo.GetComponent<Passaro>();
         if (p != null) p.jogador = jogador;
-        passaroAtivo = true;
-
-        // Quando o pássaro se auto-destruir, o spawner poderá criar outro
-        StartCoroutine(EsperarDestruir(novo));
-    }
-
-    private IEnumerator EsperarDestruir(GameObject passaro)
-    {
-        yield return new WaitUntil(() => passaro == null);
-        passaroAtivo = false;
+        passarosAtivos.Add(novo);
     }
 }
+

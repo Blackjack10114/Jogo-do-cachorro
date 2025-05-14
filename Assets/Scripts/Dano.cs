@@ -74,7 +74,7 @@ public class Dano : MonoBehaviour
         StartCoroutine(DelayInvincibilityReset());
     }
 
-    public IEnumerator ActivateShield(float duration)
+    public void ActivateShield()
     {
         if (!isInvincible)
         {
@@ -85,18 +85,9 @@ public class Dano : MonoBehaviour
                 shield = Instantiate(Resources.Load<GameObject>("Bolha Protetora"), transform.position, Quaternion.identity);
                 shield.transform.SetParent(transform);
             }
-
-            yield return new WaitForSeconds(duration);
-
-            if (shield != null)
-            {
-                Destroy(shield);
-                shield = null;
-            }
-
-            isInvincible = false;
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
