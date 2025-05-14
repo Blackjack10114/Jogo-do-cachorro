@@ -7,13 +7,17 @@ public class reset : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             SceneManager.LoadScene("Fase_Playtest");
         }
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
-            transform.position = new Vector2(100, 2.5f);
+            SceneManager.LoadScene("Fase_Alien_02");
         }
     }
 }
