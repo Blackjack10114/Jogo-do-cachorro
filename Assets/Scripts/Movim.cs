@@ -23,7 +23,7 @@ public class PlayerMov : MonoBehaviour
 
     private Rigidbody2D rb;
     private float time = 0;
-    private bool isRunning = false;
+    [HideInInspector] public bool isRunning = false;
     private bool wasRunningBeforeJump = false;
 
     private PlataformaMovel plataformaAtual = null;
