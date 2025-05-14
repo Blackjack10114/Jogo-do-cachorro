@@ -8,7 +8,6 @@ public class Stamina_Barra : MonoBehaviour
     public Image Barrastamina;
     public float Stamina, StaminaMax;
     private PlayerMov VerStamina;
-    private SpriteRenderer sr;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");

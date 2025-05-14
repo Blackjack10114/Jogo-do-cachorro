@@ -5,12 +5,10 @@ public class Movim_tatu : MonoBehaviour
     public float speed = 2f;
     private Rigidbody2D rb;
     private bool indoParaEsquerda = true;
-    AudioSource sound;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -30,7 +28,6 @@ public class Movim_tatu : MonoBehaviour
         {
             indoParaEsquerda = !indoParaEsquerda;
             GetComponent<SpriteRenderer>().flipX = !indoParaEsquerda;
-            sound.Play();
         }
     }
 

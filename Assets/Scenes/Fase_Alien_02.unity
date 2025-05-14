@@ -11173,7 +11173,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478200894}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1478200896
 Camera:
   m_ObjectHideFlags: 0
@@ -11234,7 +11234,7 @@ Transform:
   m_GameObject: {fileID: 1478200894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 523.8, y: 71.3, z: -10}
+  m_LocalPosition: {x: 543, y: 147, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12975,7 +12975,7 @@ Transform:
   m_GameObject: {fileID: 2062198224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 523.8, y: 71.3, z: -10}
+  m_LocalPosition: {x: 543, y: 147, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13000,7 +13000,6 @@ GameObject:
   - component: {fileID: 2086792995}
   - component: {fileID: 2086792994}
   - component: {fileID: 2086792993}
-  - component: {fileID: 2086793003}
   m_Layer: 0
   m_Name: Sprite_Dog_Caixa_Normal_0
   m_TagString: Player
@@ -13017,7 +13016,7 @@ Transform:
   m_GameObject: {fileID: 2086792991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 523.8, y: 71.3, z: 0}
+  m_LocalPosition: {x: 543, y: 147, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13089,7 +13088,6 @@ MonoBehaviour:
   CaixaIndoEsquerda: 0
   CaixaIndoDireita: 0
   qualidadeEntrega: 100
-  caixa_som: {fileID: 0}
 --- !u!61 &2086792997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13190,7 +13188,6 @@ MonoBehaviour:
   podeMover: 1
   IndoEsquerda: 0
   IndoDireita: 0
-  Correr_som: {fileID: 0}
 --- !u!114 &2086793000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13208,7 +13205,6 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   grounded: 0
-  som_pulo: {fileID: 0}
 --- !u!114 &2086793001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13229,7 +13225,6 @@ MonoBehaviour:
   Sprite_Dog_Caixa_Normal_0: {fileID: 2086792991}
   Sprite_Dog_Caixa_Normal: {fileID: 594081401435002664, guid: 991508e69d653694297612ff52a9ab9f, type: 3}
   Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
-  dano_som: {fileID: 0}
 --- !u!212 &2086793002
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13285,14 +13280,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!81 &2086793003
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2086792991}
-  m_Enabled: 1
 --- !u!4 &2101880447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3514362794023577096, guid: c9b3b0ce7d0a81749a407a8340699d29, type: 3}

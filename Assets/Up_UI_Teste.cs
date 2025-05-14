@@ -64,7 +64,7 @@ public class Up_UI_Teste : MonoBehaviour
             }
         }
         // verificação bolha
-        if (Bolha.isInvincible == true && !bolha_insta && BolhaPrefab != null)
+        if (Bolha.isInvincible == true && !bolha_insta)
         {
             bolha_ativada = true;
             Vector3 offset = new Vector3(-8f, 0f, 0f);
