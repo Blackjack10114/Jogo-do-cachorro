@@ -49,7 +49,7 @@ public class Caixa : MonoBehaviour
         if (Player != null && Caixa_Separada_0 != null)
         {
             time += Time.deltaTime;
-            if (time < 1f)
+            if (time < 1.2f)
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             }
@@ -77,16 +77,6 @@ public class Caixa : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Spike") || other.CompareTag("Tatu"))
-        {
-            DerrubarCaixa();
-        }
-    }
-
-
     public void DerrubarCaixa()
     {
         if (caixaPrefab != null && !caixaInstanciada)
@@ -104,7 +94,6 @@ public class Caixa : MonoBehaviour
     }
     public void Criarcaixa()
     {
-        Debug.Log("criando caixa");
         if (bool_script != null && bool_script.isInvincible == false)
         {
             Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
@@ -126,7 +115,7 @@ public class Caixa : MonoBehaviour
     }
     private IEnumerator Delaycriarcaixa()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         CaixaPega = false;
         Criarcaixa();
     }
