@@ -23,7 +23,7 @@ public class PlayerMov : MonoBehaviour
 
     private Rigidbody2D rb;
     private float time = 0;
-    private bool isRunning = false;
+    [HideInInspector] public bool isRunning = false;
     private bool wasRunningBeforeJump = false;
 
     private PlataformaMovel plataformaAtual = null;
@@ -33,11 +33,14 @@ public class PlayerMov : MonoBehaviour
     private float velocidadePlataforma = 0f;
     [HideInInspector] public bool IndoEsquerda;
     [HideInInspector] public bool IndoDireita;
+    AudioSource sound;
+    public AudioClip Correr_som;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     public void AplicarVelocidadePlataforma(float vel)
@@ -106,6 +109,15 @@ public class PlayerMov : MonoBehaviour
         if (stamina <= 0)
         {
             stamina = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            sound.clip = Correr_som;
+            sound.Play();
+        }
+        if (Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            sound.Stop();
         }
     }
 
