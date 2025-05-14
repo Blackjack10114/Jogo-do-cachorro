@@ -1,4 +1,6 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Jump : MonoBehaviour
 {
@@ -18,11 +20,14 @@ public class Jump : MonoBehaviour
     private float jumpBufferTimer = 0f;
 
     public bool EstaNoChao => grounded;
+    AudioSource sound;
+    public AudioClip som_pulo;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -59,6 +64,8 @@ public class Jump : MonoBehaviour
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
+            sound.clip = som_pulo;
+            sound.Play();
 
             if (grounded)
             {

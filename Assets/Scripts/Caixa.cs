@@ -54,7 +54,7 @@ public class Caixa : MonoBehaviour
         if (Player != null && Caixa_Separada_0 != null)
         {
             time += Time.deltaTime;
-            if (time < 1.2f)
+            if (time < 0.5f)
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             }
@@ -74,13 +74,7 @@ public class Caixa : MonoBehaviour
 
         if (collision.gameObject.CompareTag("caixa"))
         {
-            Destroy(Caixa_Separada_0);
-            time = 0;
-            caixaInstanciada = false;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
-            CaixaPega = true;
-            sound.clip = caixa_som;
-            sound.Play();
+            pegarcaixa();
         }
     }
 
@@ -104,6 +98,7 @@ public class Caixa : MonoBehaviour
         if (bool_script != null && bool_script.isInvincible == false)
         {
             Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
+            Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
             Debug.Log("Caixa instanciada");
             if (caixaRb != null && Direcao.IndoDireita)
@@ -120,10 +115,25 @@ public class Caixa : MonoBehaviour
             }
         }
     }
+    public void pegarcaixa()
+    {
+        Destroy(Caixa_Separada_0);
+        time = 0;
+        caixaInstanciada = false;
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
+        CaixaPega = true;
+        sound.clip = caixa_som;
+        sound.Play();
+    }
     private IEnumerator Delaycriarcaixa()
     {
         yield return new WaitForSeconds(0.15f);
         CaixaPega = false;
         Criarcaixa();
+    }
+    private IEnumerator Delayprapegarcaixa()
+    {
+        yield return new WaitForSeconds(0.3f);
+        pegarcaixa();
     }
 }
