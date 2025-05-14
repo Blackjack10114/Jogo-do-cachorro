@@ -19,6 +19,8 @@ public class Dano : MonoBehaviour
     public Sprite Sprite_Dog_Sem_Caixa;
 
     private bool entregaFalhou = false;
+    public AudioClip dano_som;
+    AudioSource sound;
 
     private static readonly string[] obstaculosQueCausamDano = {
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
@@ -33,6 +35,7 @@ public class Dano : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     public void TomarDano(int dano, GameObject origem = null)
@@ -61,6 +64,8 @@ public class Dano : MonoBehaviour
             float direcao = (transform.position.x - origem.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+            sound.clip = dano_som;
+            sound.Play();
         }
 
         // Sprite (caso espinho)
