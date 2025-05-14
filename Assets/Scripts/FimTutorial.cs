@@ -3,14 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class FimDeFaseTutorial : MonoBehaviour
 {
-    public GameObject painelConfirmacao;
+    //public GameObject painelConfirmacao;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Time.timeScale = 0f; // pausa o jogo
-            painelConfirmacao.SetActive(true);
+            // Time.timeScale = 0f; // pausa o jogo
+            //painelConfirmacao.SetActive(true);
+            SceneManager.LoadScene("Fase_Playtest");
         }
     }
 
@@ -23,6 +24,6 @@ public class FimDeFaseTutorial : MonoBehaviour
     public void BotaoNao()
     {
         Time.timeScale = 1f;
-        painelConfirmacao.SetActive(false);
+       // painelConfirmacao.SetActive(false);
     }
 }

@@ -42,8 +42,6 @@ public class Dano : MonoBehaviour
     {
         if (isInvincible) return;
 
-        isInvincible = true;
-
         // Destroi bolha se tiver
         if (shield != null)
         {
@@ -97,7 +95,6 @@ public class Dano : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         TratarColisao(collision.gameObject);
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)
