@@ -32,4 +32,9 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         SceneManager.LoadScene("MenuPrincipal");
     }
+    
+    public void ProximaFase()
+    {
+        SceneManager.LoadScene("Fase_Alien_02");
+    }
 }
