@@ -43,6 +43,7 @@ public class Up_UI_Teste : MonoBehaviour
             {
                 Destroy(TurboPrefab);
                 turbo_ativado = false;
+                turbo_insta = false;
             }
         }
         //Verificaçao gourmet
@@ -59,6 +60,7 @@ public class Up_UI_Teste : MonoBehaviour
             {
                 Destroy(GourmetPrefab);
                 gourmet_ativado = false;
+                gourmet_insta = false;
             }
         }
         // verificação bolha
@@ -77,6 +79,7 @@ public class Up_UI_Teste : MonoBehaviour
             {
                 Destroy(BolhaPrefab);
                 bolha_ativada = false;
+                bolha_insta = false;
             }
         }
         // verificação pulo duplo
@@ -93,6 +96,7 @@ public class Up_UI_Teste : MonoBehaviour
             {
                 Destroy(PuloPrefab);
                 pulo_duplo_ativado = false;
+                pulo_insta = false;
             }
         }
     }

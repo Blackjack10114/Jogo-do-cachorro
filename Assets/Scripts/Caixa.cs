@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
+using Unity.VisualScripting;
 
 public class Caixa : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class Caixa : MonoBehaviour
 
     [Range(0, 100)]
     public float qualidadeEntrega = 100f;
+    AudioSource sound;
+    public AudioClip caixa_som;
 
     private static readonly string[] obstaculosQueCaemCaixa = {
         "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
@@ -42,6 +46,7 @@ public class Caixa : MonoBehaviour
         rb = Player.GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Dano>();
         Direcao = Sprite_Dog_Caixa_Normal_0.GetComponent<PlayerMov>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -74,6 +79,8 @@ public class Caixa : MonoBehaviour
             caixaInstanciada = false;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
             CaixaPega = true;
+            sound.clip = caixa_som;
+            sound.Play();
         }
     }
 
