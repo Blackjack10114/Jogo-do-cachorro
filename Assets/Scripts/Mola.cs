@@ -9,7 +9,12 @@ public class Mola : MonoBehaviour
     public float forcaVertical = 15f;
     public float forcaHorizontal = 10f;
 
+    [Header("Configurações Físicas")]
+    public bool ignorarTodasAsForcas = true; // Novo: Remove forças residuais
+
+    [Header("Efeitos")]
     public AudioClip somMola;
+    public ParticleSystem efeitoVisual;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,27 +23,41 @@ public class Mola : MonoBehaviour
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                Vector2 impulso = Vector2.zero;
-
-                switch (direcao)
+                // 1. Remove TODAS as forças e reseta a física completamente
+                if (ignorarTodasAsForcas)
                 {
-                    case Direcao.Cima:
-                        impulso = new Vector2(0f, forcaVertical);
-                        break;
-                    case Direcao.DiagonalDireita:
-                        impulso = new Vector2(forcaHorizontal, forcaVertical);
-                        break;
-                    case Direcao.DiagonalEsquerda:
-                        impulso = new Vector2(-forcaHorizontal, forcaVertical);
-                        break;
+                    rb.linearVelocity = Vector2.zero;
+                    rb.angularVelocity = 0f;
+                    rb.Sleep(); // "Adormece" o Rigidbody para resetar cálculos internos
+                    rb.WakeUp(); // Reativa para aplicar o impulso limpo
                 }
 
-                rb.linearVelocity = Vector2.zero; // zera antes de aplicar
+                // 2. Calcula o impulso
+                Vector2 impulso = CalcularImpulso();
+
+                // 3. Aplica a força (usando VelocityChange para ignorar massa e física)
                 rb.AddForce(impulso, ForceMode2D.Impulse);
 
+                // 4. Efeitos
                 if (somMola != null)
                     AudioSource.PlayClipAtPoint(somMola, transform.position);
+
+                if (efeitoVisual != null)
+                    efeitoVisual.Play();
             }
+        }
+    }
+
+    private Vector2 CalcularImpulso()
+    {
+        switch (direcao)
+        {
+            case Direcao.DiagonalDireita:
+                return new Vector2(forcaHorizontal, forcaVertical);
+            case Direcao.DiagonalEsquerda:
+                return new Vector2(-forcaHorizontal, forcaVertical);
+            default: // Cima
+                return new Vector2(0f, forcaVertical);
         }
     }
 }
