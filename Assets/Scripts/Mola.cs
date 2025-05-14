@@ -5,8 +5,11 @@ public class Mola : MonoBehaviour
     public enum Direcao { Cima, DiagonalDireita, DiagonalEsquerda }
     public Direcao direcao = Direcao.Cima;
 
-    public float forca = 20f;
-    public AudioClip somMola; // opcional
+    [Header("Forças aplicadas")]
+    public float forcaVertical = 15f;
+    public float forcaHorizontal = 10f;
+
+    public AudioClip somMola;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,23 +18,23 @@ public class Mola : MonoBehaviour
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                Vector2 direcaoImpulso = Vector2.up;
+                Vector2 impulso = Vector2.zero;
 
                 switch (direcao)
                 {
                     case Direcao.Cima:
-                        direcaoImpulso = Vector2.up;
+                        impulso = new Vector2(0f, forcaVertical);
                         break;
                     case Direcao.DiagonalDireita:
-                        direcaoImpulso = (Vector2.up + Vector2.right).normalized;
+                        impulso = new Vector2(forcaHorizontal, forcaVertical);
                         break;
                     case Direcao.DiagonalEsquerda:
-                        direcaoImpulso = (Vector2.up + Vector2.left).normalized;
+                        impulso = new Vector2(-forcaHorizontal, forcaVertical);
                         break;
                 }
 
                 rb.linearVelocity = Vector2.zero; // zera antes de aplicar
-                rb.AddForce(direcaoImpulso * forca, ForceMode2D.Impulse);
+                rb.AddForce(impulso, ForceMode2D.Impulse);
 
                 if (somMola != null)
                     AudioSource.PlayClipAtPoint(somMola, transform.position);
