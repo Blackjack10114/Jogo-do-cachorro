@@ -49,7 +49,7 @@ public class Caixa : MonoBehaviour
         if (Player != null && Caixa_Separada_0 != null)
         {
             time += Time.deltaTime;
-            if (time < 1.2f)
+            if (time < 1f)
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             }
@@ -115,7 +115,7 @@ public class Caixa : MonoBehaviour
     }
     private IEnumerator Delaycriarcaixa()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.11f);
         CaixaPega = false;
         Criarcaixa();
     }
