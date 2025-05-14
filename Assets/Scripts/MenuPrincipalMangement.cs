@@ -11,7 +11,7 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
    public void Jogar()
     {
-        SceneManager.LoadScene(nomeDoLevelDeJogo);
+        SceneManager.LoadScene("Tutorial");
     }
     public void AbrirOpcoes()
     {
