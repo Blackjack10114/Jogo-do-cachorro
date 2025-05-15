@@ -2,70 +2,60 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ProximaFaseController : MonoBehaviour
+public class GerenciadorProgresso : MonoBehaviour
 {
     [Header("Configurações")]
+    [SerializeField] private string[] ordemFases = { "Fase_Playtest", "Fase_Alien_02" };
     [SerializeField] private Button botaoProximaFase;
-    [SerializeField] private string[] fasesDaDemo = { "Fase_Playtest", "Fase_Alien_02" };
+    [SerializeField] private string cenaMenu = "MenuPrincipal";
 
     [Header("Aparência do Botão")]
     [SerializeField] private Color corCompleto = Color.gray;
     [SerializeField] private string textoCompleto = "Demo Concluída!";
 
+    private string _cenaAnterior; // Armazena a cena que chamou a vitória
+
     void Start()
     {
-        if (botaoProximaFase != null)
+        // Detecta automaticamente a cena anterior
+        _cenaAnterior = PlayerPrefs.GetString("CenaAnterior", "Fase_Playtest");
+
+        ConfigurarBotao();
+    }
+
+    private void ConfigurarBotao()
+    {
+        if (botaoProximaFase == null) return;
+
+        int indiceFaseAtual = System.Array.IndexOf(ordemFases, _cenaAnterior);
+        bool temProximaFase = (indiceFaseAtual >= 0) && (indiceFaseAtual < ordemFases.Length - 1);
+
+        botaoProximaFase.interactable = temProximaFase;
+
+        if (!temProximaFase)
         {
-            botaoProximaFase.onClick.AddListener(CarregarProximaFase);
-            AtualizarBotao();
+            botaoProximaFase.GetComponentInChildren<Text>().text = textoCompleto;
+            botaoProximaFase.image.color = corCompleto;
         }
     }
 
     public void CarregarProximaFase()
     {
-        int proximaFaseIndex = PlayerPrefs.GetInt("FaseCompleta", -1) + 1;
-
-        if (proximaFaseIndex < fasesDaDemo.Length)
+        int indiceFaseAtual = System.Array.IndexOf(ordemFases, _cenaAnterior);
+        if (indiceFaseAtual < ordemFases.Length - 1)
         {
-            SceneManager.LoadScene(fasesDaDemo[proximaFaseIndex]);
+            SceneManager.LoadScene(ordemFases[indiceFaseAtual + 1]);
         }
     }
 
-    public static void RegistrarFaseCompleta()
+    public void VoltarAoMenu()
     {
-        string cenaAtual = SceneManager.GetActiveScene().name;
-        int faseAtual = -1;
-
-        if (cenaAtual == "Fase_Playtest") faseAtual = 0;
-        else if (cenaAtual == "Fase_Alien_02") faseAtual = 1;
-
-        if (faseAtual > PlayerPrefs.GetInt("FaseCompleta", -1))
-        {
-            PlayerPrefs.SetInt("FaseCompleta", faseAtual);
-            PlayerPrefs.Save();
-        }
+        SceneManager.LoadScene(cenaMenu);
     }
 
-    private void AtualizarBotao()
+    // Chamar ANTES de carregar a cena de vitória
+    public static void RegistrarCenaAtual(string cenaAtual)
     {
-        bool todasCompletas = PlayerPrefs.GetInt("FaseCompleta", -1) >= fasesDaDemo.Length - 1;
-
-        botaoProximaFase.interactable = !todasCompletas;
-
-        if (todasCompletas)
-        {
-            var textComponent = botaoProximaFase.GetComponentInChildren<Text>();
-            if (textComponent != null) textComponent.text = textoCompleto;
-            botaoProximaFase.image.color = corCompleto;
-        }
-    }
-
-    // Método para testes (opcional)
-    [ContextMenu("Resetar Progresso")]
-    public void ResetarProgresso()
-    {
-        PlayerPrefs.DeleteKey("FaseCompleta");
-        AtualizarBotao();
-        Debug.Log("Progresso das fases resetado!");
+        PlayerPrefs.SetString("CenaAnterior", cenaAtual);
     }
 }

@@ -6,7 +6,7 @@ public class FimDaFase : MonoBehaviour
 {
     private SistemaPontuacao pontuacaoScript;
     private Dano danoScript;
-
+    [SerializeField] private string cenaFim;
     public GameObject avisoFaltaCaixaUI;
 
     void Start()
@@ -43,8 +43,8 @@ public class FimDaFase : MonoBehaviour
             PlayerPrefs.SetString("NotaFinal", nota);
 
             Time.timeScale = 1f;
-
-            SceneManager.LoadScene("CenaFimDeFase");
+            GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(cenaFim);
         }
     }
 

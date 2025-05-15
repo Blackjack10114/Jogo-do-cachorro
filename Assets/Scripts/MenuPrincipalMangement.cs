@@ -9,9 +9,14 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField]private string nomeDoLevelDeJogo;
     [SerializeField]private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelOpcoes;
+    [SerializeField] private string CenaRetry;
    public void Jogar()
     {
         SceneManager.LoadScene("Tutorial");
+    }
+    public void Retry()
+    {
+        SceneManager.LoadScene(CenaRetry);
     }
     public void AbrirOpcoes()
     {
