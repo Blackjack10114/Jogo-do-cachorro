@@ -89,7 +89,8 @@ public class Jump : MonoBehaviour
         collision.gameObject.CompareTag("RaizRotatoria") ||
         collision.gameObject.CompareTag("Meteorito") ||
         collision.gameObject.CompareTag("Passaro") ||
-        collision.gameObject.CompareTag("Tatu"))
+        collision.gameObject.CompareTag("Tatu")   ||
+        collision.gameObject.CompareTag("Untagged"))
         {
             groundContacts++;
             grounded = true;
@@ -109,7 +110,8 @@ public class Jump : MonoBehaviour
             collision.gameObject.CompareTag("RaizRotatoria") ||
             collision.gameObject.CompareTag("Meteorito") ||
             collision.gameObject.CompareTag("Passaro") ||
-            collision.gameObject.CompareTag("Tatu"))
+            collision.gameObject.CompareTag("Tatu") ||
+            collision.gameObject.CompareTag("Untagged"))
         {
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
