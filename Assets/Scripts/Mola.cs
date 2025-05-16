@@ -15,11 +15,17 @@ public class Mola : MonoBehaviour
     [Header("Efeitos")]
     public AudioClip somMola;
     public ParticleSystem efeitoVisual;
+    private GameObject Player = null;
+    private void Start()
+    {
+        Player = GameObject.FindWithTag("Player");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            //Player.GetComponent<PlayerMov>().enabled = false;
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {

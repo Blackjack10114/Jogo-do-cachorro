@@ -9,7 +9,6 @@ public class Dano : MonoBehaviour
     public float pv = 30f;
 
     private Rigidbody2D rb;
-    private float time = 0f;
 
     public GameObject shield;
     public GameObject Sprite_Dog_Caixa_Normal_0;
@@ -73,6 +72,7 @@ public class Dano : MonoBehaviour
         }
 
         GetComponent<PlayerMov>().enabled = false;
+        StartCoroutine(DelayHabilitarMovim());
 
         StartCoroutine(DelayInvincibilityReset());
     }
@@ -147,14 +147,14 @@ public class Dano : MonoBehaviour
         isInvincible = false;
     }
 
+    private IEnumerator DelayHabilitarMovim()
+    {
+        yield return new WaitForSeconds(0.3f);
+        GetComponent<PlayerMov>().enabled = true;
+    }
+
     void Update()
     {
-        time += Time.deltaTime;
-        if (time >= 1.0f)
-        {
-            GetComponent<PlayerMov>().enabled = true;
-            time = 0f;
-        }
 
         if (!entregaFalhou && pv <= 0f)
         {
