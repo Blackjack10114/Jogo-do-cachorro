@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Mola : MonoBehaviour
 {
@@ -16,16 +17,20 @@ public class Mola : MonoBehaviour
     public AudioClip somMola;
     public ParticleSystem efeitoVisual;
     private GameObject Player = null;
+    private Jump VerificarChao;
+    private bool Permitirverchao = false;
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
+        VerificarChao = Player.GetComponent<Jump>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            //Player.GetComponent<PlayerMov>().enabled = false;
+            Player.GetComponent<PlayerMov>().enabled = false;
+            StartCoroutine(Delayverificarchao());
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -64,6 +69,22 @@ public class Mola : MonoBehaviour
                 return new Vector2(-forcaHorizontal, forcaVertical);
             default: // Cima
                 return new Vector2(0f, forcaVertical);
+        }
+    }
+    private IEnumerator Delayverificarchao()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Permitirverchao = true;
+    }
+    private void Update()
+    {
+        if (Permitirverchao == true)
+        {
+            if (VerificarChao.grounded == true)
+            {
+                Player.GetComponent<PlayerMov>().enabled = true;
+                Permitirverchao = false;
+            }
         }
     }
 }
