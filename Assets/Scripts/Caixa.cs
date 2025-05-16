@@ -67,14 +67,15 @@ public class Caixa : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (TagCaiCaixa(collision.gameObject.tag))
-        {
-            DerrubarCaixa();
-        }
-
         if (collision.gameObject.CompareTag("caixa"))
         {
             pegarcaixa();
+        }
+        if (bool_script.isInvincible == true) return;
+       
+        if (TagCaiCaixa(collision.gameObject.tag))
+        {
+            DerrubarCaixa();
         }
     }
 

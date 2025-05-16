@@ -104,8 +104,6 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-
-
         if (!TagCausaDano(colisor.tag)) return;
 
         if (isInvincible)
@@ -116,6 +114,9 @@ public class Dano : MonoBehaviour
                 shield = null;
             }
             StartCoroutine(DelayInvincibilityReset());
+            float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
+            rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
+            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
             return;
         }
 
