@@ -8,6 +8,7 @@ public class Stamina_Barra : MonoBehaviour
     public Image Barrastamina;
     public float Stamina, StaminaMax;
     private PlayerMov VerStamina;
+    private Vector3 offset = new Vector3(0f,4.5f,0f);
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -32,5 +33,6 @@ public class Stamina_Barra : MonoBehaviour
         }
         */
         Barrastamina.fillAmount = Stamina / StaminaMax;
+        transform.position = Player.transform.position + offset;
     }
 }
