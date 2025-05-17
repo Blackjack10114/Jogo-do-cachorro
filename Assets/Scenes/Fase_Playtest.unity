@@ -1357,7 +1357,7 @@ Transform:
   m_GameObject: {fileID: 133791861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -287.2, y: 114.7, z: 0}
+  m_LocalPosition: {x: -287.2, y: 151.19998, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 14.985591}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2806,7 +2806,7 @@ Transform:
   m_GameObject: {fileID: 311017489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -358, y: 114.69999, z: 0}
+  m_LocalPosition: {x: -358, y: 151.2, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 14.985589}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10301,11 +10301,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ab17b0b5db5ae4ca23a7f4a7bd1d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fundoMusical: {fileID: 798879085}
-  somLigadoSprite: {fileID: 0}
-  somDesligadoSprite: {fileID: 0}
-  muteImage: {fileID: 0}
-  volumeSlider: {fileID: 23735630}
+  audioMixer: {fileID: 0}
+  sliderMusica: {fileID: 0}
+  sliderSFX: {fileID: 0}
+  sliderMaster: {fileID: 0}
 --- !u!1 &1208809959
 GameObject:
   m_ObjectHideFlags: 0
@@ -10838,9 +10837,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 3f687675798b0394f94dd5726e431bcd, type: 3}
     m_FontSize: 23
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -10850,7 +10849,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time:'
+  m_Text: Tempo
 --- !u!222 &1249540997
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11045,7 +11044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -313.31793, y: 153.0991}
+  m_AnchoredPosition: {x: 5.9, y: 37.5}
   m_SizeDelta: {x: 13.172, y: 0.5553}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1316673813
@@ -11060,12 +11059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c147cfb02bf9644e810a9dd2c0a0a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorMetade: {r: 0.8962264, g: 0.7407185, b: 0.038047332, a: 0}
-  CorFinal: {r: 0.9433962, g: 0.06674972, b: 0.18860312, a: 0}
   Barrastamina: {fileID: 1316673814}
   Stamina: 100
-  StaminaMax: 100
-  offset: {x: 0, y: 4.5, z: 0}
 --- !u!114 &1316673814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11826,7 +11821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105.89028, y: 174.5}
+  m_AnchoredPosition: {x: -24.3, y: 174.5}
   m_SizeDelta: {x: 343.16, y: 59.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1503581043
@@ -11850,9 +11845,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 3f687675798b0394f94dd5726e431bcd, type: 3}
     m_FontSize: 23
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -44480,7 +44475,7 @@ Transform:
   m_GameObject: {fileID: 2023180185}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -218.2004, y: 114.7, z: 0}
+  m_LocalPosition: {x: -218.2004, y: 151.19998, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 14.985591}
   m_ConstrainProportionsScale: 0
   m_Children: []
