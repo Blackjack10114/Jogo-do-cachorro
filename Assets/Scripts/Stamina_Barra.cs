@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Stamina_Barra : MonoBehaviour
 {
     private GameObject Player, fundostamina;
-    public Color CorMetade, CorFinal, cormaismetade;
+    private Color CorMetade, CorFinal, Cormaismetade;
     public Image Barrastamina;
     public float Stamina;
     private float StaminaMax = 100;
@@ -16,12 +16,12 @@ public class Stamina_Barra : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         VerStamina = Player.GetComponent<PlayerMov>();
-        CorMetade.a = 1f;
-        CorFinal.a = 1f;
-        cormaismetade.a = 1f;
         fundostamina = GameObject.Find("Fundo_Stamina");
         SrFundo = fundostamina.GetComponent<SpriteRenderer>();
         SrBarra = this.GetComponent<Image>();
+        CorMetade = new Color (229 / 255f, 189 / 255f, 10 / 255f, 1f);
+        CorFinal = new Color (241 / 255f, 17 / 255f, 48 / 255f, 1f);
+        Cormaismetade = new Color (0, 255 / 255f, 55 / 255f, 1f);
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class Stamina_Barra : MonoBehaviour
         }
         if (VerStamina.stamina >= StaminaMax / 2)
         {
-            Barrastamina.color = cormaismetade;
+            Barrastamina.color = Cormaismetade;
         }
     }
     private void VerificarVisivel()
