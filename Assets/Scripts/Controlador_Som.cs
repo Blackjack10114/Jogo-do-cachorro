@@ -1,40 +1,36 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class Controlador_Som : MonoBehaviour
 {
-    private bool estadoSom = true;
-
-    [SerializeField] private AudioSource fundoMusical;
-    [SerializeField] private Sprite somLigadoSprite;
-    [SerializeField] private Sprite somDesligadoSprite;
-    [SerializeField] private Image muteImage;
-    [SerializeField] private Slider volumeSlider; // ← Atribua o Slider no Inspector
+    [Header("Referências")]
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Slider sliderMusica;
+    [SerializeField] private Slider sliderSFX;
+    [SerializeField] private Slider sliderMaster;
 
     void Start()
     {
-        float volumeSalvo = PlayerPrefs.GetFloat("VolumeMusica", 1f);
-        fundoMusical.volume = volumeSalvo;
-        if (volumeSlider != null)
-        {
-            volumeSlider.value = volumeSalvo;
-        }
+        sliderMusica.value = PlayerPrefs.GetFloat("VolumeMusica", 1f);
+        sliderSFX.value = PlayerPrefs.GetFloat("VolumeSFX", 1f);
+        sliderMaster.value = PlayerPrefs.GetFloat("VolumeMaster", 1f);
+
+        AtualizarVolumes();
     }
 
-    public void LigarDesligarSom()
+    public void AtualizarVolumes()
     {
-        estadoSom = !estadoSom;
-        fundoMusical.enabled = estadoSom;
-
-        muteImage.sprite = estadoSom ? somLigadoSprite : somDesligadoSprite;
+        SetVolume("VolumeMusica", sliderMusica.value);
+        SetVolume("VolumeSFX", sliderSFX.value);
+        SetVolume("VolumeMaster", sliderMaster.value);
     }
 
-    public void VolumeMusical(float value)
+    private void SetVolume(string parametro, float valor)
     {
-        fundoMusical.volume = value;
-        PlayerPrefs.SetFloat("VolumeMusica", value);
+        float volumeDb = Mathf.Log10(Mathf.Clamp(valor, 0.001f, 1f)) * 20f;
+        audioMixer.SetFloat(parametro, volumeDb);
+        PlayerPrefs.SetFloat(parametro, valor);
         PlayerPrefs.Save();
     }
 }
