@@ -22,11 +22,11 @@ public class Dano : MonoBehaviour
     AudioSource sound;
 
     private static readonly string[] obstaculosQueCausamDano = {
-        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
+        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
     private static readonly string[] obstaculosQueCaemCaixa = {
-        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
 

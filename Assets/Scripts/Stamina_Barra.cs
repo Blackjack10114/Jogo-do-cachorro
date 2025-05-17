@@ -22,8 +22,7 @@ public class Stamina_Barra : MonoBehaviour
         {
             Stamina = 0;
         }
-        /* 
-         if (VerStamina.stamina <= VerStamina.stamina / 2)
+        if (VerStamina.stamina <= VerStamina.stamina / 2)
         {
             Barrastamina.color = CorMetade;
         }
@@ -31,7 +30,6 @@ public class Stamina_Barra : MonoBehaviour
         {
             Barrastamina.color = CorFinal;
         }
-        */
         Barrastamina.fillAmount = Stamina / StaminaMax;
         transform.position = Player.transform.position + offset;
     }
