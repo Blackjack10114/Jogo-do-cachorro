@@ -12,18 +12,18 @@ public class Controlador_Som : MonoBehaviour
 
     void Start()
     {
-        sliderMusica.value = PlayerPrefs.GetFloat("VolumeMusica", 1f);
-        sliderSFX.value = PlayerPrefs.GetFloat("VolumeSFX", 1f);
-        sliderMaster.value = PlayerPrefs.GetFloat("VolumeMaster", 1f);
+        sliderMusica.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sliderSFX.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        sliderMaster.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
         AtualizarVolumes();
     }
 
     public void AtualizarVolumes()
     {
-        SetVolume("VolumeMusica", sliderMusica.value);
-        SetVolume("VolumeSFX", sliderSFX.value);
-        SetVolume("VolumeMaster", sliderMaster.value);
+        SetVolume("MusicVolume", sliderMusica.value);
+        SetVolume("SFXVolume", sliderSFX.value);
+        SetVolume("MasterVolume", sliderMaster.value);
     }
 
     private void SetVolume(string parametro, float valor)
