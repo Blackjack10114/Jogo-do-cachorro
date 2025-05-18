@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.Splines;
 
 public class Up_UI_Teste : MonoBehaviour
 {
     private PlayerMov duracao;
     private GameObject Player;
     bool turbo_ativado; 
-    bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta;
+    bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
+    [HideInInspector] public bool gourmettempo, turbotempo;
     bool gourmet_ativado;
     bool bolha_ativada;
     bool pulo_duplo_ativado;
@@ -14,6 +17,7 @@ public class Up_UI_Teste : MonoBehaviour
     private GameObject GourmetPrefab = null;
     private GameObject BolhaPrefab = null;
     private GameObject PuloPrefab = null;
+    private Text TempoPrefab = null;
     private Dano Bolha;
     private GameObject objetoreferencia;
     void Start()
@@ -26,6 +30,7 @@ public class Up_UI_Teste : MonoBehaviour
         PuloPrefab = Resources.Load<GameObject>("PowerUp_PuloDuplo_UI");
         Bolha = Player.GetComponent<Dano>();
         objetoreferencia = this.gameObject;
+        TempoPrefab = Resources.Load<Text>("Tempo_Powerup");
     }
     private void Update()
     {
@@ -68,7 +73,7 @@ public class Up_UI_Teste : MonoBehaviour
         {
             bolha_ativada = true;
             Vector3 offset = new Vector3(-8f, 0f, 0f);
-            Vector3 spawnPosition = objetoreferencia.transform.position + offset;
+            Vector3 spawnPosition = this.transform.position + offset;
             BolhaPrefab = Instantiate(BolhaPrefab, spawnPosition, Quaternion.identity);
             BolhaPrefab.transform.parent = this.transform;
             bolha_insta = true;
@@ -99,5 +104,32 @@ public class Up_UI_Teste : MonoBehaviour
                 pulo_insta = false;
             }
         }
+        if (TempoPrefab != null && !tempo_insta && turbo_ativado)
+        {
+            turbotempo = true;
+            instanciartempo();
+        }
+        if (tempo_insta && !turbotempo)
+        {
+            tempo_insta = false;
+        }
+        if (TempoPrefab != null && !tempo_insta && gourmet_ativado)
+        {
+            gourmettempo = true;
+            instanciartempo();
+        }
+        if (tempo_insta && !gourmettempo)
+        {
+            tempo_insta = false;
+        }
     }
+    private void instanciartempo()
+    {
+        tempo_insta = true;
+        Vector3 offsettext = new Vector3(0, 3, 0);
+        Vector3 Posicaotexto = this.transform.position + offsettext;
+        TempoPrefab = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity) as Text;
+        TempoPrefab.transform.SetParent(this.transform);
+    }
+
 }
