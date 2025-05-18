@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerMov : MonoBehaviour
 {
@@ -35,12 +36,14 @@ public class PlayerMov : MonoBehaviour
     [HideInInspector] public bool IndoDireita;
     AudioSource sound;
     public AudioClip Correr_som;
+    public AudioMixerGroup sfxGroup;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>();
         sound = gameObject.GetComponent<AudioSource>();
+        sound.outputAudioMixerGroup = sfxGroup;
     }
 
     public void AplicarVelocidadePlataforma(float vel)

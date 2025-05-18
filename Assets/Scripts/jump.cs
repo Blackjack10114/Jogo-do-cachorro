@@ -22,12 +22,15 @@ public class Jump : MonoBehaviour
     public bool EstaNoChao => grounded;
     AudioSource sound;
     public AudioClip som_pulo;
+    public AudioMixerGroup sfxGroup;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
         sound = gameObject.GetComponent<AudioSource>();
+        sound.outputAudioMixerGroup = sfxGroup;
     }
 
     void Update()

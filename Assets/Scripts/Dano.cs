@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class Dano : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Dano : MonoBehaviour
     private bool entregaFalhou = false;
     public AudioClip dano_som;
     AudioSource sound;
+    public AudioMixerGroup sfxGroup;
 
     private static readonly string[] obstaculosQueCausamDano = {
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
@@ -35,6 +37,7 @@ public class Dano : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
         sound = gameObject.GetComponent<AudioSource>();
+        sound.outputAudioMixerGroup = sfxGroup;
     }
 
     public void TomarDano(int dano, GameObject origem = null)
