@@ -28,17 +28,23 @@ public class Tempopowerup : MonoBehaviour
             gourmet_ativado = true;
         }
         mostrartempo();
-        if (Duration.turboTimer <= 0 && turbo_ativado == true)
+        if (turbo_ativado == true)
         {
-            tempos.turbotempo = false;
-            turbo_ativado = false;
-            StartCoroutine(Delaydestruirturbo());
+            if (Duration.turboTimer <= 0 && tempos.turbo_ativado == false) 
+            {
+                tempos.turbotempo = false;
+                turbo_ativado = false;
+                StartCoroutine(Delaydestruirturbo());
+            }
         }
-        if (Duration.gourmetTimer <= 0 && gourmet_ativado == true)
+        if (gourmet_ativado == true)
         {
-            tempos.gourmettempo = false;
-            gourmet_ativado = false;
-            StartCoroutine(Delaydestruirgourmet());
+            if (Duration.gourmetTimer <= 0 && tempos.gourmet_ativado == false) 
+            {
+                tempos.gourmettempo = false;
+                gourmet_ativado = false;
+                StartCoroutine(Delaydestruirgourmet());
+            }
         }
     }
     private void mostrartempo()

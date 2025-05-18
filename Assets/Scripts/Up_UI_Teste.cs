@@ -7,10 +7,10 @@ public class Up_UI_Teste : MonoBehaviour
 {
     private PlayerMov duracao;
     private GameObject Player;
-    bool turbo_ativado; 
+    [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet; 
     bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
     [HideInInspector] public bool gourmettempo, turbotempo;
-    bool gourmet_ativado;
+    [HideInInspector] public bool gourmet_ativado;
     bool bolha_ativada;
     bool pulo_duplo_ativado;
     private GameObject TurboPrefab = null;
@@ -20,6 +20,8 @@ public class Up_UI_Teste : MonoBehaviour
     private Text TempoPrefab = null;
     private Dano Bolha;
     private GameObject objetoreferencia;
+    private Text TempoTurbo = null;
+    private Text TempoGourmet = null;
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -104,32 +106,35 @@ public class Up_UI_Teste : MonoBehaviour
                 pulo_insta = false;
             }
         }
-        if (TempoPrefab != null && !tempo_insta && turbo_ativado)
+        if (TempoPrefab != null && TempoTurbo == null && turbo_ativado)
         {
             turbotempo = true;
-            instanciartempo();
+            TempoTurbo = instanciartempo();
         }
-        if (tempo_insta && !turbotempo)
+        if (TempoTurbo != null && duracao.isTurboActive == false)
         {
-            tempo_insta = false;
+            turbotempo = false;
+            TempoTurbo = null;
         }
-        if (TempoPrefab != null && !tempo_insta && gourmet_ativado)
+
+        if (TempoPrefab != null && TempoGourmet == null && gourmet_ativado)
         {
             gourmettempo = true;
-            instanciartempo();
+            TempoGourmet = instanciartempo();
         }
-        if (tempo_insta && !gourmettempo)
+        if (TempoGourmet != null && duracao.isGourmetActive == false)
         {
-            tempo_insta = false;
+            gourmettempo = false;
+            TempoGourmet = null;
         }
     }
-    private void instanciartempo()
+    private Text instanciartempo()
     {
-        tempo_insta = true;
         Vector3 offsettext = new Vector3(0, 3, 0);
         Vector3 Posicaotexto = this.transform.position + offsettext;
-        TempoPrefab = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity) as Text;
-        TempoPrefab.transform.SetParent(this.transform);
+        Text novoTexto = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity);
+        novoTexto.transform.SetParent(this.transform);
+        return novoTexto;
     }
 
 }

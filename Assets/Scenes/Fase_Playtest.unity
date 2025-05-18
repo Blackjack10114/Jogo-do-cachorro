@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 67196148}
   - component: {fileID: 67196147}
   - component: {fileID: 67196146}
+  - component: {fileID: 67196150}
   m_Layer: 0
   m_Name: "PowerUp_Ra\xE7\xE3o_Turbo_0 (1)"
   m_TagString: Untagged
@@ -916,6 +917,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &67196150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67196145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c6282bb11e4d840b8f2fe51cd14ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PowerUp_coletado: 0
+  Power_up: {fileID: 67196145}
 --- !u!1 &78963852
 GameObject:
   m_ObjectHideFlags: 0
@@ -6200,8 +6215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bb49f88c874cd4ead9b9e19b2ec17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turbo_ativado: 0
+  tempoturbo: 0
+  tempogourmet: 0
   gourmettempo: 0
   turbotempo: 0
+  gourmet_ativado: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -8259,6 +8278,7 @@ GameObject:
   - component: {fileID: 909081303}
   - component: {fileID: 909081302}
   - component: {fileID: 909081301}
+  - component: {fileID: 909081305}
   m_Layer: 0
   m_Name: PowerUp_Racao_Dourada_0 (1)
   m_TagString: Untagged
@@ -8398,6 +8418,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909081305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909081300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c6282bb11e4d840b8f2fe51cd14ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PowerUp_coletado: 0
+  Power_up: {fileID: 909081300}
 --- !u!1001 &910914439
 PrefabInstance:
   m_ObjectHideFlags: 0
