@@ -19,9 +19,9 @@ public class Stamina_Barra : MonoBehaviour
         fundostamina = GameObject.Find("Fundo_Stamina");
         SrFundo = fundostamina.GetComponent<SpriteRenderer>();
         SrBarra = this.GetComponent<Image>();
-        CorMetade = new Color (229 / 255f, 189 / 255f, 10 / 255f, 1f);
-        CorFinal = new Color (241 / 255f, 17 / 255f, 48 / 255f, 1f);
-        Cormaismetade = new Color (0, 255 / 255f, 55 / 255f, 1f);
+        CorMetade = new Color (255 / 255f, 200 / 255f, 37 / 255f, 1f);
+        CorFinal = new Color (202 / 255f, 17 / 255f, 46 / 255f, 1f);
+        Cormaismetade = new Color (66 / 255f, 204 / 255f, 69 / 255f, 1f);
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class Stamina_Barra : MonoBehaviour
         {
             Barrastamina.color = CorFinal;
         }
-        if (VerStamina.stamina >= StaminaMax / 2)
+        if (VerStamina.stamina > StaminaMax / 2)
         {
             Barrastamina.color = Cormaismetade;
         }
