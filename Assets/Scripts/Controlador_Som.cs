@@ -10,6 +10,11 @@ public class Controlador_Som : MonoBehaviour
     [SerializeField] private Slider sliderSFX;
     [SerializeField] private Slider sliderMaster;
 
+    [Header("Configurações do Mute")]
+    [SerializeField] private Button muteButton;
+    [SerializeField] private Sprite somLigadoSprite;
+    [SerializeField] private Sprite somDesligadoSprite;
+
     void Start()
     {
         float volMusica = PlayerPrefs.GetFloat("MusicVolume", 1f);

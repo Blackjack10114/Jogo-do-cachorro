@@ -10,7 +10,10 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField]private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private string CenaRetry;
-   public void Jogar()
+    [SerializeField] private GameObject painelConfirmacao;
+
+    private System.Action acaoConfirmada;
+    public void Jogar()
     {
         SceneManager.LoadScene("Tutorial");
     }
@@ -30,8 +33,11 @@ public class MenuPrincipalMangement : MonoBehaviour
     }
     public void SairJogo()
     {
-        Debug.Log("Sair do Jogo");
+        MostrarConfirmacao(() =>
+        {
+            Debug.Log("Sair do Jogo");
         Application.Quit();
+        });
     }
     public void MenuPrincipal()
     {
@@ -41,5 +47,19 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void ProximaFase()
     {
         SceneManager.LoadScene("Fase_Alien_02");
+    }
+    private void MostrarConfirmacao(System.Action acao)
+    {
+        painelConfirmacao.SetActive(true);
+        acaoConfirmada = acao;
+    }
+    public void BotaoConfirmarSim()
+    {
+        acaoConfirmada?.Invoke();
+    }
+
+    public void BotaoConfirmarNao()
+    {
+        painelConfirmacao.SetActive(false);
     }
 }
