@@ -3,82 +3,96 @@ using System.Collections;
 
 public class EspinhoReativo : MonoBehaviour
 {
-    [Header("Velocidade da Animação")]
+    [Header("Configurações")]
     [SerializeField] private float velocidadeAnimacao = 1f;
+    
 
+    [Header("Tempos Base (ajustados pela velocidade)")]
+    [SerializeField] private float tempoSubidaBase = 0.5f;
+    [SerializeField] private float tempoAtivoBase = 1f;
+    [SerializeField] private float tempoDescidaBase = 0.5f;
+    [SerializeField] private float tempoInativoBase = 2f;
+
+    // Componentes
     private Animator animator;
-    private Collider2D colliderEspinho; // Referência ao Collider2D
-    private bool estaAtivo = false;
+    private Collider2D colliderEspinho;
+
+    // Estados
+    private enum Estado { Inativo, Subindo, Ativo, Descendo }
+    private Estado estadoAtual;
     private string tagOriginal;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        colliderEspinho = GetComponent<Collider2D>(); // Pega o Collider2D
+        colliderEspinho = GetComponent<Collider2D>();
         animator.speed = velocidadeAnimacao;
+        tagOriginal = "Ground";
+        estadoAtual = Estado.Inativo;
 
-        tagOriginal = "Ground"; // Define sua tag original
-        gameObject.tag = tagOriginal;
+        // Inicia desativado
+        DesativarDano();
 
-        StartCoroutine(ControlarEspinho());
+        StartCoroutine(CicloEspinho());
     }
 
-    IEnumerator ControlarEspinho()
+    IEnumerator CicloEspinho()
     {
         while (true)
         {
             // Subida
-            estaAtivo = false;
-            gameObject.tag = tagOriginal;
-            colliderEspinho.enabled = false;
-            animator.SetTrigger("Subir");
-            yield return new WaitForSeconds(0.5f); // Espera a animação de subida
+            estadoAtual = Estado.Subindo;
+            animator.SetBool("Subindo", true);
+            animator.SetBool("Descendo", false);
+            yield return new WaitForSeconds(tempoSubidaBase / velocidadeAnimacao);
 
             // Ativo
-            estaAtivo = true;
-            gameObject.tag = "Spike";
-            colliderEspinho.enabled = true;
-            yield return new WaitForSeconds(1f); // Tempo ativo
+            estadoAtual = Estado.Ativo;
+            animator.SetBool("Subindo", false);
+            AtivarDano();
+            yield return new WaitForSeconds(tempoAtivoBase / velocidadeAnimacao);
 
             // Descida
-            estaAtivo = false;
-            animator.SetTrigger("Descer");
-            gameObject.tag = tagOriginal;
-            colliderEspinho.enabled = false;
-            yield return new WaitForSeconds(0.5f); // Espera a animação de descida
+            estadoAtual = Estado.Descendo;
+            animator.SetBool("Descendo", true);
+            DesativarDano();
+            yield return new WaitForSeconds(tempoDescidaBase / velocidadeAnimacao);
 
             // Inativo
-            yield return new WaitForSeconds(2f); // Tempo inativo antes de subir de novo
+            estadoAtual = Estado.Inativo;
+            animator.SetBool("Descendo", false);
+            yield return new WaitForSeconds(tempoInativoBase / velocidadeAnimacao);
         }
     }
-
-
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Verifica se está ativo (redundante, mas extra seguro)
-        if (!estaAtivo || !colliderEspinho.enabled) return;
+        // Só causa dano se estiver no estado ATIVO
+        if (estadoAtual != Estado.Ativo) return;
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") &&
+            collision.gameObject.TryGetComponent<Dano>(out Dano dano))
         {
-            if (collision.gameObject.TryGetComponent<Dano>(out Dano dano))
-            {
-                dano.TomarDano(10, gameObject);
-            }
+            dano.TomarDano(10, gameObject);
         }
     }
-    public void AtivarDano()
+
+    void AtivarDano()
     {
-        estaAtivo = true;
         gameObject.tag = "Spike";
         colliderEspinho.enabled = true;
     }
 
-    public void DesativarDano()
+    void DesativarDano()
     {
-        estaAtivo = false;
         gameObject.tag = tagOriginal;
         colliderEspinho.enabled = false;
     }
 
+    // DEBUG: Mostra estado atual na tela
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 300, 20), $"Estado: {estadoAtual} | Velocidade: {velocidadeAnimacao}x");
+    }
+    
 }
