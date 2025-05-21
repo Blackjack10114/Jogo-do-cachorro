@@ -32,25 +32,26 @@ public class EspinhoReativo : MonoBehaviour
             gameObject.tag = tagOriginal;
             colliderEspinho.enabled = false;
             animator.SetTrigger("Subir");
-
+            yield return new WaitForSeconds(0.5f); // Espera a animação de subida
 
             // Ativo
             estaAtivo = true;
             gameObject.tag = "Spike";
-            colliderEspinho.enabled = true; // Ativa o Collider
-
+            colliderEspinho.enabled = true;
+            yield return new WaitForSeconds(1f); // Tempo ativo
 
             // Descida
             estaAtivo = false;
             animator.SetTrigger("Descer");
             gameObject.tag = tagOriginal;
-            colliderEspinho.enabled = false; // Desativa o Collider
-
+            colliderEspinho.enabled = false;
+            yield return new WaitForSeconds(0.5f); // Espera a animação de descida
 
             // Inativo
-
+            yield return new WaitForSeconds(2f); // Tempo inativo antes de subir de novo
         }
     }
+
 
 
     void OnCollisionEnter2D(Collision2D collision)
