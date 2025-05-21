@@ -327,6 +327,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20440,7 +20448,7 @@ GameObject:
   - component: {fileID: 706062061}
   m_Layer: 0
   m_Name: Powerups_UI
-  m_TagString: Untagged
+  m_TagString: PowerUpUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21120,6 +21128,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21772,6 +21788,14 @@ PrefabInstance:
     - target: {fileID: 4377510755334029520, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25323,6 +25347,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25379,6 +25411,14 @@ PrefabInstance:
     - target: {fileID: 4377510755334029520, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26801,6 +26841,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26854,6 +26902,7 @@ GameObject:
   - component: {fileID: 1598236929}
   - component: {fileID: 1598236928}
   - component: {fileID: 1598236927}
+  - component: {fileID: 1598236931}
   m_Layer: 0
   m_Name: Jogo_Bota_Pulo_Duplo_0
   m_TagString: Untagged
@@ -26993,6 +27042,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1598236931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598236926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c6282bb11e4d840b8f2fe51cd14ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PowerUp_coletado: 0
+  Power_up: {fileID: 1598236926}
 --- !u!1 &1605805187
 GameObject:
   m_ObjectHideFlags: 0
@@ -29836,6 +29899,7 @@ GameObject:
   - component: {fileID: 2086792994}
   - component: {fileID: 2086792993}
   - component: {fileID: 2086793003}
+  - component: {fileID: 2086793004}
   m_Layer: 0
   m_Name: Sprite_Dog_Caixa_Normal_0
   m_TagString: Player
@@ -30221,6 +30285,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2086793004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086792991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cee4c2d0cb581141929211b6fc9522f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeOut: {fileID: 4852143316860133368, guid: 3f838cd6cc533ed469bd4a3410b4ca55, type: 3}
 --- !u!1001 &2087973018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30346,6 +30423,14 @@ PrefabInstance:
     - target: {fileID: 4377510755334029520, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
