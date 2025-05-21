@@ -74,7 +74,7 @@ public class Up_UI_Teste : MonoBehaviour
         if (Bolha.isInvincible == true && !bolha_insta)
         {
             bolha_ativada = true;
-            Vector3 offset = new Vector3(-8f, 0f, 0f);
+            Vector3 offset = new Vector3(8f, 0f, 0f);
             Vector3 spawnPosition = this.transform.position + offset;
             BolhaPrefab = Instantiate(BolhaPrefab, spawnPosition, Quaternion.identity);
             BolhaPrefab.transform.parent = this.transform;
@@ -130,7 +130,7 @@ public class Up_UI_Teste : MonoBehaviour
     }
     private Text instanciartempo()
     {
-        Vector3 offsettext = new Vector3(0, 3, 0);
+        Vector3 offsettext = new Vector3(0, -10, 0);
         Vector3 Posicaotexto = this.transform.position + offsettext;
         Text novoTexto = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity);
         novoTexto.transform.SetParent(this.transform);
