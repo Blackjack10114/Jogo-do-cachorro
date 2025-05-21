@@ -11,7 +11,7 @@ public class FimDeFaseTutorial : MonoBehaviour
         {
             // Time.timeScale = 0f; // pausa o jogo
             //painelConfirmacao.SetActive(true);
-            SceneManager.LoadScene("Fase_Playtest");
+            SceneManager.LoadScene("Fase_TatuMafioso_01");
         }
     }
 
