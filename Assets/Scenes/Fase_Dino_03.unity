@@ -1361,6 +1361,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1783,7 +1791,7 @@ Transform:
   m_GameObject: {fileID: 189306138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1182.7, y: 65.4, z: -10}
+  m_LocalPosition: {x: 379.6, y: -10.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3298,6 +3306,14 @@ PrefabInstance:
     - target: {fileID: 5144362347717844976, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
       propertyPath: velocidade
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9832,7 +9848,7 @@ Transform:
   m_GameObject: {fileID: 808172452}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1182.7, y: 65.4, z: 0}
+  m_LocalPosition: {x: 379.6, y: -10.1, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10093,6 +10109,7 @@ MonoBehaviour:
   speed: 4
   move: 4
   stamina: 100
+  duracaoPuloDuploAtual: 0
   sprintSpeedMultiplier: 2
   staminaConsumptionMultiplier: 1
   turboTimer: 0
@@ -10164,8 +10181,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1288399439
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 594081401435002664, guid: 991508e69d653694297612ff52a9ab9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -13976,7 +13993,7 @@ Transform:
   m_GameObject: {fileID: 992099263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1182.7, y: 65.4, z: -10}
+  m_LocalPosition: {x: 379.6, y: -10.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17928,6 +17945,14 @@ PrefabInstance:
       propertyPath: velocidade
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5353552916928942425, guid: 5f9210ca2285afb4db2c0dbf89e1f1aa, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1193402021
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19647,7 +19672,7 @@ GameObject:
   - component: {fileID: 1800808427}
   m_Layer: 0
   m_Name: Powerups_UI
-  m_TagString: Untagged
+  m_TagString: PowerUpUi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19682,8 +19707,10 @@ MonoBehaviour:
   turbo_ativado: 0
   tempoturbo: 0
   tempogourmet: 0
+  pulo_duplo_ativado: 0
   gourmettempo: 0
   turbotempo: 0
+  pulotempo: 0
   gourmet_ativado: 0
 --- !u!1001 &1811461739
 PrefabInstance:
@@ -20669,7 +20696,7 @@ Transform:
   m_GameObject: {fileID: 1953588245}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 406.23, y: -6.4513, z: 0}
+  m_LocalPosition: {x: 406.23, y: 56.9, z: 0}
   m_LocalScale: {x: 1, y: 11.901191, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

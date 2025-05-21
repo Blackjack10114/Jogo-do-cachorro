@@ -7,12 +7,11 @@ public class Up_UI_Teste : MonoBehaviour
 {
     private PlayerMov duracao;
     private GameObject Player;
-    [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet; 
+    [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet, pulo_duplo_ativado;
     bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
-    [HideInInspector] public bool gourmettempo, turbotempo;
+    [HideInInspector] public bool gourmettempo, turbotempo, pulotempo;
     [HideInInspector] public bool gourmet_ativado;
     bool bolha_ativada;
-    bool pulo_duplo_ativado;
     private GameObject TurboPrefab = null;
     private GameObject GourmetPrefab = null;
     private GameObject BolhaPrefab = null;
@@ -22,6 +21,7 @@ public class Up_UI_Teste : MonoBehaviour
     private GameObject objetoreferencia;
     private Text TempoTurbo = null;
     private Text TempoGourmet = null;
+    private Text Tempoduplo = null;
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -106,6 +106,7 @@ public class Up_UI_Teste : MonoBehaviour
                 pulo_insta = false;
             }
         }
+        // instanciar tempo turbo
         if (TempoPrefab != null && TempoTurbo == null && turbo_ativado)
         {
             turbotempo = true;
@@ -116,7 +117,7 @@ public class Up_UI_Teste : MonoBehaviour
             turbotempo = false;
             TempoTurbo = null;
         }
-
+        // instanciar tempo gourmet
         if (TempoPrefab != null && TempoGourmet == null && gourmet_ativado)
         {
             gourmettempo = true;
@@ -126,6 +127,17 @@ public class Up_UI_Teste : MonoBehaviour
         {
             gourmettempo = false;
             TempoGourmet = null;
+        }
+        // instanciar tempo Pulo duplo
+        if (TempoPrefab != null && Tempoduplo == null && pulo_duplo_ativado)
+        {
+            pulotempo = true;
+            Tempoduplo = instanciartempo();
+        }
+        if (TempoGourmet != null && duracao.temPuloDuplo == false)
+        {
+            pulotempo = false;
+            Tempoduplo = null;
         }
     }
     private Text instanciartempo()
