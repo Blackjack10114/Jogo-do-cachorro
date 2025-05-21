@@ -3,29 +3,23 @@ using System.Collections;
 
 public class EspinhoReativo : MonoBehaviour
 {
-    [Header("Tempo de Animação")]
-    [SerializeField] private float tempoSubida = 0.5f;
-    [SerializeField] private float tempoAtivo = 1.0f;
-    [SerializeField] private float tempoDescida = 0.5f;
-    [SerializeField] private float tempoInativo = 2.0f;
-    [SerializeField] private float delaySeguranca = 0.2f; // Novo: Delay para evitar falsos positivos
-
     [Header("Velocidade da Animação")]
     [SerializeField] private float velocidadeAnimacao = 1f;
 
     private Animator animator;
-    private Collider2D colliderEspinho;
+    private Collider2D colliderEspinho; // Referência ao Collider2D
     private bool estaAtivo = false;
-    private bool emTransicao = false; // Novo: Estado de transição
     private string tagOriginal;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        colliderEspinho = GetComponent<Collider2D>();
+        colliderEspinho = GetComponent<Collider2D>(); // Pega o Collider2D
         animator.speed = velocidadeAnimacao;
-        tagOriginal = "Ground";
+
+        tagOriginal = "Ground"; // Define sua tag original
         gameObject.tag = tagOriginal;
+
         StartCoroutine(ControlarEspinho());
     }
 
@@ -33,45 +27,36 @@ public class EspinhoReativo : MonoBehaviour
     {
         while (true)
         {
-            // Estado: Subindo (transição)
-            emTransicao = true;
+            // Subida
+            estaAtivo = false;
+            gameObject.tag = tagOriginal;
+            colliderEspinho.enabled = false;
             animator.SetTrigger("Subir");
-            yield return new WaitForSeconds(tempoSubida);
 
-            // Delay de segurança antes de ativar
-            yield return new WaitForSeconds(delaySeguranca);
 
-            // Estado: Totalmente Ativo
-            emTransicao = false;
+            // Ativo
             estaAtivo = true;
             gameObject.tag = "Spike";
-            colliderEspinho.enabled = true;
+            colliderEspinho.enabled = true; // Ativa o Collider
 
-            yield return new WaitForSeconds(tempoAtivo);
 
-            yield return new WaitForSeconds(delaySeguranca);
-
-            // Estado: Descendo (transição)
-            emTransicao = true;
+            // Descida
             estaAtivo = false;
             animator.SetTrigger("Descer");
-            colliderEspinho.enabled = false; // Desativa imediatamente
             gameObject.tag = tagOriginal;
+            colliderEspinho.enabled = false; // Desativa o Collider
 
-            yield return new WaitForSeconds(tempoDescida);
-            yield return new WaitForSeconds(delaySeguranca);
 
-            // Estado: Inativo
-            emTransicao = false;
-            yield return new WaitForSeconds(tempoInativo);
-            yield return new WaitForSeconds(delaySeguranca);
+            // Inativo
+
         }
     }
 
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Só causa dano se estiver totalmente ativo (não em transição)
-        if (!estaAtivo || emTransicao || !colliderEspinho.enabled) return;
+        // Verifica se está ativo (redundante, mas extra seguro)
+        if (!estaAtivo || !colliderEspinho.enabled) return;
 
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -81,4 +66,18 @@ public class EspinhoReativo : MonoBehaviour
             }
         }
     }
+    public void AtivarDano()
+    {
+        estaAtivo = true;
+        gameObject.tag = "Spike";
+        colliderEspinho.enabled = true;
+    }
+
+    public void DesativarDano()
+    {
+        estaAtivo = false;
+        gameObject.tag = tagOriginal;
+        colliderEspinho.enabled = false;
+    }
+
 }
