@@ -130,11 +130,7 @@ public class Up_UI_Teste : MonoBehaviour
     }
     private Text instanciartempo()
     {
-<<<<<<< Updated upstream
-        Vector3 offsettext = new Vector3(0, -3, 0);
-=======
         Vector3 offsettext = new Vector3(0, -10, 0);
->>>>>>> Stashed changes
         Vector3 Posicaotexto = this.transform.position + offsettext;
         Text novoTexto = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity);
         novoTexto.transform.SetParent(this.transform);
