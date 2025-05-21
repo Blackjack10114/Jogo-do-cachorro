@@ -8,6 +8,7 @@ public class GerenciadorProgresso : MonoBehaviour
     [SerializeField] private string[] ordemFases = { "Fase_Playtest", "Fase_Alien_02" };
     [SerializeField] private Button botaoProximaFase;
     [SerializeField] private string cenaMenu = "MenuPrincipal";
+    [SerializeField] private string ProximaFase;
 
     [Header("Aparência do Botão")]
     [SerializeField] private Color corCompleto = Color.gray;
@@ -38,7 +39,10 @@ public class GerenciadorProgresso : MonoBehaviour
             botaoProximaFase.image.color = corCompleto;
         }
     }
-
+    public void ProximaFaseSimples()
+    {
+        SceneManager.LoadScene(ProximaFase);
+    }
     public void CarregarProximaFase()
     {
         int indiceFaseAtual = System.Array.IndexOf(ordemFases, _cenaAnterior);

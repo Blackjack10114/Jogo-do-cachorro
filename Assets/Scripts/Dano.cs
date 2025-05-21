@@ -23,6 +23,8 @@ public class Dano : MonoBehaviour
     AudioSource sound;
     public AudioMixerGroup sfxGroup;
 
+    [SerializeField] private string cenaFalha;
+
     private static readonly string[] obstaculosQueCausamDano = {
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
@@ -166,7 +168,7 @@ public class Dano : MonoBehaviour
             PlayerPrefs.SetInt("EntregaFalhou", 1);
             PlayerPrefs.Save();
             Time.timeScale = 1f;
-            SceneManager.LoadScene("CenaFimDeFase");
+            SceneManager.LoadScene(cenaFalha);
         }
     }
 }
