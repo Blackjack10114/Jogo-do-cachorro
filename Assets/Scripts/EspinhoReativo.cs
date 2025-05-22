@@ -89,10 +89,6 @@ public class EspinhoReativo : MonoBehaviour
         colliderEspinho.enabled = false;
     }
 
-    // DEBUG: Mostra estado atual na tela
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 300, 20), $"Estado: {estadoAtual} | Velocidade: {velocidadeAnimacao}x");
-    }
+  
     
 }

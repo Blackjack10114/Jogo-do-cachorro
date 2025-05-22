@@ -6,20 +6,29 @@ public class FimDaFase : MonoBehaviour
 {
     private SistemaPontuacao pontuacaoScript;
     private Dano danoScript;
+    private PlayerMov playerMov;
+
     [SerializeField] private string cenaFim;
     public GameObject avisoFaltaCaixaUI;
+    public GameObject clienteEmojiUI;
+    public Sprite emojiFeliz;
+    public Sprite emojiNeutro;
+    public Sprite emojiBravo;
 
     void Start()
     {
         pontuacaoScript = Object.FindFirstObjectByType<SistemaPontuacao>();
         danoScript = Object.FindFirstObjectByType<Dano>();
+        playerMov = Object.FindFirstObjectByType<PlayerMov>();
+
+        if (clienteEmojiUI != null)
+            clienteEmojiUI.SetActive(false); // Esconde o emoji inicialmente
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // Verifica se está com o sprite sem a caixa (indicando que a caixa foi solta)
             var spriteAtual = other.GetComponent<SpriteRenderer>().sprite;
 
             if (spriteAtual == danoScript.Sprite_Dog_Sem_Caixa)
@@ -27,24 +36,21 @@ public class FimDaFase : MonoBehaviour
                 if (avisoFaltaCaixaUI != null)
                     avisoFaltaCaixaUI.SetActive(true);
 
-                Debug.Log("❌ A entrega não foi feita! Volte e recupere a caixa.");
+                Debug.Log(" A entrega não foi feita! Volte e recupere a caixa.");
                 StartCoroutine(ResetarEntrada());
                 return;
             }
 
-            // Calcula a pontuação final
             pontuacaoScript.CalcularPontuacaoFinal();
 
-            // Salva os dados para serem usados na próxima cena
             int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
             string nota = pontuacaoScript.GetClassificacaoLetra();
 
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
 
-            Time.timeScale = 1f;
-            GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene(cenaFim);
+            // Começa a sequência da reação do cliente
+            StartCoroutine(ReacaoClienteENextScene(nota));
         }
     }
 
@@ -57,5 +63,42 @@ public class FimDaFase : MonoBehaviour
             avisoFaltaCaixaUI.SetActive(false);
 
         GetComponent<Collider2D>().enabled = true;
+    }
+
+    private IEnumerator ReacaoClienteENextScene(string nota)
+    {
+        Time.timeScale = 0f;
+        // Para o movimento do player
+        if (playerMov != null)
+        {
+            playerMov.enabled = false;
+            playerMov.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        // Ativa o cliente/emoji
+        if (clienteEmojiUI != null)
+        {
+            clienteEmojiUI.SetActive(true);
+
+            // Define o emoji pela nota
+            var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
+            if (emojiRenderer != null)
+            {
+                if (nota == "S+" || nota == "S" || nota == "A")
+                    emojiRenderer.sprite = emojiFeliz;
+                else if (nota == "B" || nota == "C")
+                    emojiRenderer.sprite = emojiNeutro;
+                else
+                    emojiRenderer.sprite = emojiBravo;
+            }
+        }
+
+        // Espera 2 segundos para mostrar a reação
+        yield return new WaitForSecondsRealtime(2f);
+
+        Time.timeScale = 1f;
+        GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(cenaFim);
     }
 }
