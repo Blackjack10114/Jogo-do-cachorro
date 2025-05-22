@@ -3,10 +3,11 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor.PackageManager.UI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Comeco_Fase : MonoBehaviour
 {
-    [HideInInspector] public bool apertou_botao;
+    [HideInInspector] public bool apertou_botao, Semmeta;
     private GameObject fundoPrefab, metaPrefab;
     public Image barra_vida;
     void Start()
@@ -23,7 +24,7 @@ public class Comeco_Fase : MonoBehaviour
     }
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && Semmeta)
         {
             apertou_botao = true;
         }
@@ -51,6 +52,7 @@ public class Comeco_Fase : MonoBehaviour
         Destroy(metaPrefab);
         Destroy(fundoPrefab);
         barra_vida.enabled = true;
+        Semmeta = true;
         StartCoroutine(Deixarvisivel());
     }
 }
