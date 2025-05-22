@@ -7,10 +7,19 @@ using UnityEngine.UI;
 public class Comeco_Fase : MonoBehaviour
 {
     [HideInInspector] public bool apertou_botao;
+    private GameObject fundoPrefab, metaPrefab;
+    public Image barra_vida;
     void Start()
     {
         Time.timeScale = 0f;
-        StartCoroutine(Deixarvisivel());
+        barra_vida.enabled = false;
+        fundoPrefab = Resources.Load<GameObject>("Fundo");
+        metaPrefab = Resources.Load<GameObject>("Texto_meta");
+        metaPrefab = Instantiate(metaPrefab, this.transform.position, Quaternion.identity);
+        fundoPrefab = Instantiate(fundoPrefab, this.transform.position, Quaternion.identity);
+        metaPrefab.transform.parent = this.transform;
+        metaPrefab.transform.localScale = new Vector3(1, 1, 1);
+        StartCoroutine(Tirarmeta());
     }
     void Update()
     {
@@ -26,14 +35,22 @@ public class Comeco_Fase : MonoBehaviour
     }
     private IEnumerator Deixarvisivel()
     {
-        yield return new WaitForSecondsRealtime(0.8f);
+        yield return new WaitForSecondsRealtime(1f);
         this.GetComponent<Text>().enabled = true;
         StartCoroutine(Deixarnaovisivel());
     }
     private IEnumerator Deixarnaovisivel()
     {
-        yield return new WaitForSecondsRealtime(0.8f);
+        yield return new WaitForSecondsRealtime(1f);
         this.GetComponent<Text>().enabled = false;
+        StartCoroutine(Deixarvisivel());
+    }
+    private IEnumerator Tirarmeta()
+    {
+        yield return new WaitForSecondsRealtime(4f);
+        Destroy(metaPrefab);
+        Destroy(fundoPrefab);
+        barra_vida.enabled = true;
         StartCoroutine(Deixarvisivel());
     }
 }

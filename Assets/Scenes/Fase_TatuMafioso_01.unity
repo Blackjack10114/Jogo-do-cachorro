@@ -10387,7 +10387,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000b7867da5670e1c2459fd4f23a5de2147b19534b3db4104209531f8bba9945138
+  m_ApplyToSortingLayers: 00000000b7867da5670e1c2459fd4f23a5de2147b19534b3db4104209531f8bba9945138e90e51fe
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -15531,12 +15531,12 @@ Transform:
   m_GameObject: {fileID: 1438660860}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -217.1, y: 174.3, z: 0}
-  m_LocalScale: {x: 18, y: 18, z: 11.855577}
+  m_LocalPosition: {x: -217.09999, y: 174.33678, z: 0}
+  m_LocalScale: {x: 18, y: 18, z: 11.855576}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 902600737}
-  m_Father: {fileID: 2051077704}
+  m_Father: {fileID: 1667932964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1438660862
 SpriteRenderer:
@@ -18382,6 +18382,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1449389604}
+  - {fileID: 1438660861}
   - {fileID: 1942761539}
   - {fileID: 1330305496}
   - {fileID: 2051077704}
@@ -19714,7 +19715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47.9, y: 30.9}
+  m_AnchoredPosition: {x: 26.2, y: 30.9}
   m_SizeDelta: {x: 790.487, y: 120.632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1942761540
@@ -19772,6 +19773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apertou_botao: 0
+  barra_vida: {fileID: 902600739}
 --- !u!1 &1972033702
 GameObject:
   m_ObjectHideFlags: 0
@@ -20265,7 +20267,6 @@ RectTransform:
   - {fileID: 529638644}
   - {fileID: 1313683587}
   - {fileID: 118932655}
-  - {fileID: 1438660861}
   m_Father: {fileID: 1667932964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
