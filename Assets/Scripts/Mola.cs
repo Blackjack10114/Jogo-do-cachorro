@@ -23,38 +23,43 @@ public class Mola : MonoBehaviour
     {
         Player = GameObject.FindWithTag("Player");
         VerificarChao = Player.GetComponent<Jump>();
+
+       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Player.GetComponent<PlayerMov>().enabled = false;
-            StartCoroutine(Delayverificarchao());
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            if (EstaEmCimaDaMola(other))
             {
-                // 1. Remove TODAS as forças e reseta a física completamente
-                if (ignorarTodasAsForcas)
+                Player.GetComponent<PlayerMov>().enabled = false;
+                StartCoroutine(Delayverificarchao());
+                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+                if (rb != null)
                 {
-                    rb.linearVelocity = Vector2.zero;
-                    rb.angularVelocity = 0f;
-                    rb.Sleep(); // "Adormece" o Rigidbody para resetar cálculos internos
-                    rb.WakeUp(); // Reativa para aplicar o impulso limpo
+                    // 1. Remove TODAS as forças e reseta a física completamente
+                    if (ignorarTodasAsForcas)
+                    {
+                        rb.linearVelocity = Vector2.zero;
+                        rb.angularVelocity = 0f;
+                        rb.Sleep(); // "Adormece" o Rigidbody para resetar cálculos internos
+                        rb.WakeUp(); // Reativa para aplicar o impulso limpo
+                    }
+
+                    // 2. Calcula o impulso
+                    Vector2 impulso = CalcularImpulso();
+
+                    // 3. Aplica a força (usando VelocityChange para ignorar massa e física)
+                    rb.AddForce(impulso, ForceMode2D.Impulse);
+
+                    // 4. Efeitos
+                    if (somMola != null)
+                        AudioSource.PlayClipAtPoint(somMola, transform.position);
+
+                    if (efeitoVisual != null)
+                        efeitoVisual.Play();
                 }
-
-                // 2. Calcula o impulso
-                Vector2 impulso = CalcularImpulso();
-
-                // 3. Aplica a força (usando VelocityChange para ignorar massa e física)
-                rb.AddForce(impulso, ForceMode2D.Impulse);
-
-                // 4. Efeitos
-                if (somMola != null)
-                    AudioSource.PlayClipAtPoint(somMola, transform.position);
-
-                if (efeitoVisual != null)
-                    efeitoVisual.Play();
             }
         }
     }
@@ -76,6 +81,28 @@ public class Mola : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Permitirverchao = true;
     }
+    private bool EstaEmCimaDaMola(Collider2D jogador)
+    {
+        // Centraliza o raycast na parte inferior do jogador
+        Vector2 origem = jogador.bounds.center;
+        origem.y = jogador.bounds.min.y;
+
+        // Direção do raycast para baixo
+        Vector2 direcao = Vector2.down;
+
+        // Distância suficiente para alcançar a mola
+        float distancia = 0.1f;
+
+        RaycastHit2D hit = Physics2D.Raycast(origem, direcao, distancia);
+
+        if (hit.collider != null && hit.collider.gameObject == this.gameObject)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void Update()
     {
         if (Permitirverchao == true)
