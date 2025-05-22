@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class Mola : MonoBehaviour
@@ -6,62 +6,76 @@ public class Mola : MonoBehaviour
     public enum Direcao { Cima, DiagonalDireita, DiagonalEsquerda }
     public Direcao direcao = Direcao.Cima;
 
-    [Header("Forças aplicadas")]
+    [Header("ForÃ§as aplicadas")]
     public float forcaVertical = 15f;
     public float forcaHorizontal = 10f;
 
-    [Header("Configurações Físicas")]
-    public bool ignorarTodasAsForcas = true; // Novo: Remove forças residuais
+    [Header("ConfiguraÃ§Ãµes FÃ­sicas")]
+    public bool ignorarTodasAsForcas = true;
 
     [Header("Efeitos")]
     public AudioClip somMola;
     public ParticleSystem efeitoVisual;
-    private GameObject Player = null;
-    private Jump VerificarChao;
-    private bool Permitirverchao = false;
+
+    private GameObject player;
+    private Rigidbody2D rb;
+    private Jump verificarChao;
+    private PlayerMov playerMov;
+    private Animator anim;
+
+    private bool permitirVerChao = false;
+    private bool preparado = false;
+
     private void Start()
     {
-        Player = GameObject.FindWithTag("Player");
-        VerificarChao = Player.GetComponent<Jump>();
+        player = GameObject.FindWithTag("Player");
+        rb = player.GetComponent<Rigidbody2D>();
+        verificarChao = player.GetComponent<Jump>();
+        playerMov = player.GetComponent<PlayerMov>();
+        anim = GetComponent<Animator>();
 
-       
+        anim.ResetTrigger("Ativar");
+        anim.Play("MolaBase", 0, 0f); //garante que comeÃ§a no estado base
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !preparado)
         {
-            if (EstaEmCimaDaMola(other))
-            {
-                Player.GetComponent<PlayerMov>().enabled = false;
-                StartCoroutine(Delayverificarchao());
-                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    // 1. Remove TODAS as forças e reseta a física completamente
-                    if (ignorarTodasAsForcas)
-                    {
-                        rb.linearVelocity = Vector2.zero;
-                        rb.angularVelocity = 0f;
-                        rb.Sleep(); // "Adormece" o Rigidbody para resetar cálculos internos
-                        rb.WakeUp(); // Reativa para aplicar o impulso limpo
-                    }
+            preparado = true;
 
-                    // 2. Calcula o impulso
-                    Vector2 impulso = CalcularImpulso();
+            // Desativa movimento
+            if (playerMov != null)
+                playerMov.enabled = false;
 
-                    // 3. Aplica a força (usando VelocityChange para ignorar massa e física)
-                    rb.AddForce(impulso, ForceMode2D.Impulse);
-
-                    // 4. Efeitos
-                    if (somMola != null)
-                        AudioSource.PlayClipAtPoint(somMola, transform.position);
-
-                    if (efeitoVisual != null)
-                        efeitoVisual.Play();
-                }
-            }
+            // Inicia animaÃ§Ã£o
+            if (anim != null)
+                anim.SetTrigger("Ativar");
         }
+    }
+
+    // ðŸ”¥ Essa funÃ§Ã£o serÃ¡ chamada no frame certo pelo Animator Event
+    public void AplicarImpulso()
+    {
+        if (ignorarTodasAsForcas)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.Sleep();
+            rb.WakeUp();
+        }
+
+        Vector2 impulso = CalcularImpulso();
+        rb.AddForce(impulso, ForceMode2D.Impulse);
+
+        if (somMola != null)
+            AudioSource.PlayClipAtPoint(somMola, transform.position);
+
+        if (efeitoVisual != null)
+            efeitoVisual.Play();
+
+        StartCoroutine(DelayVerificarChao());
     }
 
     private Vector2 CalcularImpulso()
@@ -72,45 +86,26 @@ public class Mola : MonoBehaviour
                 return new Vector2(forcaHorizontal, forcaVertical);
             case Direcao.DiagonalEsquerda:
                 return new Vector2(-forcaHorizontal, forcaVertical);
-            default: // Cima
+            default:
                 return new Vector2(0f, forcaVertical);
         }
     }
-    private IEnumerator Delayverificarchao()
+
+    private IEnumerator DelayVerificarChao()
     {
         yield return new WaitForSeconds(0.3f);
-        Permitirverchao = true;
-    }
-    private bool EstaEmCimaDaMola(Collider2D jogador)
-    {
-        // Centraliza o raycast na parte inferior do jogador
-        Vector2 origem = jogador.bounds.center;
-        origem.y = jogador.bounds.min.y;
-
-        // Direção do raycast para baixo
-        Vector2 direcao = Vector2.down;
-
-        // Distância suficiente para alcançar a mola
-        float distancia = 0.1f;
-
-        RaycastHit2D hit = Physics2D.Raycast(origem, direcao, distancia);
-
-        if (hit.collider != null && hit.collider.gameObject == this.gameObject)
-        {
-            return true;
-        }
-
-        return false;
+        permitirVerChao = true;
     }
 
     private void Update()
     {
-        if (Permitirverchao == true)
+        if (permitirVerChao)
         {
-            if (VerificarChao.grounded == true)
+            if (verificarChao.grounded)
             {
-                Player.GetComponent<PlayerMov>().enabled = true;
-                Permitirverchao = false;
+                playerMov.enabled = true;
+                permitirVerChao = false;
+                preparado = false;
             }
         }
     }
