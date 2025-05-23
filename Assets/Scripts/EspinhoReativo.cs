@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class EspinhoReativo : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class EspinhoReativo : MonoBehaviour
     private enum Estado { Inativo, Subindo, Ativo, Descendo }
     private Estado estadoAtual;
     private string tagOriginal;
+
+    public AudioClip somAbrir;
+    public AudioClip somFechar;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -89,6 +94,16 @@ public class EspinhoReativo : MonoBehaviour
         colliderEspinho.enabled = false;
     }
 
-  
-    
+    public void SomAbrir()
+    {
+        audioSource.PlayOneShot(somAbrir);
+    }
+
+    public void SomFechar()
+    {
+        audioSource.PlayOneShot(somFechar);
+    }
+
+
+
 }

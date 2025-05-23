@@ -14,6 +14,11 @@ public class Ver_fase_meta : MonoBehaviour
     }
     private void Update()
     {
+
+        if (sceneName == "Tutorial")
+        {
+            texto_meta.text = "Tutorial";
+        }
         if (sceneName == "Fase_TatuMafioso_01")
         {
             texto_meta.text = "Meta: 2 min";

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class Mola : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class Mola : MonoBehaviour
 
     private bool permitirVerChao = false;
     private bool preparado = false;
-
+    public AudioMixer mixer;
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -70,7 +71,7 @@ public class Mola : MonoBehaviour
         rb.AddForce(impulso, ForceMode2D.Impulse);
 
         if (somMola != null)
-            AudioSource.PlayClipAtPoint(somMola, transform.position);
+            AudioSource.PlayClipAtPoint(somMola, transform.position, 1.5f);
 
         if (efeitoVisual != null)
             efeitoVisual.Play();
