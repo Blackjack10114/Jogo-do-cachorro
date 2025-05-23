@@ -24,7 +24,7 @@ public class Ver_fase_meta : MonoBehaviour
         }
         else if (sceneName == "Fase_Dino_03")
         {
-            texto_meta.text = "sla";
+            texto_meta.text = "Meta 2:30 min";
         }
     }
 }

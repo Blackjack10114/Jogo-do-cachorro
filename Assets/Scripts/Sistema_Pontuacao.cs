@@ -56,7 +56,7 @@ public class SistemaPontuacao : MonoBehaviour
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(500 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(1000 * proporcaoTempo);
         }
 
         bonusTotal = bonusVida + bonusTempo;
