@@ -1,7 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
-using UnityEditor.PackageManager.UI;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +9,7 @@ public class Comeco_Fase : MonoBehaviour
     [HideInInspector] public bool apertou_botao, Semmeta;
     private GameObject fundoPrefab, metaPrefab;
     public Image barra_vida;
+
     void Start()
     {
         Time.timeScale = 0f;
@@ -22,6 +22,7 @@ public class Comeco_Fase : MonoBehaviour
         metaPrefab.transform.localScale = new Vector3(1, 1, 1);
         StartCoroutine(Tirarmeta());
     }
+
     void Update()
     {
         if (Input.anyKeyDown && Semmeta)
@@ -34,18 +35,21 @@ public class Comeco_Fase : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
     private IEnumerator Deixarvisivel()
     {
         yield return new WaitForSecondsRealtime(1f);
         this.GetComponent<Text>().enabled = true;
         StartCoroutine(Deixarnaovisivel());
     }
+
     private IEnumerator Deixarnaovisivel()
     {
         yield return new WaitForSecondsRealtime(1f);
         this.GetComponent<Text>().enabled = false;
         StartCoroutine(Deixarvisivel());
     }
+
     private IEnumerator Tirarmeta()
     {
         yield return new WaitForSecondsRealtime(4f);
