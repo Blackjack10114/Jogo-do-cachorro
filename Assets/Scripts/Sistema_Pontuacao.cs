@@ -43,9 +43,9 @@ public class SistemaPontuacao : MonoBehaviour
         float vidaAtual = danoScript.pv;
         float tempoFinal = tempoScript.tempoAtual;
 
-        // BÔNUS POR VIDA (proporcional, até 600)
+        // BÔNUS POR VIDA 
         float proporcaoVida = Mathf.Clamp01(vidaAtual / vidaMaxima);
-        bonusVida = Mathf.RoundToInt(500 * proporcaoVida);
+        bonusVida = Mathf.RoundToInt(600 * proporcaoVida);
 
         // BÔNUS POR OSSO
         int pontosOssos = ossosColetados * pontosPorOsso;
