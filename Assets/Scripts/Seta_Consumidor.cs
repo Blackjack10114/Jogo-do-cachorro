@@ -23,7 +23,7 @@ public class Seta_Consumidor : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
             this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        if (Calculo_Pos.x < 0 && Calculo_Pos.y <= 30 && Calculo_Pos.y >= -30)
+        if (Calculo_Pos.x < 0 && Calculo_Pos.y <= 50 && Calculo_Pos.y >= -50)
         {
             GetComponent<SpriteRenderer>().flipX = false;
             this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
