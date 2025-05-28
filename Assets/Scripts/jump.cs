@@ -12,7 +12,7 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
-    private bool pulouDuplo = false;
+    private int quantidadeDePulos = 0;
     public bool grounded = false;
     private int groundContacts = 0;
 
@@ -54,9 +54,19 @@ public class Jump : MonoBehaviour
         {
             coyoteTimer -= Time.deltaTime;
         }
+        bool velocidadeYZero = Mathf.Abs(rb.linearVelocity.y) < 0.01f;
 
         bool podePular = jumpBufferTimer > 0f &&
-                         (coyoteTimer > 0f || (playerMov.temPuloDuplo && !pulouDuplo));
+            (
+                (coyoteTimer > 0f && velocidadeYZero) ||
+                (playerMov.temPuloDuplo && quantidadeDePulos < 1)
+            );
+
+
+        if (quantidadeDePulos >= 1 && !velocidadeYZero)
+        {
+            podePular = false;
+        }
 
         if (podePular)
         {
@@ -76,7 +86,7 @@ public class Jump : MonoBehaviour
             }
             else if (playerMov.temPuloDuplo)
             {
-                pulouDuplo = true;
+                quantidadeDePulos++;
             }
 
             jumpBufferTimer = 0f;
@@ -92,15 +102,11 @@ public class Jump : MonoBehaviour
         collision.gameObject.CompareTag("RaizRotatoria") ||
         collision.gameObject.CompareTag("Meteorito") ||
         collision.gameObject.CompareTag("Passaro") ||
-        collision.gameObject.CompareTag("Tatu")   ||
+        collision.gameObject.CompareTag("Tatu") ||
         collision.gameObject.CompareTag("Untagged"))
         {
             groundContacts++;
             grounded = true;
-
-            // ✅ Resetar pulo duplo apenas se ele estiver ativo
-            if (playerMov.temPuloDuplo)
-                pulouDuplo = false;
         }
     }
 
@@ -119,6 +125,17 @@ public class Jump : MonoBehaviour
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
                 grounded = false;
+        }
+    }
+    void FixedUpdate()
+    {
+        if (!grounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+        {
+            grounded = true;
+        }
+        if (Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+        {
+            quantidadeDePulos = 0;
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
