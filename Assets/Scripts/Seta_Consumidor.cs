@@ -17,7 +17,6 @@ public class Seta_Consumidor : MonoBehaviour
         Pos_seta = Player.transform.position;
         Pos_consumidor = Consumidor.transform.position;
         Calculo_Pos = Pos_consumidor - Pos_seta;
-        Debug.Log(Calculo_Pos);
         if (Calculo_Pos.x > 0 && Calculo_Pos.y <= 50 && Calculo_Pos.y >= -50)
         {
             GetComponent<SpriteRenderer>().flipX = true;
