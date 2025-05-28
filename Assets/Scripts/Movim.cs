@@ -12,6 +12,7 @@ public class PlayerMov : MonoBehaviour
     public float speed = 5f;
     public float move = 1f;
     public float stamina = 100f;
+    public float TempoPulo;
 
     public float sprintSpeedMultiplier = 2f;
     public float staminaConsumptionMultiplier = 1.0f;
@@ -122,6 +123,10 @@ public class PlayerMov : MonoBehaviour
         {
             sound.Stop();
         }
+        if (temPuloDuplo == true)
+        {
+            TempoPulo -= Time.deltaTime;
+        }
     }
 
     private void MovePlayer(int direction)
@@ -186,8 +191,10 @@ public class PlayerMov : MonoBehaviour
     public IEnumerator AtivarPuloDuploTemporario(float duracao)
     {
         temPuloDuplo = true;
+        TempoPulo = duracao;
         yield return new WaitForSeconds(duracao);
         temPuloDuplo = false;
+       
     }
 
     void OnCollisionEnter2D(Collision2D collision)

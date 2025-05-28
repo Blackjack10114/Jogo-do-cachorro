@@ -8,7 +8,7 @@ public class Tempopowerup : MonoBehaviour
     private Up_UI_Teste tempos;
     private GameObject Player, Powerup;
     private Text Texto = null;
-    private bool turbo_ativado, gourmet_ativado;
+    private bool turbo_ativado, gourmet_ativado, pulo_duplo_ativado;
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -26,6 +26,10 @@ public class Tempopowerup : MonoBehaviour
         if (Duration.isGourmetActive == true)
         {
             gourmet_ativado = true;
+        }
+        if (Duration.temPuloDuplo == true)
+        {
+            pulo_duplo_ativado = true;
         }
         mostrartempo();
         if (turbo_ativado == true)
@@ -46,6 +50,15 @@ public class Tempopowerup : MonoBehaviour
                 StartCoroutine(Delaydestruirgourmet());
             }
         }
+        if (pulo_duplo_ativado == true)
+        {
+            if (Duration.TempoPulo <= 0 && tempos.pulo_duplo_ativado == false)
+            {
+                tempos.gourmettempo = false;
+                gourmet_ativado = false;
+                StartCoroutine(Delaydestruirduplo());
+            }
+        }
     }
     private void mostrartempo()
     {
@@ -56,6 +69,10 @@ public class Tempopowerup : MonoBehaviour
         if (gourmet_ativado)
         {
             Texto.text = Mathf.Round(Duration.gourmetTimer).ToString();
+        }
+        if (pulo_duplo_ativado)
+        {
+            Texto.text = Mathf.Round(Duration.TempoPulo).ToString();
         }
     }
     private IEnumerator Delaydestruirturbo()
@@ -68,6 +85,12 @@ public class Tempopowerup : MonoBehaviour
     {
         yield return new WaitForSeconds(0.01f);
         gourmet_ativado = false;
+        Destroy(this.gameObject);
+    }
+    private IEnumerator Delaydestruirduplo()
+    {
+        yield return new WaitForSeconds(0.01f);
+        pulo_duplo_ativado = false;
         Destroy(this.gameObject);
     }
 }

@@ -9,19 +9,19 @@ public class Up_UI_Teste : MonoBehaviour
     private GameObject Player;
     [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet; 
     bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
-    [HideInInspector] public bool gourmettempo, turbotempo;
+    [HideInInspector] public bool gourmettempo, turbotempo, pulotempo;
     [HideInInspector] public bool gourmet_ativado;
     bool bolha_ativada;
-    bool pulo_duplo_ativado;
+    public bool pulo_duplo_ativado;
     private GameObject TurboPrefab = null;
     private GameObject GourmetPrefab = null;
     private GameObject BolhaPrefab = null;
     private GameObject PuloPrefab = null;
     private Text TempoPrefab = null;
     private Dano Bolha;
-    private GameObject objetoreferencia;
     private Text TempoTurbo = null;
     private Text TempoGourmet = null;
+    private Text TempoPulo = null;
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -31,7 +31,6 @@ public class Up_UI_Teste : MonoBehaviour
         BolhaPrefab = Resources.Load<GameObject>("PowerUp_Bolha_UI");
         PuloPrefab = Resources.Load<GameObject>("PowerUp_PuloDuplo_UI");
         Bolha = Player.GetComponent<Dano>();
-        objetoreferencia = this.gameObject;
         TempoPrefab = Resources.Load<Text>("Tempo_Powerup");
     }
     private void Update()
@@ -106,6 +105,7 @@ public class Up_UI_Teste : MonoBehaviour
                 pulo_insta = false;
             }
         }
+        //verificação turbo
         if (TempoPrefab != null && TempoTurbo == null && turbo_ativado)
         {
             turbotempo = true;
@@ -116,7 +116,7 @@ public class Up_UI_Teste : MonoBehaviour
             turbotempo = false;
             TempoTurbo = null;
         }
-
+        //verificação gourmet
         if (TempoPrefab != null && TempoGourmet == null && gourmet_ativado)
         {
             gourmettempo = true;
@@ -126,6 +126,17 @@ public class Up_UI_Teste : MonoBehaviour
         {
             gourmettempo = false;
             TempoGourmet = null;
+        }
+        // verificação pulo duplo
+        if (TempoPrefab != null && TempoPulo == null && pulo_duplo_ativado)
+        {
+            pulotempo = true;
+            TempoPulo = instanciartempo();
+        }
+        if (TempoGourmet != null && duracao.temPuloDuplo == false)
+        {
+            pulotempo = false;
+            TempoPulo = null;
         }
     }
     private Text instanciartempo()
