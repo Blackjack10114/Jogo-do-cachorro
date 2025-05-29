@@ -9,15 +9,19 @@ public class Comeco_Fase : MonoBehaviour
     [HideInInspector] public bool apertou_botao, Semmeta;
     private GameObject fundoPrefab, metaPrefab;
     public Image barra_vida;
+    private Vector3 offset;
+    private GameObject Player;
 
     void Start()
     {
+        offset = new Vector3(1f, 3.5f, 0f);
         Time.timeScale = 0f;
         barra_vida.enabled = false;
+        Player = GameObject.FindWithTag("Player");
         fundoPrefab = Resources.Load<GameObject>("Fundo");
         metaPrefab = Resources.Load<GameObject>("Texto_meta");
-        metaPrefab = Instantiate(metaPrefab, this.transform.position, Quaternion.identity);
-        fundoPrefab = Instantiate(fundoPrefab, this.transform.position, Quaternion.identity);
+        metaPrefab = Instantiate(metaPrefab, Player.transform.position + offset, Quaternion.identity);
+        fundoPrefab = Instantiate(fundoPrefab, Player.transform.position, Quaternion.identity);
         metaPrefab.transform.parent = this.transform;
         metaPrefab.transform.localScale = new Vector3(1, 1, 1);
         StartCoroutine(Tirarmeta());
