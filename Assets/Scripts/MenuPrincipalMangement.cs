@@ -62,4 +62,9 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         painelConfirmacao.SetActive(false);
     }
+
+    public void BotaoCreditos()
+    {
+        SceneManager.LoadScene("Creditos");
+    }
 }
