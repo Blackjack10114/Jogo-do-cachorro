@@ -12,7 +12,7 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
-    private int quantidadeDePulos = 0;
+    public int quantidadeDePulos = 0;
     public bool grounded = false;
     private int groundContacts = 0;
     public bool ignorarpulo;
@@ -145,7 +145,7 @@ public class Jump : MonoBehaviour
         if (collision.gameObject.CompareTag("PlataformaMovel"))
         {
             ignorarpulo = true;
-            
+            quantidadeDePulos = 0;
         }
         bool isTouchingGround = false;
 
