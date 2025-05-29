@@ -17,6 +17,7 @@ public class Caixa : MonoBehaviour
     public GameObject Sprite_Dog_Caixa_Normal_0;
     private PlayerMov Direcao;
     [HideInInspector] public bool CaixaPega;
+    private bool estacomcaixa;
 
     public bool caixaInstanciada = false;
     [HideInInspector] public bool CaixaIndoEsquerda, CaixaIndoDireita;
@@ -62,6 +63,10 @@ public class Caixa : MonoBehaviour
             {
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>(), false);
             }
+        }
+        if (bool_script.Estasemcaixa)
+        {
+            CaixaPega = false;
         }
     }
 
@@ -122,6 +127,7 @@ public class Caixa : MonoBehaviour
         time = 0;
         caixaInstanciada = false;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
+        estacomcaixa = true; 
         CaixaPega = true;
         sound.clip = caixa_som;
         sound.Play();

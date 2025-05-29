@@ -9,7 +9,7 @@ public class Dano : MonoBehaviour
     public float v, m;
     public float pv = 30f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D rb; 
 
     public GameObject shield;
     public GameObject Sprite_Dog_Caixa_Normal_0;
@@ -22,6 +22,7 @@ public class Dano : MonoBehaviour
     public AudioClip dano_som;
     AudioSource sound;
     public AudioMixerGroup sfxGroup;
+    public bool Estasemcaixa;
 
     [SerializeField] private string cenaFalha;
 
@@ -74,6 +75,7 @@ public class Dano : MonoBehaviour
         if (origem != null && (TagCaiCaixa(origem.tag)))
         {
             GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            Estasemcaixa = true;
         }
 
         GetComponent<PlayerMov>().enabled = false;
@@ -161,7 +163,10 @@ public class Dano : MonoBehaviour
 
     void Update()
     {
-
+        if (bool_script.CaixaPega)
+        {
+            Estasemcaixa = false;
+        }
         if (!entregaFalhou && pv <= 0f)
         {
             entregaFalhou = true;

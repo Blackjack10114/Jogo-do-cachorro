@@ -7,6 +7,8 @@ public class FimDaFase : MonoBehaviour
     private SistemaPontuacao pontuacaoScript;
     private Dano danoScript;
     private PlayerMov playerMov;
+    private GameObject Player;
+    public GameObject Caixa;
 
     [SerializeField] private string cenaFim;
     public GameObject avisoFaltaCaixaUI;
@@ -14,6 +16,13 @@ public class FimDaFase : MonoBehaviour
     public Sprite emojiFeliz;
     public Sprite emojiNeutro;
     public Sprite emojiBravo;
+    string sceneName;
+    private bool estatatu, estadino, estaalien, Terminouanimacao;
+    public Sprite Sprite_Dog_Sem_Caixa;
+    private Vector3 offset;
+    public Transform destino, destino2;
+    public float tempoDeMovimento = 2f;
+    private bool Terminou_fase, naoemoji;
 
     void Start()
     {
@@ -23,34 +32,45 @@ public class FimDaFase : MonoBehaviour
 
         if (clienteEmojiUI != null)
             clienteEmojiUI.SetActive(false); // Esconde o emoji inicialmente
+        Scene currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        Player = GameObject.FindWithTag("Player");
+        offset = new Vector3(0f, 1.5f, 0f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            var spriteAtual = other.GetComponent<SpriteRenderer>().sprite;
-
-            if (spriteAtual == danoScript.Sprite_Dog_Sem_Caixa)
+            if (danoScript.Estasemcaixa == true)
             {
-                if (avisoFaltaCaixaUI != null)
-                    avisoFaltaCaixaUI.SetActive(true);
+               // if (avisoFaltaCaixaUI != null)
+               //     avisoFaltaCaixaUI.SetActive(true);
 
                 Debug.Log(" A entrega não foi feita! Volte e recupere a caixa.");
-                StartCoroutine(ResetarEntrada());
+               // StartCoroutine(ResetarEntrada());
                 return;
             }
+            if (estatatu)
+            {
+                Comecar_animacao();
+            }
 
-            pontuacaoScript.CalcularPontuacaoFinal();
+                pontuacaoScript.CalcularPontuacaoFinal();
 
             int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
             string nota = pontuacaoScript.GetClassificacaoLetra();
 
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
-
-            // Começa a sequência da reação do cliente
-            StartCoroutine(ReacaoClienteENextScene(nota));
+            if (estadino)
+            {
+                StartCoroutine(ReacaoClienteENextScene(nota));
+            }
+            if (estaalien)
+            {
+                StartCoroutine(ReacaoClienteENextScene(nota));
+            }
         }
     }
 
@@ -68,7 +88,6 @@ public class FimDaFase : MonoBehaviour
     private IEnumerator ReacaoClienteENextScene(string nota)
     {
         Time.timeScale = 0f;
-        // Para o movimento do player
         if (playerMov != null)
         {
             playerMov.enabled = false;
@@ -100,5 +119,92 @@ public class FimDaFase : MonoBehaviour
         Time.timeScale = 1f;
         GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(cenaFim);
+    }
+    private void Update()
+    {
+        verificar_cena();
+        if (Terminou_fase && !naoemoji)
+        {
+            string nota = pontuacaoScript.GetClassificacaoLetra();
+            StartCoroutine(ReacaoClienteENextScene(nota));
+        }
+    }
+    private void verificar_cena()
+    {
+        if (sceneName == "Fase_TatuMafioso_01")
+        {
+            estatatu = true;
+        }
+        else if (sceneName == "Fase_Alien_02")
+        {
+            estaalien = true;
+        }
+        else if (sceneName == "Fase_Dino_03")
+        {
+            estadino = true;
+        }
+    }
+    private void Comecar_animacao()
+    {
+        Time.timeScale = 0f;
+        if (estatatu)
+        {
+            Player.transform.position = new Vector3(1267f, -13.7f, 0f);
+            if (playerMov != null)
+            {
+                playerMov.enabled = false;
+                playerMov.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+                playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            StartCoroutine(Delay_tirar_caixa());
+        }
+    }
+    private IEnumerator Delay_tirar_caixa()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+        avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
+        avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
+        StartCoroutine(MoverAteDestino());
+    }
+    IEnumerator MoverAteDestino()
+    {
+        Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+        Vector2 posFinal = destino.position;
+        float tempoPassado = 0f;
+
+        while (tempoPassado < tempoDeMovimento)
+        {
+            tempoPassado += Time.unscaledDeltaTime;
+            float t = tempoPassado / tempoDeMovimento;
+            avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+            yield return null;
+        }
+
+        avisoFaltaCaixaUI.transform.position = posFinal;
+        Destroy(avisoFaltaCaixaUI);
+        StartCoroutine(DelayInstanciarCaixa());
+    }
+    private IEnumerator DelayInstanciarCaixa()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        Caixa = Instantiate(Caixa, new Vector3 (1283f, 20f, 0f) , Quaternion.identity);
+        StartCoroutine(MoverAteDestino2());
+    }
+    private IEnumerator MoverAteDestino2()
+    {
+        Vector2 posInicial = Caixa.transform.position;
+        Vector2 posFinal = destino2.position;
+        float tempoPassado = 0f;
+
+        while (tempoPassado < tempoDeMovimento)
+        {
+            tempoPassado += Time.unscaledDeltaTime;
+            float t = tempoPassado / tempoDeMovimento;
+            Caixa.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+            yield return null;
+        }
+        Caixa.transform.position = posFinal;
+        Terminou_fase = true;
     }
 }
