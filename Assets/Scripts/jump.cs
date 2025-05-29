@@ -15,6 +15,7 @@ public class Jump : MonoBehaviour
     private int quantidadeDePulos = 0;
     public bool grounded = false;
     private int groundContacts = 0;
+    public bool ignorarpulo;
 
     private float coyoteTimer = 0f;
     private float jumpBufferTimer = 0f;
@@ -59,7 +60,7 @@ public class Jump : MonoBehaviour
         bool podePular = jumpBufferTimer > 0f &&
             (
                 (coyoteTimer > 0f && velocidadeYZero) ||
-                (playerMov.temPuloDuplo && quantidadeDePulos < 1)
+                (playerMov.temPuloDuplo && quantidadeDePulos < 1)        
             );
 
 
@@ -68,7 +69,7 @@ public class Jump : MonoBehaviour
             podePular = false;
         }
 
-        if (podePular)
+        if (podePular || ((ignorarpulo && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))))
         {
             float finalJumpForce = jumpForce;
 
@@ -125,6 +126,7 @@ public class Jump : MonoBehaviour
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
                 grounded = false;
+            ignorarpulo = false;
         }
     }
     void FixedUpdate()
@@ -140,6 +142,11 @@ public class Jump : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("PlataformaMovel"))
+        {
+            ignorarpulo = true;
+            
+        }
         bool isTouchingGround = false;
 
         foreach (ContactPoint2D hitPos in collision.contacts)
@@ -153,5 +160,4 @@ public class Jump : MonoBehaviour
 
         grounded = isTouchingGround;
     }
-
 }
