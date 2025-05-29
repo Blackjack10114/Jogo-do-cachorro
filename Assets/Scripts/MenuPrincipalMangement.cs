@@ -11,11 +11,14 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private string CenaRetry;
     [SerializeField] private GameObject painelConfirmacao;
+    [SerializeField] private GameObject painelTutorial;
+
 
     private System.Action acaoConfirmada;
     public void Jogar()
     {
-        SceneManager.LoadScene("Tutorial");
+        AbrirPainelTutorial();
+        
     }
     public void Retry()
     {
@@ -67,4 +70,26 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         SceneManager.LoadScene("Creditos");
     }
+
+    public void BotaoTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+    public void AbrirPainelTutorial()
+    {
+        //painelMenuInicial.SetActive(false);
+        painelTutorial.SetActive(true);
+    }
+    public void TutorialSim()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void TutorialNao()
+    {
+        painelTutorial.SetActive(false);
+        SceneManager.LoadScene("Fase_TatuMafioso_01");
+    }
+
+
 }
