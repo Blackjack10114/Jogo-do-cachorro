@@ -2542,7 +2542,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 23
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -26820,12 +26820,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bd648f7b2ec8c4d98de3fecfae6d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Caixa: {fileID: 0}
   cenaFim: CenaFimDeFaseDino
   avisoFaltaCaixaUI: {fileID: 623425757}
   clienteEmojiUI: {fileID: 1778811410}
   emojiFeliz: {fileID: 5481114420021632366, guid: e8d85a011e2d0eb4d927f02947914ec8, type: 3}
   emojiNeutro: {fileID: -5659430293455665611, guid: e97d62771dd5575469f3290bc135ca47, type: 3}
   emojiBravo: {fileID: -4146349354341739951, guid: 30c8337a70ceb9e4bbc0a291d6ead1b6, type: 3}
+  Sprite_Dog_Sem_Caixa: {fileID: 0}
+  destino: {fileID: 0}
+  destino2: {fileID: 0}
+  tempoDeMovimento: 2
 --- !u!212 &558207969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33272,6 +33277,7 @@ MonoBehaviour:
   Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+  Estasemcaixa: 0
   cenaFalha: CenaFalhaDino
 --- !u!4 &808172454
 Transform:
@@ -33543,6 +33549,7 @@ MonoBehaviour:
   speed: 4
   move: 4
   stamina: 100
+  TempoPulo: 0
   sprintSpeedMultiplier: 2
   staminaConsumptionMultiplier: 1
   turboTimer: 0
@@ -33570,7 +33577,9 @@ MonoBehaviour:
   turboJumpMultiplier: 1
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  quantidadeDePulos: 0
   grounded: 0
+  ignorarpulo: 0
   som_pulo: {fileID: 8300000, guid: 1aabc75f18e08194ab5b7256fb38749b, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
 --- !u!212 &808172464
@@ -35141,7 +35150,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 20
+    OrthographicSize: 23
     NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
@@ -45455,7 +45464,9 @@ MonoBehaviour:
   tempogourmet: 0
   gourmettempo: 0
   turbotempo: 0
+  pulotempo: 0
   gourmet_ativado: 0
+  pulo_duplo_ativado: 0
 --- !u!1 &1953588245
 GameObject:
   m_ObjectHideFlags: 0

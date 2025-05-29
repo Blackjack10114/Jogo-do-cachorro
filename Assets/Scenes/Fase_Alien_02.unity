@@ -532,12 +532,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bd648f7b2ec8c4d98de3fecfae6d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Caixa: {fileID: 0}
   cenaFim: CenaFimDeFaseAlien
   avisoFaltaCaixaUI: {fileID: 1830622192}
   clienteEmojiUI: {fileID: 1545905367}
   emojiFeliz: {fileID: 8509325011007254421, guid: a348782cf4903cd40a11bef015db61c7, type: 3}
   emojiNeutro: {fileID: 505192691256170622, guid: a348782cf4903cd40a11bef015db61c7, type: 3}
   emojiBravo: {fileID: 517564514900120483, guid: a348782cf4903cd40a11bef015db61c7, type: 3}
+  Sprite_Dog_Sem_Caixa: {fileID: 0}
+  destino: {fileID: 0}
+  destino2: {fileID: 0}
+  tempoDeMovimento: 2
 --- !u!212 &61524622
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -65462,7 +65467,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 21
+  orthographic size: 23
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -69442,7 +69447,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 21
+    OrthographicSize: 23
     NearClipPlane: 0.1
     FarClipPlane: 1000
     Dutch: 0
@@ -69732,6 +69737,7 @@ MonoBehaviour:
   Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+  Estasemcaixa: 0
   cenaFalha: CenaFalhaAlien
 --- !u!212 &2086793002
 SpriteRenderer:
