@@ -1541,6 +1541,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: "C\xE9u"
       objectReference: {fileID: 0}
+    - target: {fileID: 19138581169836207, guid: 3387129de93a5d54fbc713774d9ba212, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707023217173450308, guid: 3387129de93a5d54fbc713774d9ba212, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5679851778525901003, guid: 3387129de93a5d54fbc713774d9ba212, type: 3}
       propertyPath: m_LocalScale.x
       value: 34
@@ -65479,7 +65487,7 @@ Transform:
   m_GameObject: {fileID: 1478200894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 918.1, y: 212.6, z: -10}
+  m_LocalPosition: {x: 744, y: 638.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69205,7 +69213,7 @@ GameObject:
   - component: {fileID: 2056206566}
   m_Layer: 5
   m_Name: skybox
-  m_TagString: Untagged
+  m_TagString: Skybox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69461,7 +69469,7 @@ Transform:
   m_GameObject: {fileID: 2062198224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 918.1, y: 212.6, z: -10}
+  m_LocalPosition: {x: 744, y: 638.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69488,6 +69496,7 @@ GameObject:
   - component: {fileID: 2086792993}
   - component: {fileID: 2086793003}
   - component: {fileID: 2086793004}
+  - component: {fileID: 2086793005}
   m_Layer: 0
   m_Name: Sprite_Dog_Caixa_Normal_0
   m_TagString: Player
@@ -69504,7 +69513,7 @@ Transform:
   m_GameObject: {fileID: 2086792991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 918.1, y: 212.6, z: 0}
+  m_LocalPosition: {x: 744, y: 638.2, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -69696,7 +69705,9 @@ MonoBehaviour:
   turboJumpMultiplier: 0.9
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  quantidadeDePulos: 0
   grounded: 0
+  ignorarpulo: 0
   som_pulo: {fileID: 8300000, guid: 1aabc75f18e08194ab5b7256fb38749b, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
 --- !u!114 &2086793001
@@ -69887,6 +69898,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOut: {fileID: 4852143316860133368, guid: 3f838cd6cc533ed469bd4a3410b4ca55, type: 3}
+--- !u!114 &2086793005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086792991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1bde73c8ea6fc47afb86eef21fbf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  "c\xE9u": {fileID: 2056206565}
 --- !u!1001 &2087973018
 PrefabInstance:
   m_ObjectHideFlags: 0
