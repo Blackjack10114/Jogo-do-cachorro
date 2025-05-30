@@ -7,6 +7,7 @@ public class espaco : MonoBehaviour
     public GameObject céu;
     private GameObject Fundoespaço;
     private bool Fundoespaçoinsta;
+    public GameObject FadeOut;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class espaco : MonoBehaviour
             Fundoespaço = Instantiate(Fundoespaço, this.transform.position + offset, Quaternion.identity);
             Fundoespaçoinsta = true;
             Fundoespaço.transform.parent = céu.transform;
+            var m = Instantiate(FadeOut, transform.position, Quaternion.identity);
         }
         if (Player.y < 770 && Fundoespaçoinsta)
         {
