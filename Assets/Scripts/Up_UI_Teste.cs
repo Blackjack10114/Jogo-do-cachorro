@@ -7,6 +7,7 @@ public class Up_UI_Teste : MonoBehaviour
 {
     private PlayerMov duracao;
     private GameObject Player;
+    private Vector3 offsetpowerup;
     [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet; 
     bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
     [HideInInspector] public bool gourmettempo, turbotempo, pulotempo;
@@ -22,8 +23,10 @@ public class Up_UI_Teste : MonoBehaviour
     private Text TempoTurbo = null;
     private Text TempoGourmet = null;
     private Text TempoPulo = null;
+    private Vector3 Posicaotexto;
     void Start()
     {
+        offsetpowerup = new Vector3(16f, 0f, 0f);
         Player = GameObject.FindWithTag("Player");
         duracao = Player.GetComponent<PlayerMov>();
         TurboPrefab = Resources.Load<GameObject>("PowerUp_Ração_Turbo_UI");
@@ -39,9 +42,18 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.isTurboActive == true && TurboPrefab != null && !turbo_insta)
         {
             turbo_ativado = true;
-            TurboPrefab = Instantiate(TurboPrefab, this.transform.position, Quaternion.identity);
-            TurboPrefab.transform.parent = this.transform;
-            turbo_insta = true;
+            if (turbo_ativado && (gourmet_ativado || pulo_duplo_ativado))
+            {
+                TurboPrefab = Instantiate(TurboPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
+                TurboPrefab.transform.parent = this.transform;
+                turbo_insta = true;
+            }
+            else
+            {
+                TurboPrefab = Instantiate(TurboPrefab, this.transform.position, Quaternion.identity);
+                TurboPrefab.transform.parent = this.transform;
+                turbo_insta = true;
+            }
         }
         if (turbo_ativado == true)
         {
@@ -56,9 +68,16 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.isGourmetActive == true && GourmetPrefab != null && !gourmet_insta)
         {
             gourmet_ativado = true;
-            GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position, Quaternion.identity);
-            GourmetPrefab.transform.parent = this.transform;
-            gourmet_insta = true;
+            if (gourmet_ativado && (turbo_ativado || pulo_duplo_ativado))
+            {
+                GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
+            }
+            else
+            {
+                GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position, Quaternion.identity);
+                GourmetPrefab.transform.parent = this.transform;
+                gourmet_insta = true;
+            }
         }
         if (gourmet_ativado == true)
         {
@@ -92,9 +111,16 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.temPuloDuplo == true && PuloPrefab != null && !pulo_insta)
         {
             pulo_duplo_ativado = true;
-            PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
-            PuloPrefab.transform.parent = this.transform;
-            pulo_insta = true;
+            if (pulo_duplo_ativado && (gourmet_ativado || turbo_ativado))
+            {
+                PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
+                PuloPrefab.transform.parent = this.transform;
+                pulo_insta = true;
+            }
         }
         if (pulo_duplo_ativado == true)
         {
@@ -142,7 +168,18 @@ public class Up_UI_Teste : MonoBehaviour
     private Text instanciartempo()
     {
         Vector3 offsettext = new Vector3(0, -10, 0);
-        Vector3 Posicaotexto = this.transform.position + offsettext;
+        if (turbo_ativado)
+        {
+            Posicaotexto = TurboPrefab.transform.position + offsettext;
+        }
+        else if (pulo_duplo_ativado)
+        {
+            Posicaotexto = PuloPrefab.transform.position + offsettext;
+        }
+        else if (gourmet_ativado)
+        {
+            Posicaotexto = GourmetPrefab.transform.position + offsettext;
+        }
         Text novoTexto = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity);
         novoTexto.transform.SetParent(this.transform);
         return novoTexto;
