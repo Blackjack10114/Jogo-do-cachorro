@@ -38,9 +38,14 @@ public class PlayerMov : MonoBehaviour
     AudioSource sound;
     public AudioClip Correr_som;
     public AudioMixerGroup sfxGroup;
+    [SerializeField] private float Velocidadeanimacao;
+
+    Animator animDoug;
 
     void Start()
     {
+        Velocidadeanimacao = 2.5f;
+        animDoug = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>();
         sound = gameObject.GetComponent<AudioSource>();
@@ -68,6 +73,14 @@ public class PlayerMov : MonoBehaviour
         if (!isRunning && stamina < 100)
         {
             stamina += Time.deltaTime * 20;
+        }
+        if (isRunning)
+        {
+            animDoug.speed = Velocidadeanimacao;
+        }
+        if (!isRunning)
+        {
+            animDoug.speed = 1f;
         }
 
         if (isTurboActive)
@@ -102,9 +115,9 @@ public class PlayerMov : MonoBehaviour
             IndoDireita = false;
             IndoEsquerda = true;
         }
-            bool estaParado =
-            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
-            !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
+        bool estaParado =
+        !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
+        !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
 
         if (estaParado && plataformaAtual != null && pulo != null && pulo.EstaNoChao)
         {
@@ -127,6 +140,15 @@ public class PlayerMov : MonoBehaviour
         {
             TempoPulo -= Time.deltaTime;
         }
+
+        bool andando = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ||
+                   Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+
+        animDoug.SetBool("EstaAndando", andando);
+
+        // Verifica se está no chão
+        bool grounded = pulo != null && pulo.EstaNoChao;
+        animDoug.SetBool("Grounded", grounded);
     }
 
     private void MovePlayer(int direction)
@@ -194,7 +216,7 @@ public class PlayerMov : MonoBehaviour
         TempoPulo = duracao;
         yield return new WaitForSeconds(duracao);
         temPuloDuplo = false;
-       
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)

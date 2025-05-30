@@ -9,20 +9,18 @@ public class Dano : MonoBehaviour
     public float v, m;
     public float pv = 30f;
 
-    private Rigidbody2D rb; 
+    private Rigidbody2D rb;
 
     public GameObject shield;
-    public GameObject Sprite_Dog_Caixa_Normal_0;
     private Caixa bool_script;
-
-    public Sprite Sprite_Dog_Caixa_Normal;
-    public Sprite Sprite_Dog_Sem_Caixa;
 
     private bool entregaFalhou = false;
     public AudioClip dano_som;
     AudioSource sound;
     public AudioMixerGroup sfxGroup;
     public bool Estasemcaixa;
+
+    private Animator animDoug;
 
     [SerializeField] private string cenaFalha;
 
@@ -37,8 +35,8 @@ public class Dano : MonoBehaviour
 
     void Start()
     {
+        bool_script = GetComponent<Caixa>();
         rb = GetComponent<Rigidbody2D>();
-        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Caixa>();
         sound = gameObject.GetComponent<AudioSource>();
         sound.outputAudioMixerGroup = sfxGroup;
     }
@@ -72,10 +70,10 @@ public class Dano : MonoBehaviour
         }
 
         // Sprite (caso espinho)
-        if (origem != null && (TagCaiCaixa(origem.tag)))
+        if (origem != null)
         {
-            GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
             Estasemcaixa = true;
+            bool_script.CaixaPega = false;
         }
 
         GetComponent<PlayerMov>().enabled = false;
@@ -111,8 +109,10 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        if (!TagCausaDano(colisor.tag)) return;
+        if (!bool_script.CaixaPega) return;
 
+        if (!TagCausaDano(colisor.tag)) return;
+        Debug.Log("se mata");
         if (isInvincible)
         {
             if (shield != null)
@@ -163,10 +163,6 @@ public class Dano : MonoBehaviour
 
     void Update()
     {
-        if (bool_script.CaixaPega)
-        {
-            Estasemcaixa = false;
-        }
         if (!entregaFalhou && pv <= 0f)
         {
             entregaFalhou = true;

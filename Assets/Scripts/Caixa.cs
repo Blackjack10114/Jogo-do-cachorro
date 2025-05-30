@@ -9,14 +9,13 @@ public class Caixa : MonoBehaviour
     private GameObject caixaPrefab = null;
     private GameObject Caixa_Separada_0 = null;
     public float speed, move;
+    public GameObject Doug;
     private Rigidbody2D rb;
     [SerializeField] public float jumpforce;
     private float time = 0f;
-    public Sprite Sprite_Dog_Caixa_Normal;
     private Dano bool_script;
-    public GameObject Sprite_Dog_Caixa_Normal_0;
     private PlayerMov Direcao;
-    [HideInInspector] public bool CaixaPega;
+    public bool CaixaPega = true;
     private bool estacomcaixa;
 
     public bool caixaInstanciada = false;
@@ -26,6 +25,8 @@ public class Caixa : MonoBehaviour
     public float qualidadeEntrega = 100f;
     AudioSource sound;
     public AudioClip caixa_som;
+
+    private Animator animDoug;
 
     private static readonly string[] obstaculosQueCaemCaixa = {
         "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa"
@@ -42,12 +43,15 @@ public class Caixa : MonoBehaviour
 
     void Start()
     {
+        animDoug = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
         caixaPrefab = Resources.Load<GameObject>("Caixa_Separada_0");
         rb = Player.GetComponent<Rigidbody2D>();
-        bool_script = Sprite_Dog_Caixa_Normal_0.GetComponent<Dano>();
-        Direcao = Sprite_Dog_Caixa_Normal_0.GetComponent<PlayerMov>();
+        bool_script = Doug.GetComponent<Dano>();
+        Direcao = Doug.GetComponent<PlayerMov>();
         sound = gameObject.GetComponent<AudioSource>();
+        CaixaPega = true;
+        animDoug.SetBool("ComCaixa", true);
     }
 
     void Update()
@@ -64,10 +68,7 @@ public class Caixa : MonoBehaviour
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>(), false);
             }
         }
-        if (bool_script.Estasemcaixa)
-        {
-            CaixaPega = false;
-        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -77,7 +78,7 @@ public class Caixa : MonoBehaviour
             pegarcaixa();
         }
         if (bool_script.isInvincible == true) return;
-       
+
         if (TagCaiCaixa(collision.gameObject.tag))
         {
             DerrubarCaixa();
@@ -89,9 +90,11 @@ public class Caixa : MonoBehaviour
         if (caixaPrefab != null && !caixaInstanciada)
         {
             caixaInstanciada = true;
+            CaixaPega = false;
             StartCoroutine(Delaycriarcaixa());
         }
     }
+
 
     public void ReduzirQualidade(float dano)
     {
@@ -123,19 +126,22 @@ public class Caixa : MonoBehaviour
     }
     public void pegarcaixa()
     {
+        CaixaPega = true;
         Destroy(Caixa_Separada_0);
         time = 0;
         caixaInstanciada = false;
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Caixa_Normal;
-        estacomcaixa = true; 
-        CaixaPega = true;
+        estacomcaixa = true;
+
+        animDoug.SetBool("ComCaixa", true);
+
+
         sound.clip = caixa_som;
         sound.Play();
     }
     private IEnumerator Delaycriarcaixa()
     {
         yield return new WaitForSeconds(0.15f);
-        CaixaPega = false;
+        GetComponent<Animator>().SetBool("ComCaixa", false);
         Criarcaixa();
     }
     private IEnumerator Delayprapegarcaixa()
