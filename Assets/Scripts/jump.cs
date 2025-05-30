@@ -96,7 +96,7 @@ public class Jump : MonoBehaviour
             if (anim != null)
             {
                 bool estaPulando = !grounded;
-                anim.SetBool("EstaPulando", estaPulando);
+               // anim.SetBool("EstaPulando", estaPulando);
             }
 
             jumpBufferTimer = 0f;

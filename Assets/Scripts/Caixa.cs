@@ -15,7 +15,7 @@ public class Caixa : MonoBehaviour
     private float time = 0f;
     private Dano bool_script;
     private PlayerMov Direcao;
-    [HideInInspector] public bool CaixaPega;
+    public bool CaixaPega = true;
     private bool estacomcaixa;
 
     public bool caixaInstanciada = false;
@@ -50,6 +50,8 @@ public class Caixa : MonoBehaviour
         bool_script = Doug.GetComponent<Dano>();
         Direcao = Doug.GetComponent<PlayerMov>();
         sound = gameObject.GetComponent<AudioSource>();
+        CaixaPega = true;
+        animDoug.SetBool("ComCaixa", true);
     }
 
     void Update()
@@ -129,7 +131,6 @@ public class Caixa : MonoBehaviour
         time = 0;
         caixaInstanciada = false;
         estacomcaixa = true;
-        CaixaPega = true;
 
         animDoug.SetBool("ComCaixa", true);
 
@@ -141,7 +142,6 @@ public class Caixa : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         GetComponent<Animator>().SetBool("ComCaixa", false);
-        CaixaPega = false;
         Criarcaixa();
     }
     private IEnumerator Delayprapegarcaixa()

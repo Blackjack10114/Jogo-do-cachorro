@@ -38,11 +38,13 @@ public class PlayerMov : MonoBehaviour
     AudioSource sound;
     public AudioClip Correr_som;
     public AudioMixerGroup sfxGroup;
+    [SerializeField] private float Velocidadeanimacao;
 
     Animator animDoug;
 
     void Start()
     {
+        Velocidadeanimacao = 2.5f;
         animDoug = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>();
@@ -71,6 +73,14 @@ public class PlayerMov : MonoBehaviour
         if (!isRunning && stamina < 100)
         {
             stamina += Time.deltaTime * 20;
+        }
+        if (isRunning)
+        {
+            animDoug.speed = Velocidadeanimacao;
+        }
+        if (!isRunning)
+        {
+            animDoug.speed = 1f;
         }
 
         if (isTurboActive)
@@ -139,10 +149,6 @@ public class PlayerMov : MonoBehaviour
         // Verifica se está no chão
         bool grounded = pulo != null && pulo.EstaNoChao;
         animDoug.SetBool("Grounded", grounded);
-
-        // Verifica se está com caixa
-        bool temCaixa = !GetComponent<Dano>().Estasemcaixa;
-        animDoug.SetBool("ComCaixa", temCaixa);
     }
 
     private void MovePlayer(int direction)

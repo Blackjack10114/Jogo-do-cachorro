@@ -70,9 +70,10 @@ public class Dano : MonoBehaviour
         }
 
         // Sprite (caso espinho)
-        if (origem != null && (TagCaiCaixa(origem.tag)))
+        if (origem != null)
         {
             Estasemcaixa = true;
+            bool_script.CaixaPega = false;
         }
 
         GetComponent<PlayerMov>().enabled = false;
@@ -111,10 +112,7 @@ public class Dano : MonoBehaviour
         if (!bool_script.CaixaPega) return;
 
         if (!TagCausaDano(colisor.tag)) return;
-
-        var caixa = GetComponent<Caixa>();
-        if (caixa != null) caixa.DerrubarCaixa();
-
+        Debug.Log("se mata");
         if (isInvincible)
         {
             if (shield != null)

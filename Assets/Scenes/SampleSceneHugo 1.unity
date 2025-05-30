@@ -2567,7 +2567,7 @@ Transform:
   m_GameObject: {fileID: 189306138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 420.22583, y: -5.6454277, z: -10}
+  m_LocalPosition: {x: 1004.7, y: 51.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26934,6 +26934,7 @@ MonoBehaviour:
   cenaFim: CenaFimDeFaseDino
   avisoFaltaCaixaUI: {fileID: 623425757}
   clienteEmojiUI: {fileID: 1778811410}
+  emojiCoracao: {fileID: 0}
   emojiFeliz: {fileID: 5481114420021632366, guid: e8d85a011e2d0eb4d927f02947914ec8, type: 3}
   emojiNeutro: {fileID: -5659430293455665611, guid: e97d62771dd5575469f3290bc135ca47, type: 3}
   emojiBravo: {fileID: -4146349354341739951, guid: 30c8337a70ceb9e4bbc0a291d6ead1b6, type: 3}
@@ -35283,7 +35284,7 @@ Transform:
   m_GameObject: {fileID: 992099263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 420.22583, y: -5.6454277, z: -10}
+  m_LocalPosition: {x: 1004.7, y: 51.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39544,10 +39545,10 @@ GameObject:
   - component: {fileID: 1349620810}
   - component: {fileID: 1349620809}
   - component: {fileID: 1349620820}
+  - component: {fileID: 1349620816}
   - component: {fileID: 1349620819}
   - component: {fileID: 1349620818}
   - component: {fileID: 1349620817}
-  - component: {fileID: 1349620816}
   - component: {fileID: 1349620815}
   - component: {fileID: 1349620814}
   - component: {fileID: 1349620813}
@@ -39626,7 +39627,7 @@ Transform:
   m_GameObject: {fileID: 1349620807}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 420.22583, y: -5.6454277, z: 0}
+  m_LocalPosition: {x: 1004.7, y: 51.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39642,7 +39643,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349620807}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cee4c2d0cb581141929211b6fc9522f, type: 3}
   m_Name: 
@@ -39923,7 +39924,7 @@ MonoBehaviour:
   shield: {fileID: 0}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
-  Estasemcaixa: 0
+  Estasemcaixa: 1
   cenaFalha: CenaFalhaDino
 --- !u!114 &1349620821
 MonoBehaviour:
@@ -80953,7 +80954,7 @@ CompositeCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d145690ded6a6fa49b6d920cfc4da6f3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
