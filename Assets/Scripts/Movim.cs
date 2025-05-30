@@ -39,8 +39,11 @@ public class PlayerMov : MonoBehaviour
     public AudioClip Correr_som;
     public AudioMixerGroup sfxGroup;
 
+    Animator animDoug;
+
     void Start()
     {
+        animDoug = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         pulo = GetComponent<Jump>();
         sound = gameObject.GetComponent<AudioSource>();
@@ -102,9 +105,9 @@ public class PlayerMov : MonoBehaviour
             IndoDireita = false;
             IndoEsquerda = true;
         }
-            bool estaParado =
-            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
-            !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
+        bool estaParado =
+        !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
+        !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
 
         if (estaParado && plataformaAtual != null && pulo != null && pulo.EstaNoChao)
         {
@@ -127,6 +130,19 @@ public class PlayerMov : MonoBehaviour
         {
             TempoPulo -= Time.deltaTime;
         }
+
+        bool andando = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ||
+                   Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+
+        animDoug.SetBool("EstaAndando", andando);
+
+        // Verifica se está no chão
+        bool grounded = pulo != null && pulo.EstaNoChao;
+        animDoug.SetBool("Grounded", grounded);
+
+        // Verifica se está com caixa
+        bool temCaixa = !GetComponent<Dano>().Estasemcaixa;
+        animDoug.SetBool("ComCaixa", temCaixa);
     }
 
     private void MovePlayer(int direction)
@@ -194,7 +210,7 @@ public class PlayerMov : MonoBehaviour
         TempoPulo = duracao;
         yield return new WaitForSeconds(duracao);
         temPuloDuplo = false;
-       
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)

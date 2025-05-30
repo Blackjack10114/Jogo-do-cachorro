@@ -26,9 +26,9 @@ public class FimDoTutorial : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var spriteAtual = other.GetComponent<SpriteRenderer>().sprite;
+            var anim = other.GetComponent<Animator>();
 
-            if (spriteAtual == danoScript.Sprite_Dog_Sem_Caixa)
+            if (anim != null && anim.GetBool("ComCaixa") == false)
             {
                 if (avisoFaltaCaixaUI != null)
                     avisoFaltaCaixaUI.SetActive(true);

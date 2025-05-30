@@ -25,9 +25,12 @@ public class Jump : MonoBehaviour
     public AudioClip som_pulo;
     public AudioMixerGroup sfxGroup;
 
+    private Animator anim;
+
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
         sound = gameObject.GetComponent<AudioSource>();
@@ -88,6 +91,12 @@ public class Jump : MonoBehaviour
             else if (playerMov.temPuloDuplo)
             {
                 quantidadeDePulos++;
+            }
+
+            if (anim != null)
+            {
+                bool estaPulando = !grounded;
+                anim.SetBool("EstaPulando", estaPulando);
             }
 
             jumpBufferTimer = 0f;

@@ -40,9 +40,10 @@ public class FimDaFase : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        var anim = other.GetComponent<Animator>();
         if (other.CompareTag("Player"))
         {
-            if (danoScript.Estasemcaixa == true)
+            if (anim.GetBool("ComCaixa") == false)
             {
                // if (avisoFaltaCaixaUI != null)
                //     avisoFaltaCaixaUI.SetActive(true);
