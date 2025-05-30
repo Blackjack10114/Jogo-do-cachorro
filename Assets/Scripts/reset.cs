@@ -13,7 +13,7 @@ public class reset : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            SceneManager.LoadScene("Fase_Playtest");
+            SceneManager.LoadScene("Fase_TatuMafioso_01");
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
