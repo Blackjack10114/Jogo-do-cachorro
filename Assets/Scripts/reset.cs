@@ -19,5 +19,9 @@ public class reset : MonoBehaviour
         {
             SceneManager.LoadScene("Fase_Alien_02");
         }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            SceneManager.LoadScene("Fase_Dino_03");
+        }
     }
 }
