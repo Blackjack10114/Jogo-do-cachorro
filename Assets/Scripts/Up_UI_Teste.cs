@@ -42,7 +42,7 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.isTurboActive == true && TurboPrefab != null && !turbo_insta)
         {
             turbo_ativado = true;
-            if (turbo_ativado && (gourmet_ativado || pulo_duplo_ativado))
+            if (turbo_ativado && ((gourmet_ativado && gourmet_insta) || (pulo_duplo_ativado && pulo_insta)))
             {
                 TurboPrefab = Instantiate(TurboPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
                 TurboPrefab.transform.parent = this.transform;
@@ -68,9 +68,11 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.isGourmetActive == true && GourmetPrefab != null && !gourmet_insta)
         {
             gourmet_ativado = true;
-            if (gourmet_ativado && (turbo_ativado || pulo_duplo_ativado))
+            if (gourmet_ativado && ((turbo_ativado && turbo_insta) || (pulo_duplo_ativado && pulo_insta)))
             {
                 GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
+                GourmetPrefab.transform.parent = this.transform;
+                gourmet_insta = true;
             }
             else
             {
@@ -111,9 +113,11 @@ public class Up_UI_Teste : MonoBehaviour
         if (duracao.temPuloDuplo == true && PuloPrefab != null && !pulo_insta)
         {
             pulo_duplo_ativado = true;
-            if (pulo_duplo_ativado && (gourmet_ativado || turbo_ativado))
+            if (pulo_duplo_ativado && ((gourmet_ativado && gourmet_insta) || (turbo_ativado && turbo_insta)))
             {
-                PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
+                PuloPrefab = Instantiate(PuloPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
+                PuloPrefab.transform.parent = this.transform;
+                pulo_insta = true;
             }
             else
             {
@@ -172,11 +176,11 @@ public class Up_UI_Teste : MonoBehaviour
         {
             Posicaotexto = TurboPrefab.transform.position + offsettext;
         }
-        else if (pulo_duplo_ativado)
+        if (pulo_duplo_ativado)
         {
             Posicaotexto = PuloPrefab.transform.position + offsettext;
         }
-        else if (gourmet_ativado)
+        if (gourmet_ativado)
         {
             Posicaotexto = GourmetPrefab.transform.position + offsettext;
         }
