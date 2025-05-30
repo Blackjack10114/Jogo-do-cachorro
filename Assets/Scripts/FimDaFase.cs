@@ -13,6 +13,7 @@ public class FimDaFase : MonoBehaviour
     [SerializeField] private string cenaFim;
     public GameObject avisoFaltaCaixaUI;
     public GameObject clienteEmojiUI;
+    public Sprite emojiCoracao;
     public Sprite emojiFeliz;
     public Sprite emojiNeutro;
     public Sprite emojiBravo;
@@ -105,9 +106,11 @@ public class FimDaFase : MonoBehaviour
             var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
             if (emojiRenderer != null)
             {
-                if (nota == "S+" || nota == "S" || nota == "A")
+                if (nota == "S+" || nota == "S" )
+                    emojiRenderer.sprite = emojiCoracao;
+                else if (nota == "A" || nota == "B")
                     emojiRenderer.sprite = emojiFeliz;
-                else if (nota == "B" || nota == "C")
+                else if (nota == "C" || nota == "D")
                     emojiRenderer.sprite = emojiNeutro;
                 else
                     emojiRenderer.sprite = emojiBravo;

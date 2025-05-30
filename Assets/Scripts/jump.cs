@@ -63,7 +63,7 @@ public class Jump : MonoBehaviour
         bool podePular = jumpBufferTimer > 0f &&
             (
                 (coyoteTimer > 0f && velocidadeYZero) ||
-                (playerMov.temPuloDuplo && quantidadeDePulos < 1)        
+                (playerMov.temPuloDuplo && quantidadeDePulos < 1)
             );
 
 
