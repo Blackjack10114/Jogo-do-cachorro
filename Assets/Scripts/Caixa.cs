@@ -89,7 +89,6 @@ public class Caixa : MonoBehaviour
         {
             caixaInstanciada = true;
             CaixaPega = false;
-            GetComponent<Animator>().SetBool("ComCaixa", false); // 🔥 Aqui garante que troca para sem caixa
             StartCoroutine(Delaycriarcaixa());
         }
     }
@@ -141,6 +140,7 @@ public class Caixa : MonoBehaviour
     private IEnumerator Delaycriarcaixa()
     {
         yield return new WaitForSeconds(0.15f);
+        GetComponent<Animator>().SetBool("ComCaixa", false);
         CaixaPega = false;
         Criarcaixa();
     }
