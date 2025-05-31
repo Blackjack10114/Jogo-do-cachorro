@@ -1,45 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class TutorialFim : MonoBehaviour
 {
-    [Header("Painéis")]
-    [SerializeField] private GameObject painelPause;
     [SerializeField] private GameObject painelConfirmacao;
 
     private System.Action acaoConfirmada;
-
-    private void Update()
+    public void ProximaFaseTutorial()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!painelPause.activeSelf)
-                AbrirPause();
-            else
-                FecharPause();
-        }
+        SceneManager.LoadScene("Fase_TatuMafioso_01");
     }
 
-    public void AbrirPause()
-    {
-        Time.timeScale = 0f;
-        painelPause.SetActive(true);
-        Controlador_Som.instancia?.SincronizarSliders();
-        painelConfirmacao.SetActive(false);
-    }
-
-    public void FecharPause()
-    {
-        Time.timeScale = 1f;
-        painelPause.SetActive(false);
-        painelConfirmacao.SetActive(false);
-    }
-
-    public void BotaoContinuar()
-    {
-        FecharPause();
-    }
-    
     public void BotaoMenuPrincipal()
     {
         MostrarConfirmacao(() =>
@@ -57,7 +28,6 @@ public class PauseMenu : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         });
     }
-
     private void MostrarConfirmacao(System.Action acao)
     {
         painelConfirmacao.SetActive(true);

@@ -450,7 +450,6 @@ public class FimDaFase : MonoBehaviour
             }
             meteorofinal.transform.position = posFinal + offsetdino;
             Time.timeScale = 1f;
-            GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
             SceneManager.LoadScene(cenaFim);
         }
     }

@@ -1,25 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FimDoTutorial : MonoBehaviour
 {
-    
     private Dano danoScript;
     private PlayerMov playerMov;
 
-    [SerializeField] private string ProximaCena;
     public GameObject avisoFaltaCaixaUI;
     public GameObject clienteEmojiUI;
     public Sprite emojiFeliz;
+    public GameObject painelFimTutorial;
+
     void Start()
     {
-       
         danoScript = Object.FindFirstObjectByType<Dano>();
         playerMov = Object.FindFirstObjectByType<PlayerMov>();
 
         if (clienteEmojiUI != null)
-            clienteEmojiUI.SetActive(false); // Esconde o emoji inicialmente
+            clienteEmojiUI.SetActive(false);
+
+        if (painelFimTutorial != null)
+            painelFimTutorial.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -33,19 +34,12 @@ public class FimDoTutorial : MonoBehaviour
                 if (avisoFaltaCaixaUI != null)
                     avisoFaltaCaixaUI.SetActive(true);
 
-                Debug.Log(" A entrega não foi feita! Volte e recupere a caixa.");
+                Debug.Log("A entrega nÃ£o foi feita! Volte e recupere a caixa.");
                 StartCoroutine(ResetarEntrada());
                 return;
             }
 
-           
-
-         
-
-          
-
-            // Começa a sequência da reação do cliente
-            StartCoroutine(ReacaoClienteENextScene());
+            StartCoroutine(ReacaoClienteEFim());
         }
     }
 
@@ -60,10 +54,9 @@ public class FimDoTutorial : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
-    private IEnumerator ReacaoClienteENextScene()
+    private IEnumerator ReacaoClienteEFim()
     {
-        Time.timeScale = 0f;
-        // Para o movimento do player
+        // Para o movimento do jogador
         if (playerMov != null)
         {
             playerMov.enabled = false;
@@ -71,23 +64,21 @@ public class FimDoTutorial : MonoBehaviour
             playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
-        // Ativa o cliente/emoji
+        // Mostra o emoji
         if (clienteEmojiUI != null)
         {
             clienteEmojiUI.SetActive(true);
 
-            // Define o emoji pela nota
             var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
             if (emojiRenderer != null)
-            {
                 emojiRenderer.sprite = emojiFeliz;
-            }
         }
 
-        // Espera 2 segundos para mostrar a reação
+        // Espera 2 segundos
         yield return new WaitForSecondsRealtime(2f);
 
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(ProximaCena);
+        // Mostra o painel de fim de tutorial
+        if (painelFimTutorial != null)
+            painelFimTutorial.SetActive(true);
     }
 }
