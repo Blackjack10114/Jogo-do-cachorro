@@ -779,16 +779,16 @@ RectTransform:
   m_GameObject: {fileID: 251118745}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.265, y: 1.265, z: 1.265}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1264520034}
-  m_Father: {fileID: 503326369}
+  m_Father: {fileID: 1159193124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35.70003, y: -92.79144}
-  m_SizeDelta: {x: 164.6535, y: 50}
+  m_AnchoredPosition: {x: -7.482296, y: -162.85516}
+  m_SizeDelta: {x: 161.5406, y: 79.5719}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251118747
 MonoBehaviour:
@@ -836,7 +836,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1158074033}
         m_TargetAssemblyTypeName: MenuPrincipalMangement, Assembly-CSharp
-        m_MethodName: FecharOpcoes
+        m_MethodName: MenuPrincipal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1591,7 +1591,6 @@ RectTransform:
   m_Children:
   - {fileID: 709609893}
   - {fileID: 520306333}
-  - {fileID: 251118746}
   - {fileID: 517293385}
   m_Father: {fileID: 1307733347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4076,6 +4075,7 @@ RectTransform:
   m_Children:
   - {fileID: 267857548}
   - {fileID: 375069978}
+  - {fileID: 251118746}
   - {fileID: 2089211534}
   - {fileID: 2095094085}
   - {fileID: 974125629}
@@ -7442,7 +7442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1400509, y: 146.57066}
+  m_AnchoredPosition: {x: -2.751, y: 146.57066}
   m_SizeDelta: {x: 156.6358, y: 120.3787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2024269594
