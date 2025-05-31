@@ -8,11 +8,16 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private string nomeDoLevelDeJogo;
     [SerializeField] private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelOpcoes;
-    [SerializeField] private string CenaRetry;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
 
     private System.Action acaoConfirmada;
+
+    private void Start()
+    {
+        if (painelConfirmacao != null)
+            painelConfirmacao.SetActive(false);
+    }
 
     public void Jogar()
     {
@@ -25,11 +30,6 @@ public class MenuPrincipalMangement : MonoBehaviour
         {
             SceneManager.LoadScene("CenaSelecaoFase");
         }
-    }
-
-    public void Retry()
-    {
-        SceneManager.LoadScene(CenaRetry);
     }
 
     public void AbrirOpcoes()
@@ -67,7 +67,9 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void BotaoConfirmarSim()
     {
         acaoConfirmada?.Invoke();
+        acaoConfirmada = null; 
     }
+
 
     public void BotaoConfirmarNao()
     {

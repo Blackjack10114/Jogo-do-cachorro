@@ -88,7 +88,6 @@ public class FimDoTutorial : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         Time.timeScale = 1f;
-        GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(ProximaCena);
     }
 }

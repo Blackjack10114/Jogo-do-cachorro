@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GerenciadorProgresso : MonoBehaviour
+public class ProximaFaseController: MonoBehaviour
 {
     [Header("Configurações")]
     [SerializeField] private string[] ordemFases = { "Fase_Playtest", "Fase_Alien_02" };
     [SerializeField] private Button botaoProximaFase;
     [SerializeField] private string cenaMenu = "MenuPrincipal";
+    [SerializeField] private string cenaRetry;
     [SerializeField] private string ProximaFase;
+    [SerializeField] private GameObject painelConfirmacao;
+    private System.Action acaoConfirmada;
 
     [Header("Aparência do Botão")]
     [SerializeField] private Color corCompleto = Color.gray;
@@ -51,10 +54,36 @@ public class GerenciadorProgresso : MonoBehaviour
             SceneManager.LoadScene(ordemFases[indiceFaseAtual + 1]);
         }
     }
-
+    public void Retry()
+    {
+        MostrarConfirmacao(() =>
+        {
+            SceneManager.LoadScene(cenaRetry);
+        });
+    }
     public void VoltarAoMenu()
     {
-        SceneManager.LoadScene(cenaMenu);
+        MostrarConfirmacao(() =>
+        {
+            SceneManager.LoadScene(cenaMenu);
+        });
+    }
+
+    private void MostrarConfirmacao(System.Action acao)
+    {
+        painelConfirmacao.SetActive(true);
+        acaoConfirmada = acao;
+    }
+
+    public void BotaoConfirmarSim()
+    {
+        acaoConfirmada?.Invoke();
+        acaoConfirmada = null;
+    }
+
+    public void BotaoConfirmarNao()
+    {
+        painelConfirmacao.SetActive(false);
     }
 
     // Chamar ANTES de carregar a cena de vitória
