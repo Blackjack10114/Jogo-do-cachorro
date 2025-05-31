@@ -22,8 +22,9 @@ public class FimDaFase : MonoBehaviour
     public Sprite Sprite_Dog_Sem_Caixa;
     private Vector3 offset;
     public Transform destino, destino2;
-    public float tempoDeMovimento = 2f;
+    public float tempoDeMovimento;
     private bool Terminou_fase, naoemoji;
+    public GameObject Comida_fase;
 
     void Start()
     {
@@ -57,8 +58,12 @@ public class FimDaFase : MonoBehaviour
             {
                 Comecar_animacao();
             }
+            if (estaalien)
+            {
+                Comecar_animacao();
+            }
 
-                pontuacaoScript.CalcularPontuacaoFinal();
+            pontuacaoScript.CalcularPontuacaoFinal();
 
             int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
             string nota = pontuacaoScript.GetClassificacaoLetra();
@@ -66,10 +71,6 @@ public class FimDaFase : MonoBehaviour
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
             if (estadino)
-            {
-                StartCoroutine(ReacaoClienteENextScene(nota));
-            }
-            if (estaalien)
             {
                 StartCoroutine(ReacaoClienteENextScene(nota));
             }
@@ -132,6 +133,14 @@ public class FimDaFase : MonoBehaviour
             string nota = pontuacaoScript.GetClassificacaoLetra();
             StartCoroutine(ReacaoClienteENextScene(nota));
         }
+        if (estatatu)
+        {
+            tempoDeMovimento = 2f;
+        }
+        if (estaalien)
+        {
+            tempoDeMovimento = 0.5f;
+        }
     }
     private void verificar_cena()
     {
@@ -150,10 +159,22 @@ public class FimDaFase : MonoBehaviour
     }
     private void Comecar_animacao()
     {
-        Time.timeScale = 0f;
         if (estatatu)
         {
+            Time.timeScale = 0f;
             Player.transform.position = new Vector3(1267f, -13.7f, 0f);
+            if (playerMov != null)
+            {
+              playerMov.enabled = false;
+              playerMov.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+              playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            StartCoroutine(Delay_tirar_caixa());
+        }
+        if (estaalien)
+        {
+            Time.timeScale = 0f;
+            Player.transform.position = new Vector3(672f, 911.3f, 0f);
             if (playerMov != null)
             {
                 playerMov.enabled = false;
@@ -166,49 +187,145 @@ public class FimDaFase : MonoBehaviour
     private IEnumerator Delay_tirar_caixa()
     {
         yield return new WaitForSecondsRealtime(0.1f);
-        Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
-        avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
-        avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
-        StartCoroutine(MoverAteDestino());
+        if (estatatu)
+        {
+            Player.GetComponent<Animator>().enabled = false;
+            Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
+            avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
+            StartCoroutine(MoverAteDestino());
+        }
+        if (estaalien)
+        {
+            Player.GetComponent<Animator>().enabled = false;
+            Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
+            avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
+            StartCoroutine(MoverAteDestino());
+        }
     }
     IEnumerator MoverAteDestino()
     {
-        Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
-        Vector2 posFinal = destino.position;
-        float tempoPassado = 0f;
-
-        while (tempoPassado < tempoDeMovimento)
+        if (estatatu)
         {
-            tempoPassado += Time.unscaledDeltaTime;
-            float t = tempoPassado / tempoDeMovimento;
-            avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
-            yield return null;
-        }
+            Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+            Vector2 posFinal = destino.position;
+            float tempoPassado = 0f;
 
-        avisoFaltaCaixaUI.transform.position = posFinal;
-        Destroy(avisoFaltaCaixaUI);
-        StartCoroutine(DelayInstanciarCaixa());
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+
+            avisoFaltaCaixaUI.transform.position = posFinal;
+            Destroy(avisoFaltaCaixaUI);
+            StartCoroutine(DelayInstanciarCaixa());
+        }
+        if (estaalien)
+        {
+            Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+            Vector2 posFinal = destino.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+
+            avisoFaltaCaixaUI.transform.position = posFinal;
+            StartCoroutine(MoverAteDestino2());
+        }
     }
     private IEnumerator DelayInstanciarCaixa()
     {
         yield return new WaitForSecondsRealtime(0.1f);
-        Caixa = Instantiate(Caixa, new Vector3 (1283f, 20f, 0f) , Quaternion.identity);
-        StartCoroutine(MoverAteDestino2());
+        if (estatatu)
+        {
+            Caixa = Instantiate(Caixa, new Vector3(1283f, 20f, 0f), Quaternion.identity);
+            StartCoroutine(MoverAteDestino2());
+        }
     }
     private IEnumerator MoverAteDestino2()
     {
-        Vector2 posInicial = Caixa.transform.position;
-        Vector2 posFinal = destino2.position;
-        float tempoPassado = 0f;
-
-        while (tempoPassado < tempoDeMovimento)
+        if (estatatu)
         {
-            tempoPassado += Time.unscaledDeltaTime;
-            float t = tempoPassado / tempoDeMovimento;
-            Caixa.transform.position = Vector2.Lerp(posInicial, posFinal, t);
-            yield return null;
+            Vector2 posInicial = Caixa.transform.position;
+            Vector2 posFinal = destino2.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                Caixa.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            Caixa.transform.position = posFinal;
+            StartCoroutine(Tirarcomida());
         }
-        Caixa.transform.position = posFinal;
-        Terminou_fase = true;
+        if (estaalien)
+        {
+            Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+            Vector2 posFinal = destino2.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            avisoFaltaCaixaUI.transform.position = posFinal;
+            StartCoroutine(Tirarcomida());
+        }
+    }
+    private IEnumerator Tirarcomida()
+    {
+        if (estatatu)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            Vector2 posInicial = Caixa.transform.position;
+            Vector2 posFinal = new Vector2(1282.7f, -12f);
+            float tempoPassado = 0f;
+            Comida_fase = Instantiate(Comida_fase, Caixa.transform.position, Quaternion.identity);
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                Comida_fase.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            Comida_fase.transform.position = posFinal;
+            yield return new WaitForSecondsRealtime(1.5f);
+            Destroy(Comida_fase);
+            yield return new WaitForSecondsRealtime(0.5f);
+            Terminou_fase = true;
+        }
+        if (estaalien)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+            Vector2 posFinal = new Vector2(641.8f, 921f);
+            float tempoPassado = 0f;
+            Comida_fase = Instantiate(Comida_fase, avisoFaltaCaixaUI.transform.position, Quaternion.identity);
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                Comida_fase.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            Comida_fase.transform.position = posFinal;
+            Destroy(Comida_fase);
+            yield return new WaitForSecondsRealtime(0.5f);
+            Terminou_fase = true;
+        }
     }
 }
