@@ -106,14 +106,9 @@ public class SistemaPontuacao : MonoBehaviour
         {
             textoPontuacao.text = $"Pontuação Final: {pontuacaoNumerica} ({pontuacaoEstrelas} estrelas, Nota {classificacaoLetra})";
         }
+        bool falhou = classificacaoLetra == "F";
+        Controlador_Som.instancia.DefinirMusicaFimDeFase(falhou);
 
-        Debug.Log($"===== PONTUAÇÃO FINAL =====\n" +
-                  $"Vida: {vidaAtual}/{vidaMaxima} → Bônus Vida: {bonusVida}\n" +
-                  $"Tempo: {tempoFinal}s / Meta: {tempoMeta}s → Bônus Tempo: {bonusTempo}\n" +
-                  $"Ossos Coletados: {ossosColetados} → Pontos Ossos: {pontosOssos}\n" +
-                  $"Pontuação Final: {pontuacaoNumerica}\n" +
-                  $"Estrelas: {pontuacaoEstrelas}\n" +
-                  $"Nota: {classificacaoLetra}\n===========================");
     }
 
     public float GetPontuacaoFinal() => pontuacaoEstrelas;

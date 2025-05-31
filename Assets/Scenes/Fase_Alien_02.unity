@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 109836907}
   - component: {fileID: 109836908}
   m_Layer: 5
-  m_Name: MusicVolume
+  m_Name: BGMVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 814170378}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controlador_Som, Assembly-CSharp
         m_MethodName: AtualizarVolumeMusica
         m_Mode: 0
@@ -12915,135 +12915,6 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   "c\xE9u": {fileID: 1064358690}
   FadeOut: {fileID: 4852143316860133368, guid: 3f838cd6cc533ed469bd4a3410b4ca55, type: 3}
---- !u!1 &418844821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 418844823}
-  - component: {fileID: 418844822}
-  m_Layer: 0
-  m_Name: Musica
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &418844822
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418844821}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6965514883374938629, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
-  m_audioClip: {fileID: 8300000, guid: e35faa77406b33f41abec4a6db08990e, type: 3}
-  m_Resource: {fileID: 8300000, guid: e35faa77406b33f41abec4a6db08990e, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &418844823
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418844821}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 656.4431, y: 143.02623, z: -0.37152916}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &419787286
 GameObject:
   m_ObjectHideFlags: 0
@@ -60448,7 +60319,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814170379}
-  - component: {fileID: 814170378}
   - component: {fileID: 814170377}
   m_Layer: 0
   m_Name: PauseController
@@ -60471,26 +60341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   painelPause: {fileID: 505682351}
   painelConfirmacao: {fileID: 918427974}
---- !u!114 &814170378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814170376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94ab17b0b5db5ae4ca23a7f4a7bd1d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
-  sliderMusica: {fileID: 109836908}
-  sliderSFX: {fileID: 2128028412}
-  sliderMaster: {fileID: 1285553470}
-  musicaSource: {fileID: 418844822}
-  muteButton: {fileID: 0}
-  somLigadoSprite: {fileID: 0}
-  somDesligadoSprite: {fileID: 0}
 --- !u!4 &814170379
 Transform:
   m_ObjectHideFlags: 0
@@ -84747,7 +84597,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 814170378}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controlador_Som, Assembly-CSharp
         m_MethodName: AtualizarVolumeMaster
         m_Mode: 0
@@ -90740,7 +90590,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 814170378}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controlador_Som, Assembly-CSharp
         m_MethodName: AtualizarVolumeSFX
         m_Mode: 0
@@ -90891,7 +90741,6 @@ SceneRoots:
   - {fileID: 830204115}
   - {fileID: 1044384570}
   - {fileID: 2058347039}
-  - {fileID: 418844823}
   - {fileID: 428166838}
   - {fileID: 814170379}
   - {fileID: 1492554172}

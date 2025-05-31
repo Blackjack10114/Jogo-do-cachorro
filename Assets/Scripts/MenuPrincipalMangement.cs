@@ -88,7 +88,7 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void TutorialNao()
     {
         painelTutorial.SetActive(false);
-        SceneManager.LoadScene("Fase_TatuMafioso_01");
+        SceneManager.LoadScene("CenaSelecaoFase");
     }
 
 
