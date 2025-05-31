@@ -84,27 +84,45 @@ public class Controlador_Som : MonoBehaviour
     private void TrocarMusicaPorCena(string nome)
     {
         AudioClip alvo = musicaMenu;
+        bool deveTocar = true;
+        bool deveRepetir = true;
+
         switch (nome)
         {
             case "Tutorial": alvo = musicaTutorial; break;
             case "Fase_TatuMafioso_01": alvo = musicaTatu; break;
             case "Fase_Alien_02": alvo = musicaAlien; break;
             case "Fase_Dino_03": alvo = musicaDino; break;
+
             case "CenaFalhaTatu":
             case "CenaFalhaAlien":
-            case "CenaFalhaDino": alvo = musicaFalha; break;
+            case "CenaFalhaDino":
+                alvo = musicaFalha;
+                deveRepetir = false;
+                break;
+
             case "CenaFimDeFaseTatu":
             case "CenaFimDeFaseAlien":
-            case "CenaFimDeFaseDino": alvo = musicaComemoracao; break;
+            case "CenaFimDeFaseDino":
+                alvo = musicaComemoracao;
+                deveRepetir = false;
+                break;
 
-            // Essas cenas compartilham a música do menu
             case "MenuPrincipal":
             case "Creditos":
-            case "CenaSelecaoFase": alvo = musicaMenu; break;
+            case "CenaSelecaoFase":
+                alvo = musicaMenu;
+                break;
+
+            default:
+                deveTocar = false; // não toca nada se a cena não for reconhecida
+                break;
         }
 
-        TocarMusica(alvo);
+        if (deveTocar)
+            TocarMusica(alvo, deveRepetir);
     }
+
 
     #endregion
 
@@ -116,23 +134,19 @@ public class Controlador_Som : MonoBehaviour
 
     /*------------------------------------------------------------------*/
     #region Reprodutor Genérico
-    private void TocarMusica(AudioClip clip)
+    private void TocarMusica(AudioClip clip, bool loop = true)
     {
         if (!clip || !musicaSource) return;
 
-        // Se for a mesma música, mas não está tocando (ex: retornou do pause), continua
-        if (musicaSource.clip == clip)
-        {
-            if (!musicaSource.isPlaying)
-                musicaSource.Play();
+        if (musicaSource.clip == clip && musicaSource.isPlaying)
             return;
-        }
 
-        // Se for uma música diferente, reinicia do zero
         musicaSource.clip = clip;
+        musicaSource.loop = loop;
         musicaSource.time = 0f;
         musicaSource.Play();
     }
+
 
     #endregion
 
