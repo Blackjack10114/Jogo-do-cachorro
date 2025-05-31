@@ -24,6 +24,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 0f;
         painelPause.SetActive(true);
+        Controlador_Som.instancia?.SincronizarSliders();
         painelConfirmacao.SetActive(false);
     }
 

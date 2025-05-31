@@ -14,11 +14,11 @@ public class Controlador_Som : MonoBehaviour
     public static Controlador_Som instancia;
 
     #region Referências (Inspector ou Automáticas)
-    [Header("Mixer e UI (opcional)")]
+    [Header("Mixer e UI")]
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Slider sliderMusica;  // Se vazio, será buscado por nome "SliderMusica"
-    [SerializeField] private Slider sliderSFX;     // Se vazio, busca "SliderSFX"
-    [SerializeField] private Slider sliderMaster;  // Se vazio, busca "SliderMaster"
+    [SerializeField] private Slider sliderMusica;  // Se vazio, será buscado por nome "BGMVolume"
+    [SerializeField] private Slider sliderSFX;     // Se vazio, busca "SFXVolume"
+    [SerializeField] private Slider sliderMaster;  // Se vazio, busca "MasterVolume"
 
     [Header("Audio Source Principal")]
     [SerializeField] private AudioSource musicaSource; // loop=true, playOnAwake=false
@@ -60,8 +60,9 @@ public class Controlador_Som : MonoBehaviour
     {
         RestaurarVolumes();
         TrocarMusicaPorCena(SceneManager.GetActiveScene().name);
-        SincronizarSliders();
+        InvokeRepeating(nameof(SincronizarSliders), 0.5f, 0.5f); // tenta sincronizar várias vezes
     }
+
     private void Update()
     {
         if (musicaSource && musicaSource.isPlaying && musicaSource.clip == musicaMenu)
@@ -95,9 +96,16 @@ public class Controlador_Som : MonoBehaviour
             case "CenaFimDeFaseTatu":
             case "CenaFimDeFaseAlien":
             case "CenaFimDeFaseDino": alvo = musicaComemoracao; break;
+
+            // Essas cenas compartilham a música do menu
+            case "MenuPrincipal":
+            case "Creditos":
+            case "CenaSelecaoFase": alvo = musicaMenu; break;
         }
+
         TocarMusica(alvo);
     }
+
     #endregion
 
     /*------------------------------------------------------------------*/
@@ -111,16 +119,26 @@ public class Controlador_Som : MonoBehaviour
     private void TocarMusica(AudioClip clip)
     {
         if (!clip || !musicaSource) return;
-        if (musicaSource.clip == clip && musicaSource.isPlaying) return;
+
+        // Se for a mesma música, mas não está tocando (ex: retornou do pause), continua
+        if (musicaSource.clip == clip)
+        {
+            if (!musicaSource.isPlaying)
+                musicaSource.Play();
+            return;
+        }
+
+        // Se for uma música diferente, reinicia do zero
         musicaSource.clip = clip;
-        musicaSource.time = (clip == musicaMenu) ? PlayerPrefs.GetFloat("MusicaTempo", 0f) : 0f;
+        musicaSource.time = 0f;
         musicaSource.Play();
     }
+
     #endregion
 
     /*------------------------------------------------------------------*/
     #region Volumes
-    public void AtualizarVolumeMusica(float v) => SetVolume("MusicVolume", v);
+    public void AtualizarVolumeMusica(float v) => SetVolume("BGMVolume", v);
     public void AtualizarVolumeSFX(float v) => SetVolume("SFXVolume", v);
     public void AtualizarVolumeMaster(float v) => SetVolume("MasterVolume", v);
 
@@ -133,32 +151,67 @@ public class Controlador_Som : MonoBehaviour
 
     private void RestaurarVolumes()
     {
-        SetVolume("MusicVolume", PlayerPrefs.GetFloat("MusicVolume", 1f));
-        SetVolume("SFXVolume", PlayerPrefs.GetFloat("SFXVolume", 1f));
-        SetVolume("MasterVolume", PlayerPrefs.GetFloat("MasterVolume", 1f));
+        if (!PlayerPrefs.HasKey("VolumeInicializado"))
+        {
+            // Primeira vez abrindo o jogo — define volumes em 50%
+            float volumeInicial = 0.5f;
+            SetVolume("BGMVolume", volumeInicial);
+            SetVolume("SFXVolume", volumeInicial);
+            SetVolume("MasterVolume", volumeInicial);
+
+            PlayerPrefs.SetFloat("BGMVolume", volumeInicial);
+            PlayerPrefs.SetFloat("SFXVolume", volumeInicial);
+            PlayerPrefs.SetFloat("MasterVolume", volumeInicial);
+
+            PlayerPrefs.SetInt("VolumeInicializado", 1);
+        }
+        else
+        {
+            // Já inicializou antes — restaura os valores salvos
+            SetVolume("BGMVolume", PlayerPrefs.GetFloat("BGMVolume", 1f));
+            SetVolume("SFXVolume", PlayerPrefs.GetFloat("SFXVolume", 1f));
+            SetVolume("MasterVolume", PlayerPrefs.GetFloat("MasterVolume", 1f));
+        }
     }
+
 
     /// <summary>
     /// Procura sliders por nome se as referências estiverem nulas e sincroniza valores.
     /// </summary>
-    private void SincronizarSliders()
+    public void SincronizarSliders()
     {
-        if (!sliderMusica) sliderMusica = GameObject.Find("BGMVolume")?.GetComponent<Slider>();
-        if (!sliderSFX) sliderSFX = GameObject.Find("SFXVolume")?.GetComponent<Slider>();
-        if (!sliderMaster) sliderMaster = GameObject.Find("MasterVolume")?.GetComponent<Slider>();
+        if (!sliderMusica)
+            sliderMusica = GameObject.Find("BGMVolume")?.GetComponent<Slider>();
+        if (!sliderSFX)
+            sliderSFX = GameObject.Find("SFXVolume")?.GetComponent<Slider>();
+        if (!sliderMaster)
+            sliderMaster = GameObject.Find("MasterVolume")?.GetComponent<Slider>();
 
-        if (sliderMusica) sliderMusica.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        if (sliderSFX) sliderSFX.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
-        if (sliderMaster) sliderMaster.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-
-        // Liga eventos se ainda não estiverem conectados
-        if (sliderMusica && sliderMusica.onValueChanged.GetPersistentEventCount() == 0)
+        if (sliderMusica)
+        {
+            sliderMusica.onValueChanged.RemoveAllListeners();
+            sliderMusica.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
             sliderMusica.onValueChanged.AddListener(AtualizarVolumeMusica);
-        if (sliderSFX && sliderSFX.onValueChanged.GetPersistentEventCount() == 0)
+        }
+        if (sliderSFX)
+        {
+            sliderSFX.onValueChanged.RemoveAllListeners();
+            sliderSFX.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
             sliderSFX.onValueChanged.AddListener(AtualizarVolumeSFX);
-        if (sliderMaster && sliderMaster.onValueChanged.GetPersistentEventCount() == 0)
+        }
+        if (sliderMaster)
+        {
+            sliderMaster.onValueChanged.RemoveAllListeners();
+            sliderMaster.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
             sliderMaster.onValueChanged.AddListener(AtualizarVolumeMaster);
+        }
+
+        // Cancela o loop quando todos os sliders forem encontrados
+        if (sliderMusica && sliderSFX && sliderMaster)
+            CancelInvoke(nameof(SincronizarSliders));
     }
+
+
     #endregion
 
     /*------------------------------------------------------------------*/
