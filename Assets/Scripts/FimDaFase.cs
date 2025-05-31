@@ -25,6 +25,7 @@ public class FimDaFase : MonoBehaviour
     public float tempoDeMovimento;
     private bool Terminou_fase, naoemoji;
     public GameObject Comida_fase;
+    private GameObject meteorofinal, consumidor;
 
     void Start()
     {
@@ -38,6 +39,8 @@ public class FimDaFase : MonoBehaviour
         sceneName = currentScene.name;
         Player = GameObject.FindWithTag("Player");
         offset = new Vector3(0f, 1.5f, 0f);
+        meteorofinal = GameObject.FindWithTag("MeteoroFinal");
+        consumidor = GameObject.FindWithTag("Consumidor");
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -62,6 +65,10 @@ public class FimDaFase : MonoBehaviour
             {
                 Comecar_animacao();
             }
+            if (estadino)
+            {
+                Comecar_animacao();
+            }
 
             pontuacaoScript.CalcularPontuacaoFinal();
 
@@ -70,10 +77,6 @@ public class FimDaFase : MonoBehaviour
 
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
-            if (estadino)
-            {
-                StartCoroutine(ReacaoClienteENextScene(nota));
-            }
         }
     }
 
@@ -139,7 +142,11 @@ public class FimDaFase : MonoBehaviour
         }
         if (estaalien)
         {
-            tempoDeMovimento = 0.5f;
+            tempoDeMovimento = 1f;
+        }
+        if (estadino)
+        {
+            tempoDeMovimento = 2f;
         }
     }
     private void verificar_cena()
@@ -183,6 +190,18 @@ public class FimDaFase : MonoBehaviour
             }
             StartCoroutine(Delay_tirar_caixa());
         }
+        if (estadino)
+        {
+            Time.timeScale = 0f;
+            Player.transform.position = new Vector3(1745f, 241.3f, 0f);
+            if (playerMov != null)
+            {
+                playerMov.enabled = false;
+                playerMov.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+                playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            StartCoroutine(Delay_tirar_caixa());
+        }
     }
     private IEnumerator Delay_tirar_caixa()
     {
@@ -196,6 +215,14 @@ public class FimDaFase : MonoBehaviour
             StartCoroutine(MoverAteDestino());
         }
         if (estaalien)
+        {
+            Player.GetComponent<Animator>().enabled = false;
+            Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
+            avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
+            avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
+            StartCoroutine(MoverAteDestino());
+        }
+        if (estadino)
         {
             Player.GetComponent<Animator>().enabled = false;
             Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
@@ -241,6 +268,24 @@ public class FimDaFase : MonoBehaviour
             avisoFaltaCaixaUI.transform.position = posFinal;
             StartCoroutine(MoverAteDestino2());
         }
+        if (estadino)
+        {
+            Vector2 posInicial = avisoFaltaCaixaUI.transform.position;
+            Vector2 posFinal = destino.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                avisoFaltaCaixaUI.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+
+            avisoFaltaCaixaUI.transform.position = posFinal;
+            Destroy(avisoFaltaCaixaUI);
+            StartCoroutine(DelayInstanciarCaixa());
+        }
     }
     private IEnumerator DelayInstanciarCaixa()
     {
@@ -248,6 +293,13 @@ public class FimDaFase : MonoBehaviour
         if (estatatu)
         {
             Caixa = Instantiate(Caixa, new Vector3(1283f, 20f, 0f), Quaternion.identity);
+            Caixa.transform.localScale = new Vector3(2, 2, 2);
+            StartCoroutine(MoverAteDestino2());
+        }
+        if (estadino)
+        {
+            Caixa = Instantiate(Caixa, new Vector3(1761f, 210f, 0f), Quaternion.identity);
+            Caixa.transform.localScale = new Vector3(2, 2, 2);
             StartCoroutine(MoverAteDestino2());
         }
     }
@@ -283,6 +335,22 @@ public class FimDaFase : MonoBehaviour
                 yield return null;
             }
             avisoFaltaCaixaUI.transform.position = posFinal;
+            StartCoroutine(Tirarcomida());
+        }
+        if (estadino)
+        {
+            Vector2 posInicial = Caixa.transform.position;
+            Vector2 posFinal = destino2.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                Caixa.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            Caixa.transform.position = posFinal;
             StartCoroutine(Tirarcomida());
         }
     }
@@ -326,6 +394,65 @@ public class FimDaFase : MonoBehaviour
             Destroy(Comida_fase);
             yield return new WaitForSecondsRealtime(0.5f);
             Terminou_fase = true;
+        }
+        if (estadino)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            Vector2 posInicial = Caixa.transform.position;
+            Vector2 posFinal = new Vector2(1767.79f, 244.36f);
+            float tempoPassado = 0f;
+            Comida_fase = Instantiate(Comida_fase, Caixa.transform.position, Quaternion.identity);
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                Comida_fase.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+                yield return null;
+            }
+            Comida_fase.transform.position = posFinal;
+            Destroy(Comida_fase);
+            yield return new WaitForSecondsRealtime(0.5f);
+            string nota = pontuacaoScript.GetClassificacaoLetra();
+            StartCoroutine(reacaodino(nota));
+        }
+    }
+    private IEnumerator reacaodino(string nota)
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        if (clienteEmojiUI != null)
+        {
+            clienteEmojiUI.SetActive(true);
+
+            // Define o emoji pela nota
+            var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
+            if (emojiRenderer != null)
+            {
+                if (nota == "S+" || nota == "S")
+                    emojiRenderer.sprite = emojiCoracao;
+                else if (nota == "A" || nota == "B")
+                    emojiRenderer.sprite = emojiFeliz;
+                else if (nota == "C" || nota == "D")
+                    emojiRenderer.sprite = emojiNeutro;
+                else
+                    emojiRenderer.sprite = emojiBravo;
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
+            Vector2 offsetdino = new Vector2(-7.09f, 4f);
+            Vector2 posInicial = meteorofinal.transform.position;
+            Vector2 posFinal = consumidor.transform.position;
+            float tempoPassado = 0f;
+
+            while (tempoPassado < tempoDeMovimento)
+            {
+                tempoPassado += Time.unscaledDeltaTime;
+                float t = tempoPassado / tempoDeMovimento;
+                meteorofinal.transform.position = Vector2.Lerp(posInicial, posFinal + offsetdino, t);
+                yield return null;
+            }
+            meteorofinal.transform.position = posFinal + offsetdino;
+            Time.timeScale = 1f;
+            GerenciadorProgresso.RegistrarCenaAtual(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(cenaFim);
         }
     }
 }
