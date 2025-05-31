@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GerenciadorDeProgresso : MonoBehaviour
+public class GerenciadorDeJogo : MonoBehaviour
 {
-    public static GerenciadorDeProgresso Instance;
+    public static GerenciadorDeJogo Instance;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Não destrói ao trocar de cena
+            DontDestroyOnLoad(gameObject); // Persiste entre cenas
         }
         else
         {
@@ -17,7 +18,7 @@ public class GerenciadorDeProgresso : MonoBehaviour
         }
     }
 
-    // Salva qual fase está
+    // Desbloqueia fase no progresso
     public void DesbloquearFase(int fase)
     {
         PlayerPrefs.SetInt("Fase_" + fase, 1);
@@ -28,10 +29,8 @@ public class GerenciadorDeProgresso : MonoBehaviour
     public bool FaseEstaDesbloqueada(int fase)
     {
         return PlayerPrefs.GetInt("Fase_" + fase, fase <= 1 ? 1 : 0) == 1;
-        // Fase do Tatu sempre desbloqueada
     }
 
-    // Marcar Tutorial como concluído
     public void ConcluirTutorial()
     {
         PlayerPrefs.SetInt("TutorialConcluido", 1);
@@ -43,10 +42,44 @@ public class GerenciadorDeProgresso : MonoBehaviour
         return PlayerPrefs.GetInt("TutorialConcluido", 0) == 1;
     }
 
-    // Reseta progresso para playtest ou rejogar
     public void ResetarProgresso()
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
+    }
+
+    // Avança para a próxima fase com base na cena atual
+    public void IrParaProximaFase()
+    {
+        string cenaAtual = SceneManager.GetActiveScene().name;
+        string proximaCena = "";
+
+        switch (cenaAtual)
+        {
+            case "Tutorial":
+                proximaCena = "Fase_TatuMafioso_01";
+                DesbloquearFase(1);
+                ConcluirTutorial();
+                break;
+
+            case "Fase_TatuMafioso_01":
+                proximaCena = "Fase_Alien_02";
+                DesbloquearFase(2);
+                break;
+
+            case "Fase_Alien_02":
+                proximaCena = "Fase_Dino_03";
+                DesbloquearFase(3);
+                break;
+
+            case "Fase_Dino_03":
+                proximaCena = "MenuPrincipal";
+                break;
+        }
+
+        if (!string.IsNullOrEmpty(proximaCena))
+        {
+            SceneManager.LoadScene(proximaCena);
+        }
     }
 }
