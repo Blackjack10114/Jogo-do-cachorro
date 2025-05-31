@@ -24,6 +24,7 @@ public class FimDaFase : MonoBehaviour
     public Transform destino, destino2;
     public float tempoDeMovimento = 2f;
     private bool Terminou_fase, naoemoji;
+    public GameObject Comida_fase;
 
     void Start()
     {
@@ -166,6 +167,7 @@ public class FimDaFase : MonoBehaviour
     private IEnumerator Delay_tirar_caixa()
     {
         yield return new WaitForSecondsRealtime(0.1f);
+        Player.GetComponent<Animator>().enabled = false;
         Player.GetComponent<SpriteRenderer>().sprite = Sprite_Dog_Sem_Caixa;
         avisoFaltaCaixaUI = Instantiate(avisoFaltaCaixaUI, Player.transform.position + offset, Quaternion.identity);
         avisoFaltaCaixaUI.transform.localScale = new Vector3(2, 2, 2);
@@ -209,6 +211,27 @@ public class FimDaFase : MonoBehaviour
             yield return null;
         }
         Caixa.transform.position = posFinal;
+        StartCoroutine(Tirarcomida());
+        //Terminou_fase = true;
+    }
+    private IEnumerator Tirarcomida()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        Vector2 posInicial = Caixa.transform.position;
+        Vector2 posFinal = new Vector2(1282.7f, -12f);
+        float tempoPassado = 0f;
+        Comida_fase = Instantiate(Comida_fase, Caixa.transform.position, Quaternion.identity);
+        while (tempoPassado < tempoDeMovimento)
+        {
+            tempoPassado += Time.unscaledDeltaTime;
+            float t = tempoPassado / tempoDeMovimento;
+            Comida_fase.transform.position = Vector2.Lerp(posInicial, posFinal, t);
+            yield return null;
+        }
+        Comida_fase.transform.position = posFinal;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Destroy(Comida_fase);
+        yield return new WaitForSecondsRealtime(0.5f);
         Terminou_fase = true;
     }
 }
