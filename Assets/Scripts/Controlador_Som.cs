@@ -4,16 +4,40 @@ using UnityEngine.UI;
 
 public class Controlador_Som : MonoBehaviour
 {
+    public static Controlador_Som instancia;
+
     [Header("Referências")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider sliderMusica;
     [SerializeField] private Slider sliderSFX;
     [SerializeField] private Slider sliderMaster;
+    [SerializeField] private AudioSource musicaSource;
 
     [Header("Configurações do Mute")]
     [SerializeField] private Button muteButton;
     [SerializeField] private Sprite somLigadoSprite;
     [SerializeField] private Sprite somDesligadoSprite;
+
+    private bool estaMutado = false;
+
+    void Awake()
+    {
+        if (instancia != null && instancia != this)
+        {
+            Destroy(gameObject); 
+            return;
+        }
+
+        instancia = this;
+        DontDestroyOnLoad(gameObject); 
+
+        if (musicaSource != null)
+        {
+            float tempoSalvo = PlayerPrefs.GetFloat("MusicaTempo", 0f);
+            musicaSource.time = tempoSalvo;
+            musicaSource.Play();
+        }
+    }
 
     void Start()
     {
@@ -21,13 +45,21 @@ public class Controlador_Som : MonoBehaviour
         float volSFX = PlayerPrefs.GetFloat("SFXVolume", 1f);
         float volMaster = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
-        sliderMusica.value = volMusica;
-        sliderSFX.value = volSFX;
-        sliderMaster.value = volMaster;
+        if (sliderMusica != null) sliderMusica.value = volMusica;
+        if (sliderSFX != null) sliderSFX.value = volSFX;
+        if (sliderMaster != null) sliderMaster.value = volMaster;
 
         SetVolume("MusicVolume", volMusica);
         SetVolume("SFXVolume", volSFX);
         SetVolume("MasterVolume", volMaster);
+    }
+
+    void Update()
+    {
+        if (musicaSource != null && musicaSource.isPlaying)
+        {
+            PlayerPrefs.SetFloat("MusicaTempo", musicaSource.time);
+        }
     }
 
     public void AtualizarVolumeMusica(float valor)
@@ -51,5 +83,18 @@ public class Controlador_Som : MonoBehaviour
         audioMixer.SetFloat(parametro, volumeDb);
         PlayerPrefs.SetFloat(parametro, valor);
         PlayerPrefs.Save();
+    }
+
+    public void AlternarMute()
+    {
+        estaMutado = !estaMutado;
+        AudioListener.volume = estaMutado ? 0f : 1f;
+
+        if (muteButton != null)
+        {
+            Image img = muteButton.GetComponent<Image>();
+            if (img != null)
+                img.sprite = estaMutado ? somDesligadoSprite : somLigadoSprite;
+        }
     }
 }

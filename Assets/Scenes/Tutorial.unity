@@ -2112,9 +2112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   move: 5
+  Doug: {fileID: 0}
   jumpforce: 50
-  Sprite_Dog_Caixa_Normal: {fileID: 594081401435002664, guid: 991508e69d653694297612ff52a9ab9f, type: 3}
-  Sprite_Dog_Caixa_Normal_0: {fileID: 388148210}
   CaixaPega: 0
   caixaInstanciada: 0
   CaixaIndoEsquerda: 0
@@ -2224,6 +2223,7 @@ MonoBehaviour:
   IndoDireita: 0
   Correr_som: {fileID: 8300000, guid: a0cde4e1d7abcd249b9cee440f85a1e0, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+  Velocidadeanimacao: 0
 --- !u!114 &388148218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2262,9 +2262,6 @@ MonoBehaviour:
   m: 3
   pv: 100
   shield: {fileID: 0}
-  Sprite_Dog_Caixa_Normal_0: {fileID: 388148210}
-  Sprite_Dog_Caixa_Normal: {fileID: 594081401435002664, guid: 991508e69d653694297612ff52a9ab9f, type: 3}
-  Sprite_Dog_Sem_Caixa: {fileID: 7105557137804160600, guid: f5c1d96dbebd26749a03a20e968aa734, type: 3}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
   Estasemcaixa: 0
@@ -2498,6 +2495,7 @@ MonoBehaviour:
   sliderMusica: {fileID: 1238724058}
   sliderSFX: {fileID: 88728472}
   sliderMaster: {fileID: 646330319}
+  musicaSource: {fileID: 1089783818}
   muteButton: {fileID: 0}
   somLigadoSprite: {fileID: 0}
   somDesligadoSprite: {fileID: 0}
