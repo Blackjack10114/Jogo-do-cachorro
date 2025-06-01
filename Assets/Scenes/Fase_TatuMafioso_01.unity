@@ -34621,6 +34621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1194981705}
   - component: {fileID: 1194981706}
+  - component: {fileID: 1194981707}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -34714,6 +34715,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1194981707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194981704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: SFXVolume
+  slider: {fileID: 1194981706}
 --- !u!1 &1215632289
 GameObject:
   m_ObjectHideFlags: 0
@@ -36259,6 +36274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1441017727}
   - component: {fileID: 1441017726}
+  - component: {fileID: 1441017728}
   m_Layer: 5
   m_Name: BGMVolume
   m_TagString: Untagged
@@ -36352,6 +36368,20 @@ RectTransform:
   m_AnchoredPosition: {x: -29.81311, y: 37.79146}
   m_SizeDelta: {x: 509.535, y: 93.2227}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1441017728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441017725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: BGMVolume
+  slider: {fileID: 1441017726}
 --- !u!1 &1449389600
 GameObject:
   m_ObjectHideFlags: 0
@@ -49751,6 +49781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011713114}
   - component: {fileID: 2011713113}
+  - component: {fileID: 2011713115}
   m_Layer: 5
   m_Name: MasterVolume
   m_TagString: Untagged
@@ -49844,6 +49875,20 @@ RectTransform:
   m_AnchoredPosition: {x: -29.81311, y: 134}
   m_SizeDelta: {x: 509.535, y: 93.2227}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2011713115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011713112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: MasterVolume
+  slider: {fileID: 2011713113}
 --- !u!1 &2022309660
 GameObject:
   m_ObjectHideFlags: 0
@@ -50023,6 +50068,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControladorSom
       objectReference: {fileID: 0}
+    - target: {fileID: 3839189101744896335, guid: 85bc5348402ba13439bc2b22f81b3d6f, type: 3}
+      propertyPath: AudioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+    - target: {fileID: 3839189101744896335, guid: 85bc5348402ba13439bc2b22f81b3d6f, type: 3}
+      propertyPath: musicaFase
+      value: 
+      objectReference: {fileID: 8300000, guid: 50d2c0b78a88cc84e9880596fef28820, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

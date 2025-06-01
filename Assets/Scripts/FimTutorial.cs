@@ -56,6 +56,7 @@ public class FimDoTutorial : MonoBehaviour
 
     private IEnumerator ReacaoClienteEFim()
     {
+        Time.timeScale = 0f;
         // Para o movimento do jogador
         if (playerMov != null)
         {
@@ -80,5 +81,6 @@ public class FimDoTutorial : MonoBehaviour
         // Mostra o painel de fim de tutorial
         if (painelFimTutorial != null)
             painelFimTutorial.SetActive(true);
+        Time.timeScale = 1f;
     }
 }

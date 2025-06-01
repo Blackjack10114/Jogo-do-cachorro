@@ -1598,6 +1598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 503326369}
   - component: {fileID: 503326370}
+  - component: {fileID: 503326371}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -1691,6 +1692,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &503326371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503326368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: SFXVolume
+  slider: {fileID: 503326370}
 --- !u!1 &517293384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 646284344}
   - component: {fileID: 646284343}
+  - component: {fileID: 646284345}
   m_Layer: 5
   m_Name: MasterVolume
   m_TagString: Untagged
@@ -1991,6 +2007,20 @@ RectTransform:
   m_AnchoredPosition: {x: -29.81311, y: 134}
   m_SizeDelta: {x: 509.535, y: 93.2227}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &646284345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646284342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: MasterVolume
+  slider: {fileID: 646284343}
 --- !u!1 &663150741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,6 +2109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671431113}
   - component: {fileID: 671431114}
+  - component: {fileID: 671431115}
   m_Layer: 5
   m_Name: BGMVolume
   m_TagString: Untagged
@@ -2174,6 +2205,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &671431115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671431112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: BGMVolume
+  slider: {fileID: 671431114}
 --- !u!1 &679812401
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControladorSom
       objectReference: {fileID: 0}
+    - target: {fileID: 3839189101744896335, guid: 85bc5348402ba13439bc2b22f81b3d6f, type: 3}
+      propertyPath: AudioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3659,7 +3708,6 @@ MonoBehaviour:
   nomeDoLevelDeJogo: Fase_Playtest
   painelMenuInicial: {fileID: 375069977}
   painelOpcoes: {fileID: 663150741}
-  CenaRetry: 
   painelConfirmacao: {fileID: 2027304566}
   painelTutorial: {fileID: 457832977}
 --- !u!4 &1158074034

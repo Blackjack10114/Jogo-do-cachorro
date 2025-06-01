@@ -13,7 +13,10 @@ public class Controlador_Som : MonoBehaviour
 
     [Header("Músicas")]
     [SerializeField] private AudioClip musicaMenu;
-    [SerializeField] private AudioClip musicaFase;
+    [SerializeField] private AudioClip musicaTutorial;
+    [SerializeField] private AudioClip musicaTatu;
+    [SerializeField] private AudioClip musicaAlien;
+    [SerializeField] private AudioClip musicaDino;
     [SerializeField] private AudioClip musicaFalha;
     [SerializeField] private AudioClip musicaComemoracao;
 
@@ -58,10 +61,17 @@ public class Controlador_Som : MonoBehaviour
 
         switch (nomeCena)
         {
+            case "Tutorial":
+                novaMusica = musicaTutorial;
+                break;
             case "Fase_TatuMafioso_01":
+                novaMusica = musicaTatu;
+                break;
             case "Fase_Alien_02":
+                novaMusica = musicaAlien;
+                break;
             case "Fase_Dino_03":
-                novaMusica = musicaFase;
+                novaMusica = musicaDino;
                 break;
 
             case "CenaFimDeFaseTatu":
@@ -81,6 +91,7 @@ public class Controlador_Som : MonoBehaviour
             case "MenuPrincipal":
             case "CenaSelecaoFase":
             case "Creditos":
+            default:
                 novaMusica = musicaMenu;
                 break;
         }

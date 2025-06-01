@@ -833,6 +833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 109836907}
   - component: {fileID: 109836908}
+  - component: {fileID: 109836909}
   m_Layer: 5
   m_Name: BGMVolume
   m_TagString: Untagged
@@ -926,6 +927,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &109836909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109836906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: BGMVolume
+  slider: {fileID: 109836908}
 --- !u!1001 &124788143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84548,6 +84563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1285553469}
   - component: {fileID: 1285553470}
+  - component: {fileID: 1285553471}
   m_Layer: 5
   m_Name: MasterVolume
   m_TagString: Untagged
@@ -84641,6 +84657,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1285553471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285553468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: MasterVolume
+  slider: {fileID: 1285553470}
 --- !u!1 &1286980195
 GameObject:
   m_ObjectHideFlags: 0
@@ -85888,6 +85918,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControladorSom
       objectReference: {fileID: 0}
+    - target: {fileID: 3839189101744896335, guid: 85bc5348402ba13439bc2b22f81b3d6f, type: 3}
+      propertyPath: AudioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+    - target: {fileID: 3839189101744896335, guid: 85bc5348402ba13439bc2b22f81b3d6f, type: 3}
+      propertyPath: musicaFase
+      value: 
+      objectReference: {fileID: 8300000, guid: e35faa77406b33f41abec4a6db08990e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -90637,6 +90675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2128028411}
   - component: {fileID: 2128028412}
+  - component: {fileID: 2128028413}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -90730,6 +90769,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2128028413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128028410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: SFXVolume
+  slider: {fileID: 2128028412}
 --- !u!4 &2130967175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3514362794023577096, guid: c9b3b0ce7d0a81749a407a8340699d29, type: 3}
