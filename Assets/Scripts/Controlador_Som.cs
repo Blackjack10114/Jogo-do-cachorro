@@ -7,7 +7,8 @@ public class Controlador_Som : MonoBehaviour
     public static Controlador_Som instancia;
 
     [Header("Mixer e Áudio")]
-    [SerializeField] private AudioMixer audioMixer;
+    public AudioMixer AudioMixer;
+
     [SerializeField] private AudioSource musicaSource;
 
     [Header("Músicas")]
@@ -97,4 +98,5 @@ public class Controlador_Som : MonoBehaviour
         musicaSource.time = 0f;
         musicaSource.Play();
     }
+
 }

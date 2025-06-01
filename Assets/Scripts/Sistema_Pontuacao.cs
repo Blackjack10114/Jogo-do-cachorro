@@ -106,8 +106,7 @@ public class SistemaPontuacao : MonoBehaviour
         {
             textoPontuacao.text = $"Pontuação Final: {pontuacaoNumerica} ({pontuacaoEstrelas} estrelas, Nota {classificacaoLetra})";
         }
-        bool falhou = classificacaoLetra == "F";
-        Controlador_Som.instancia.DefinirMusicaFimDeFase(falhou);
+        
 
     }
 
