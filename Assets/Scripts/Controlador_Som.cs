@@ -31,6 +31,8 @@ public class Controlador_Som : MonoBehaviour
         instancia = this;
         DontDestroyOnLoad(gameObject);
 
+        AplicarVolumesIniciais();
+
         if (musicaSource == null)
         {
             musicaSource = gameObject.AddComponent<AudioSource>();
@@ -108,6 +110,18 @@ public class Controlador_Som : MonoBehaviour
         musicaSource.clip = clip;
         musicaSource.time = 0f;
         musicaSource.Play();
+    }
+    private void AplicarVolumesIniciais()
+    {
+        AplicarVolume("MasterVolume");
+        AplicarVolume("BGMVolume");
+        AplicarVolume("SFXVolume");
+    }
+    private void AplicarVolume(string parametro)
+    {
+        float valor = PlayerPrefs.GetFloat(parametro, 1f); // 1f = volume padrão
+        float db = Mathf.Log10(Mathf.Clamp(valor, 0.001f, 1f)) * 20f;
+        AudioMixer.SetFloat(parametro, db);
     }
 
 }
