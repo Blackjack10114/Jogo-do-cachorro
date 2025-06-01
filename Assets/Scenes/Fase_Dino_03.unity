@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3729627}
   - component: {fileID: 3729626}
+  - component: {fileID: 3729628}
   m_Layer: 5
   m_Name: BGMVolume
   m_TagString: Untagged
@@ -222,6 +223,20 @@ RectTransform:
   m_AnchoredPosition: {x: -29.81311, y: 37.79146}
   m_SizeDelta: {x: 509.535, y: 93.2227}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3729628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: BGMVolume
+  slider: {fileID: 3729626}
 --- !u!4 &7188588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3514362794023577096, guid: c9b3b0ce7d0a81749a407a8340699d29, type: 3}
@@ -723,7 +738,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9960785, g: 0.95294124, b: 0.04705883, a: 1}
+    m_HighlightedColor: {r: 0.49411765, g: 0.41568628, b: 0.02745098, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2688,7 +2703,7 @@ Transform:
   m_GameObject: {fileID: 189306138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1745, y: 241.3, z: -10}
+  m_LocalPosition: {x: 1707, y: 243.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34043,6 +34058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 842826875}
   - component: {fileID: 842826874}
+  - component: {fileID: 842826876}
   m_Layer: 5
   m_Name: MasterVolume
   m_TagString: Untagged
@@ -34136,6 +34152,20 @@ RectTransform:
   m_AnchoredPosition: {x: -29.81311, y: 134}
   m_SizeDelta: {x: 509.535, y: 93.2227}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &842826876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842826873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: MasterVolume
+  slider: {fileID: 842826874}
 --- !u!1 &844214751
 GameObject:
   m_ObjectHideFlags: 0
@@ -35482,7 +35512,7 @@ Transform:
   m_GameObject: {fileID: 992099263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1745, y: 241.3, z: -10}
+  m_LocalPosition: {x: 1707, y: 243.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35930,6 +35960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1022671271}
   - component: {fileID: 1022671272}
+  - component: {fileID: 1022671273}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -36023,6 +36054,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1022671273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022671270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1470a6ef74ff9ba4fadbcffaa360c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerParameter: SFXVolume
+  slider: {fileID: 1022671272}
 --- !u!1001 &1023354732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45923,7 +45968,7 @@ Transform:
   m_GameObject: {fileID: 1898782771}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1745, y: 241.3, z: 0}
+  m_LocalPosition: {x: 1707, y: 243.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -84036,7 +84081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4965459933064968501, guid: ee4d7c45865bf3e438a08fa160c5a36f, type: 3}
       propertyPath: forcaVertical
-      value: 480
+      value: 485
       objectReference: {fileID: 0}
     - target: {fileID: 4965459933064968501, guid: ee4d7c45865bf3e438a08fa160c5a36f, type: 3}
       propertyPath: forcaHorizontal

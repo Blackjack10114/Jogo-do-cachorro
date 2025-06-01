@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.8584906, g: 0.7363159, b: 0.13363297, a: 1}
+    m_HighlightedColor: {r: 0.49411765, g: 0.41568628, b: 0.02745098, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 563178944}
         m_TargetAssemblyTypeName: ProximaFaseController, Assembly-CSharp
         m_MethodName: BotaoConfirmarNao
         m_Mode: 1
@@ -3408,21 +3408,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ab17b0b5db5ae4ca23a7f4a7bd1d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
-  sliderMusica: {fileID: 0}
-  sliderSFX: {fileID: 0}
-  sliderMaster: {fileID: 0}
+  AudioMixer: {fileID: 0}
   musicaSource: {fileID: 0}
   musicaMenu: {fileID: 0}
-  musicaComemoracao: {fileID: 0}
-  musicaFalha: {fileID: 0}
   musicaTutorial: {fileID: 0}
   musicaTatu: {fileID: 0}
   musicaAlien: {fileID: 0}
   musicaDino: {fileID: 0}
-  muteButton: {fileID: 0}
-  somLigadoSprite: {fileID: 0}
-  somDesligadoSprite: {fileID: 0}
+  musicaFalha: {fileID: 0}
+  musicaComemoracao: {fileID: 0}
 --- !u!1 &1926883768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3506,7 +3500,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 563178944}
         m_TargetAssemblyTypeName: ProximaFaseController, Assembly-CSharp
         m_MethodName: BotaoConfirmarSim
         m_Mode: 1
