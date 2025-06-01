@@ -11,6 +11,7 @@ public class FimDoTutorial : MonoBehaviour
     public Sprite emojiFeliz;
     public GameObject painelFimTutorial;
     [SerializeField] private GameObject painelFundoCinza;
+    public GameObject Canvas;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class FimDoTutorial : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.CompareTag("Player"))
         {
             var anim = other.GetComponent<Animator>();
@@ -39,7 +41,7 @@ public class FimDoTutorial : MonoBehaviour
                 StartCoroutine(ResetarEntrada());
                 return;
             }
-
+            Canvas.SetActive(false);
             StartCoroutine(ReacaoClienteEFim());
         }
     }
