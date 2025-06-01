@@ -141,11 +141,11 @@ public class FimDaFase : MonoBehaviour
         }
         if (estaalien)
         {
-            tempoDeMovimento = 1f;
+            tempoDeMovimento = 1.5f;
         }
         if (estadino)
         {
-            tempoDeMovimento = 2f;
+            tempoDeMovimento = 1.3f;
         }
     }
     private void verificar_cena()
@@ -297,7 +297,7 @@ public class FimDaFase : MonoBehaviour
         }
         if (estadino)
         {
-            Caixa = Instantiate(Caixa, new Vector3(1761f, 210f, 0f), Quaternion.identity);
+            Caixa = Instantiate(Caixa, new Vector3(1695f, 254f, 0f), Quaternion.identity);
             Caixa.transform.localScale = new Vector3(2, 2, 2);
             StartCoroutine(MoverAteDestino2());
         }
@@ -391,7 +391,7 @@ public class FimDaFase : MonoBehaviour
             }
             Comida_fase.transform.position = posFinal;
             Destroy(Comida_fase);
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1f);
             Terminou_fase = true;
         }
         if (estadino)
