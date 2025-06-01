@@ -1,27 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class reset : MonoBehaviour
+public class ResetDebug : MonoBehaviour
 {
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        // Ir para fases
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            SceneManager.LoadScene("Tutorial");
+            if (Input.GetKeyDown(KeyCode.F1))
+                SceneManager.LoadScene("Tutorial");
+            else if (Input.GetKeyDown(KeyCode.F2))
+                SceneManager.LoadScene("Fase_TatuMafioso_01");
+            else if (Input.GetKeyDown(KeyCode.F3))
+                SceneManager.LoadScene("Fase_Alien_02");
+            else if (Input.GetKeyDown(KeyCode.F4))
+                SceneManager.LoadScene("Fase_Dino_03");
         }
-        if (Input.GetKeyDown(KeyCode.F2))
+
+        // Resetar progresso (Shift + F12)
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) &&
+            Input.GetKeyDown(KeyCode.F12))
         {
-            SceneManager.LoadScene("Fase_TatuMafioso_01");
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            SceneManager.LoadScene("Fase_Alien_02");
-        }
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            SceneManager.LoadScene("Fase_Dino_03");
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            Debug.Log("Progresso resetado.");
+            SceneManager.LoadScene("MenuPrincipal");
         }
     }
 }
