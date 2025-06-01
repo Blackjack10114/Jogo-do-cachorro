@@ -114,7 +114,6 @@ public class Dano : MonoBehaviour
         if (!bool_script.CaixaPega) return;
 
         if (!TagCausaDano(colisor.tag)) return;
-        Debug.Log("se mata");
         if (isInvincible)
         {
             if (shield != null)
