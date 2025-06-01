@@ -1439,7 +1439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7648315, y: -152.99998}
+  m_AnchoredPosition: {x: 209.8888, y: -152.99998}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &133711022
@@ -2287,6 +2287,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285557177}
   m_CullTransparentMesh: 1
+--- !u!1 &288286602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288286605}
+  - component: {fileID: 288286604}
+  - component: {fileID: 288286603}
+  m_Layer: 0
+  m_Name: FundoPauseCinzento (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &288286603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288286602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.68235296}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 2366669679681698467, guid: 3ac1e0f6c46755d45b31679375bab9cf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &288286604
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288286602}
+  m_CullTransparentMesh: 1
+--- !u!224 &288286605
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288286602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.8475275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879521139}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -214.58844, y: 134.52667}
+  m_SizeDelta: {x: 1028, y: 585}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &303589313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,6 +2658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   painelPause: {fileID: 1861464508}
   painelConfirmacao: {fileID: 1526594743}
+  painelFundoCinza: {fileID: 1180141831}
 --- !u!4 &388401829
 Transform:
   m_ObjectHideFlags: 0
@@ -3885,6 +3961,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 956093610}
+  - {fileID: 1526594746}
   - {fileID: 879521139}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4324,6 +4401,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 288286605}
   - {fileID: 140658553}
   - {fileID: 1979596468}
   m_Father: {fileID: 793301453}
@@ -4675,6 +4753,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1180141834}
   - {fileID: 1861464509}
   m_Father: {fileID: 793301453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8420,6 +8499,7 @@ MonoBehaviour:
   clienteEmojiUI: {fileID: 1894000396}
   emojiFeliz: {fileID: 386302668038150577, guid: a348782cf4903cd40a11bef015db61c7, type: 3}
   painelFimTutorial: {fileID: 140658552}
+  painelFundoCinza: {fileID: 288286602}
 --- !u!61 &1140497825
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8604,6 +8684,81 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 683776524106387620, guid: b50fc3534d355794192cbcfbc26aab68, type: 3}
   m_PrefabInstance: {fileID: 7346607155672774037}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1180141831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180141834}
+  - component: {fileID: 1180141833}
+  - component: {fileID: 1180141832}
+  m_Layer: 0
+  m_Name: FundoPauseCinzento
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1180141832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180141831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.68235296}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 2366669679681698467, guid: 3ac1e0f6c46755d45b31679375bab9cf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1180141833
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180141831}
+  m_CullTransparentMesh: 1
+--- !u!224 &1180141834
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180141831}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.158103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 956093610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.5411377, y: 2.0177612}
+  m_SizeDelta: {x: 1028, y: 585}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1237191390
 GameObject:
   m_ObjectHideFlags: 0
@@ -10913,7 +11068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199.04114, y: -153}
+  m_AnchoredPosition: {x: 6.764832, y: -153}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1398620895
@@ -11774,12 +11929,12 @@ RectTransform:
   - {fileID: 1607666215}
   - {fileID: 50244997}
   - {fileID: 154209333}
-  m_Father: {fileID: 1861464509}
+  m_Father: {fileID: 793301453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 10.835999, y: 11.145821}
-  m_SizeDelta: {x: 319.19934, y: 151.34332}
+  m_SizeDelta: {x: -608.80066, y: -326.65668}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1529329006
 GameObject:
@@ -28392,7 +28547,6 @@ RectTransform:
   - {fileID: 21218281}
   - {fileID: 303589314}
   - {fileID: 87494902}
-  - {fileID: 1526594746}
   m_Father: {fileID: 956093610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -28474,7 +28628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 209.8888, y: -152.99998}
+  m_AnchoredPosition: {x: -199.0411, y: -152.99998}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870867928
@@ -28689,6 +28843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   painelFimTutorial: {fileID: 140658552}
   painelConfirmacao: {fileID: 1979596465}
+  painelFundoCinza: {fileID: 288286602}
 --- !u!4 &1898577595
 Transform:
   m_ObjectHideFlags: 0
