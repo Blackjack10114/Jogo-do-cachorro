@@ -27,6 +27,8 @@ public class FimDaFase : MonoBehaviour
     private bool Terminou_fase, naoemoji;
     public GameObject Comida_fase;
     private GameObject meteorofinal, consumidor;
+    public TempoFase tempoScript;
+
 
     void Start()
     {
@@ -72,14 +74,18 @@ public class FimDaFase : MonoBehaviour
                 Comecar_animacao();
             }
 
+            PlayerPrefs.SetFloat("VidaFinal", danoScript.pv); // ⬅️ salvar antes de calcular
+            PlayerPrefs.Save();
+
             pontuacaoScript.CalcularPontuacaoFinal();
 
             int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
             string nota = pontuacaoScript.GetClassificacaoLetra();
 
-            PlayerPrefs.SetFloat("VidaFinal", danoScript.pv);
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
+            PlayerPrefs.Save();
+
         }
     }
 
@@ -117,9 +123,9 @@ public class FimDaFase : MonoBehaviour
             {
                 if (nota == "S+" || nota == "S" )
                     emojiRenderer.sprite = emojiCoracao;
-                else if (nota == "A" || nota == "B")
+                else if (nota == "A+" || nota == "A" || nota == "A-")
                     emojiRenderer.sprite = emojiFeliz;
-                else if (nota == "C" || nota == "D")
+                else if (nota == "B+" || nota == "B" || nota == "B-")
                     emojiRenderer.sprite = emojiNeutro;
                 else
                     emojiRenderer.sprite = emojiBravo;
@@ -434,9 +440,9 @@ public class FimDaFase : MonoBehaviour
             {
                 if (nota == "S+" || nota == "S")
                     emojiRenderer.sprite = emojiCoracao;
-                else if (nota == "A" || nota == "B")
+                else if (nota == "A+" || nota == "A" || nota == "A-")
                     emojiRenderer.sprite = emojiFeliz;
-                else if (nota == "C" || nota == "D")
+                else if (nota == "B+" || nota == "B" || nota == "B-")
                     emojiRenderer.sprite = emojiNeutro;
                 else
                     emojiRenderer.sprite = emojiBravo;

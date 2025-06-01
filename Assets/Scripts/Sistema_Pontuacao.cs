@@ -13,7 +13,7 @@ public class SistemaPontuacao : MonoBehaviour
     public int numeroColisoes = 0;
 
     public int penalidadePorColisao = 3;
-    public int pontosPorOsso = 200;
+    public int pontosPorOsso = 100;
 
     public int totalDeOssosDaFase = 3;
 
@@ -41,8 +41,9 @@ public class SistemaPontuacao : MonoBehaviour
 
     public void CalcularPontuacaoFinal()
     {
-        float vidaAtual = PlayerPrefs.GetFloat("VidaFinal", vidaMaxima);
+        Debug.Log($"[Pontuação] Vida lida dos prefs: {PlayerPrefs.GetFloat("VidaFinal")}");
 
+        float vidaAtual = PlayerPrefs.GetFloat("VidaFinal", vidaMaxima);
         float tempoFinal = tempoScript.tempoAtual;
 
         // BÔNUS POR VIDA 
@@ -58,8 +59,9 @@ public class SistemaPontuacao : MonoBehaviour
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(1000 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(950 * proporcaoTempo);
         }
+        Debug.Log($"DEBUG Pontuação -> VidaAtual: {vidaAtual}, TempoFinal: {tempoFinal}");
 
         bonusTotal = bonusVida + bonusTempo;
 
@@ -86,9 +88,13 @@ public class SistemaPontuacao : MonoBehaviour
         else if (pontuacaoNumerica >= 600)
             classificacaoLetra = "B";
         else if (pontuacaoNumerica >= 550)
-            classificacaoLetra = "C+";
+            classificacaoLetra = "B-";
         else if (pontuacaoNumerica >= 500)
+            classificacaoLetra = "C+";
+        else if (pontuacaoNumerica >= 450)
             classificacaoLetra = "C";
+        else if (pontuacaoNumerica >= 400)
+            classificacaoLetra = "C-";
         else
             classificacaoLetra = "F";
 

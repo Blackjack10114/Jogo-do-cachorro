@@ -53,8 +53,26 @@ public class Controlador_Som : MonoBehaviour
 
     private void OnSceneLoaded(Scene cena, LoadSceneMode modo)
     {
-        TrocarMusicaPorCena(cena.name);
+        // Se for cena de fim de fase, verifica nota e decide música
+        if (cena.name.StartsWith("CenaFimDeFase"))
+        {
+            string nota = PlayerPrefs.GetString("NotaFinal", "S"); // Nota salva no fim da fase
+
+            if (nota == "F" || nota == "C+" || nota == "C" || nota == "C-")
+            {
+                TocarMusica(musicaFalha, false);
+                return;
+            }
+            else
+            {
+                TocarMusica(musicaComemoracao, false);
+                return;
+            }
+        }
+
+        TrocarMusicaPorCena(cena.name); // cena normal
     }
+
 
     public void TrocarMusicaPorCena(string nomeCena)
     {
@@ -63,25 +81,10 @@ public class Controlador_Som : MonoBehaviour
 
         switch (nomeCena)
         {
-            case "Tutorial":
-                novaMusica = musicaTutorial;
-                break;
-            case "Fase_TatuMafioso_01":
-                novaMusica = musicaTatu;
-                break;
-            case "Fase_Alien_02":
-                novaMusica = musicaAlien;
-                break;
-            case "Fase_Dino_03":
-                novaMusica = musicaDino;
-                break;
-
-            case "CenaFimDeFaseTatu":
-            case "CenaFimDeFaseAlien":
-            case "CenaFimDeFaseDino":
-                novaMusica = musicaComemoracao;
-                loop = false;
-                break;
+            case "Tutorial": novaMusica = musicaTutorial; break;
+            case "Fase_TatuMafioso_01": novaMusica = musicaTatu; break;
+            case "Fase_Alien_02": novaMusica = musicaAlien; break;
+            case "Fase_Dino_03": novaMusica = musicaDino; break;
 
             case "CenaFalhaTatu":
             case "CenaFalhaAlien":
@@ -100,6 +103,7 @@ public class Controlador_Som : MonoBehaviour
 
         TocarMusica(novaMusica, loop);
     }
+
 
     public void TocarMusica(AudioClip clip, bool loop = true)
     {
