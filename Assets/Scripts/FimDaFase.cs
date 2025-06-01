@@ -9,6 +9,7 @@ public class FimDaFase : MonoBehaviour
     private PlayerMov playerMov;
     private GameObject Player;
     public GameObject Caixa;
+    public GameObject Canvas;
 
     [SerializeField] private string cenaFim;
     public GameObject avisoFaltaCaixaUI;
@@ -41,6 +42,7 @@ public class FimDaFase : MonoBehaviour
         offset = new Vector3(0f, 1.5f, 0f);
         meteorofinal = GameObject.FindWithTag("MeteoroFinal");
         consumidor = GameObject.FindWithTag("Consumidor");
+        Canvas canvas = GetComponent<Canvas>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -109,6 +111,8 @@ public class FimDaFase : MonoBehaviour
 
             // Define o emoji pela nota
             var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
+            emojiRenderer.sortingLayerName = "HUD";
+            emojiRenderer.sortingOrder = 8;
             if (emojiRenderer != null)
             {
                 if (nota == "S+" || nota == "S" )
@@ -166,6 +170,7 @@ public class FimDaFase : MonoBehaviour
     }
     private void Comecar_animacao()
     {
+        Canvas.SetActive(false);
         if (estatatu)
         {
             Time.timeScale = 0f;
