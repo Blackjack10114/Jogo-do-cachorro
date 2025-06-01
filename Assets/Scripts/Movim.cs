@@ -173,7 +173,6 @@ public class PlayerMov : MonoBehaviour
         }
 
         float airControl = wasRunningBeforeJump ? sprintSpeedMultiplier * turboMultiplier : 1f;
-        float turboAirControl = isTurboActive ? 0.6f : 1f;
 
         if (pulo != null && pulo.EstaNoChao)
         {
@@ -194,7 +193,7 @@ public class PlayerMov : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(direction * move * speed * airControl * turboAirControl + velocidadePlataforma, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction * move * speed * airControl+ velocidadePlataforma, rb.linearVelocity.y);
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
