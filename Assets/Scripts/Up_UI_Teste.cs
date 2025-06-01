@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Splines;
+using Unity.VisualScripting;
 
 public class Up_UI_Teste : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class Up_UI_Teste : MonoBehaviour
     private Text TempoTurbo = null;
     private Text TempoGourmet = null;
     private Text TempoPulo = null;
-    private Vector3 Posicaotexto;
+    private Vector3 Posicaotextoturbo, Posicaotextopulo, Posicaotextogourmet;
     void Start()
     {
         offsetpowerup = new Vector3(16f, 0f, 0f);
@@ -139,7 +140,7 @@ public class Up_UI_Teste : MonoBehaviour
         if (TempoPrefab != null && TempoTurbo == null && turbo_ativado)
         {
             turbotempo = true;
-            TempoTurbo = instanciartempo();
+            TempoTurbo = instanciartempo("turbo");
         }
         if (TempoTurbo != null && duracao.isTurboActive == false)
         {
@@ -150,7 +151,7 @@ public class Up_UI_Teste : MonoBehaviour
         if (TempoPrefab != null && TempoGourmet == null && gourmet_ativado)
         {
             gourmettempo = true;
-            TempoGourmet = instanciartempo();
+            TempoGourmet = instanciartempo("gourmet");
         }
         if (TempoGourmet != null && duracao.isGourmetActive == false)
         {
@@ -161,7 +162,7 @@ public class Up_UI_Teste : MonoBehaviour
         if (TempoPrefab != null && TempoPulo == null && pulo_duplo_ativado)
         {
             pulotempo = true;
-            TempoPulo = instanciartempo();
+            TempoPulo = instanciartempo("pulo");
         }
         if (TempoGourmet != null && duracao.temPuloDuplo == false)
         {
@@ -169,22 +170,25 @@ public class Up_UI_Teste : MonoBehaviour
             TempoPulo = null;
         }
     }
-    private Text instanciartempo()
+    private Text instanciartempo(string tipo)
     {
         Vector3 offsettext = new Vector3(0, -10, 0);
-        if (turbo_ativado)
+        Vector3 posicaoTexto = Vector3.zero;
+
+        switch (tipo)
         {
-            Posicaotexto = TurboPrefab.transform.position + offsettext;
+            case "turbo":
+                posicaoTexto = TurboPrefab.transform.position + offsettext;
+                break;
+            case "pulo":
+                posicaoTexto = PuloPrefab.transform.position + offsettext;
+                break;
+            case "gourmet":
+                posicaoTexto = GourmetPrefab.transform.position + offsettext;
+                break;
         }
-        if (pulo_duplo_ativado)
-        {
-            Posicaotexto = PuloPrefab.transform.position + offsettext;
-        }
-        if (gourmet_ativado)
-        {
-            Posicaotexto = GourmetPrefab.transform.position + offsettext;
-        }
-        Text novoTexto = Instantiate(TempoPrefab, Posicaotexto, Quaternion.identity);
+
+        Text novoTexto = Instantiate(TempoPrefab, posicaoTexto, Quaternion.identity);
         novoTexto.transform.SetParent(this.transform);
         return novoTexto;
     }
