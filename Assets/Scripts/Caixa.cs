@@ -17,9 +17,10 @@ public class Caixa : MonoBehaviour
     private PlayerMov Direcao;
     public bool CaixaPega = true;
     private bool estacomcaixa;
-
+    private bool tempuloduplo;
     public bool caixaInstanciada = false;
     [HideInInspector] public bool CaixaIndoEsquerda, CaixaIndoDireita;
+    public float DuracaoPuloDuplo;
 
     [Range(0, 100)]
     public float qualidadeEntrega = 100f;
@@ -68,7 +69,20 @@ public class Caixa : MonoBehaviour
                 Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>(), false);
             }
         }
-
+        // verificação tempo pulo duplo
+        if (Direcao.TempoPulo >= 0 && Direcao.temPuloDuplo && !tempuloduplo)
+        {
+            tempuloduplo = true;
+            DuracaoPuloDuplo = Direcao.TempoPulo;
+        }
+        if (tempuloduplo)
+        {
+            DuracaoPuloDuplo -= Time.deltaTime;
+        }
+        if (!Direcao.temPuloDuplo)
+        {
+            tempuloduplo = false;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

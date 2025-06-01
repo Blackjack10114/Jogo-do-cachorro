@@ -1,176 +1,174 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.Splines;
-using Unity.VisualScripting;
 
 public class Up_UI_Teste : MonoBehaviour
 {
     private PlayerMov duracao;
     private GameObject Player;
     private Vector3 offsetpowerup;
-    [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet; 
-    bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta, tempo_insta;
+
+    [HideInInspector] public bool turbo_ativado, tempoturbo, tempogourmet;
     [HideInInspector] public bool gourmettempo, turbotempo, pulotempo;
     [HideInInspector] public bool gourmet_ativado;
-    bool bolha_ativada;
     public bool pulo_duplo_ativado;
-    private GameObject TurboPrefab = null;
-    private GameObject GourmetPrefab = null;
-    private GameObject BolhaPrefab = null;
-    private GameObject PuloPrefab = null;
-    private Text TempoPrefab = null;
+
+    private bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta;
+    private bool bolha_ativada;
+
+    // Prefab references
+    private GameObject TurboPrefabRef;
+    private GameObject GourmetPrefabRef;
+    private GameObject BolhaPrefabRef;
+    private GameObject PuloPrefabRef;
+    private Text TempoPrefab;
+
+    // Instances
+    private GameObject TurboInstance;
+    private GameObject GourmetInstance;
+    private GameObject BolhaInstance;
+    private GameObject PuloInstance;
+
     private Dano Bolha;
-    private Text TempoTurbo = null;
-    private Text TempoGourmet = null;
-    private Text TempoPulo = null;
-    private Vector3 Posicaotextoturbo, Posicaotextopulo, Posicaotextogourmet;
+    private Caixa VerPuloDuplo;
+
+    // UI Timer Texts
+    private Text TempoTurbo;
+    private Text TempoGourmet;
+    private Text TempoPulo;
+
     void Start()
     {
         offsetpowerup = new Vector3(16f, 0f, 0f);
         Player = GameObject.FindWithTag("Player");
         duracao = Player.GetComponent<PlayerMov>();
-        TurboPrefab = Resources.Load<GameObject>("PowerUp_Ração_Turbo_UI");
-        GourmetPrefab = Resources.Load<GameObject>("PowerUp_Racao_Dourada_UI");
-        BolhaPrefab = Resources.Load<GameObject>("PowerUp_Bolha_UI");
-        PuloPrefab = Resources.Load<GameObject>("PowerUp_PuloDuplo_UI");
         Bolha = Player.GetComponent<Dano>();
+        VerPuloDuplo = Player.GetComponent<Caixa>();
+
+        // Load prefabs once
+        TurboPrefabRef = Resources.Load<GameObject>("PowerUp_Ração_Turbo_UI");
+        GourmetPrefabRef = Resources.Load<GameObject>("PowerUp_Racao_Dourada_UI");
+        BolhaPrefabRef = Resources.Load<GameObject>("PowerUp_Bolha_UI");
+        PuloPrefabRef = Resources.Load<GameObject>("PowerUp_PuloDuplo_UI");
         TempoPrefab = Resources.Load<Text>("Tempo_Powerup");
     }
-    private void Update()
+
+    void Update()
     {
-       //verificação turbo
-        if (duracao.isTurboActive == true && TurboPrefab != null && !turbo_insta)
+        // --- Turbo ---
+        if (duracao.isTurboActive && TurboPrefabRef != null && !turbo_insta)
         {
             turbo_ativado = true;
-            if (turbo_ativado && ((gourmet_ativado && gourmet_insta) || (pulo_duplo_ativado && pulo_insta)))
-            {
-                TurboPrefab = Instantiate(TurboPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
-                TurboPrefab.transform.parent = this.transform;
-                turbo_insta = true;
-            }
-            else
-            {
-                TurboPrefab = Instantiate(TurboPrefab, this.transform.position, Quaternion.identity);
-                TurboPrefab.transform.parent = this.transform;
-                turbo_insta = true;
-            }
+            Vector3 pos = (gourmet_ativado && gourmet_insta) || (pulo_duplo_ativado && pulo_insta)
+                            ? this.transform.position + offsetpowerup
+                            : this.transform.position;
+
+            TurboInstance = Instantiate(TurboPrefabRef, pos, Quaternion.identity);
+            TurboInstance.transform.parent = this.transform;
+            turbo_insta = true;
         }
-        if (turbo_ativado == true)
+        if (!duracao.isTurboActive && TurboInstance != null)
         {
-            if (duracao.isTurboActive == false)
-            {
-                Destroy(TurboPrefab);
-                turbo_ativado = false;
-                turbo_insta = false;
-            }
+            Destroy(TurboInstance);
+            turbo_ativado = false;
+            turbo_insta = false;
         }
-        //Verificaçao gourmet
-        if (duracao.isGourmetActive == true && GourmetPrefab != null && !gourmet_insta)
+
+        // --- Gourmet ---
+        if (duracao.isGourmetActive && GourmetPrefabRef != null && !gourmet_insta)
         {
             gourmet_ativado = true;
-            if (gourmet_ativado && ((turbo_ativado && turbo_insta) || (pulo_duplo_ativado && pulo_insta)))
-            {
-                GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
-                GourmetPrefab.transform.parent = this.transform;
-                gourmet_insta = true;
-            }
-            else
-            {
-                GourmetPrefab = Instantiate(GourmetPrefab, this.transform.position, Quaternion.identity);
-                GourmetPrefab.transform.parent = this.transform;
-                gourmet_insta = true;
-            }
+            Vector3 pos = (turbo_ativado && turbo_insta) || (pulo_duplo_ativado && pulo_insta)
+                            ? this.transform.position + offsetpowerup
+                            : this.transform.position;
+
+            GourmetInstance = Instantiate(GourmetPrefabRef, pos, Quaternion.identity);
+            GourmetInstance.transform.parent = this.transform;
+            gourmet_insta = true;
         }
-        if (gourmet_ativado == true)
+        if (!duracao.isGourmetActive && GourmetInstance != null)
         {
-            if (duracao.isGourmetActive == false)
-            {
-                Destroy(GourmetPrefab);
-                gourmet_ativado = false;
-                gourmet_insta = false;
-            }
+            Destroy(GourmetInstance);
+            gourmet_ativado = false;
+            gourmet_insta = false;
         }
-        // verificação bolha
-        if (Bolha.isInvincible == true && !bolha_insta)
+
+        // --- Bolha ---
+        if (Bolha.isInvincible && !bolha_insta)
         {
+            Vector3 pos = this.transform.position + new Vector3(8f, 0f, 0f);
+            BolhaInstance = Instantiate(BolhaPrefabRef, pos, Quaternion.identity);
+            BolhaInstance.transform.parent = this.transform;
             bolha_ativada = true;
-            Vector3 offset = new Vector3(8f, 0f, 0f);
-            Vector3 spawnPosition = this.transform.position + offset;
-            BolhaPrefab = Instantiate(BolhaPrefab, spawnPosition, Quaternion.identity);
-            BolhaPrefab.transform.parent = this.transform;
             bolha_insta = true;
         }
-        if (bolha_ativada == true)
+        if (!Bolha.isInvincible && BolhaInstance != null)
         {
-            if (Bolha.isInvincible == false)
-            {
-                Destroy(BolhaPrefab);
-                bolha_ativada = false;
-                bolha_insta = false;
-            }
+            Destroy(BolhaInstance);
+            bolha_ativada = false;
+            bolha_insta = false;
         }
-        // verificação pulo duplo
-        if (duracao.temPuloDuplo == true && PuloPrefab != null && !pulo_insta)
+
+        // --- Pulo Duplo ---
+        if (duracao.temPuloDuplo && PuloPrefabRef != null && !pulo_insta)
         {
             pulo_duplo_ativado = true;
-            if (pulo_duplo_ativado && ((gourmet_ativado && gourmet_insta) || (turbo_ativado && turbo_insta)))
-            {
-                PuloPrefab = Instantiate(PuloPrefab, this.transform.position + offsetpowerup, Quaternion.identity);
-                PuloPrefab.transform.parent = this.transform;
-                pulo_insta = true;
-            }
-            else
-            {
-                PuloPrefab = Instantiate(PuloPrefab, this.transform.position, Quaternion.identity);
-                PuloPrefab.transform.parent = this.transform;
-                pulo_insta = true;
-            }
+            Debug.Log("Pulo instanciado");
+
+            Vector3 pos = (gourmet_ativado && gourmet_insta) || (turbo_ativado && turbo_insta)
+                            ? this.transform.position + offsetpowerup
+                            : this.transform.position;
+
+            PuloInstance = Instantiate(PuloPrefabRef, pos, Quaternion.identity);
+            PuloInstance.transform.parent = this.transform;
+            pulo_insta = true;
         }
-        if (pulo_duplo_ativado == true)
+        if (!duracao.temPuloDuplo && PuloInstance != null)
         {
-            if (duracao.temPuloDuplo == false)
-            {
-                Destroy(PuloPrefab);
-                pulo_duplo_ativado = false;
-                pulo_insta = false;
-            }
+            Destroy(PuloInstance);
+            pulo_duplo_ativado = false;
+            pulo_insta = false;
         }
-        //verificação turbo
+
+        // --- Timer Texts ---
         if (TempoPrefab != null && TempoTurbo == null && turbo_ativado)
         {
             turbotempo = true;
-            TempoTurbo = instanciartempo("turbo");
+            TempoTurbo = InstanciarTempo("turbo");
         }
-        if (TempoTurbo != null && duracao.isTurboActive == false)
+        if (TempoTurbo != null && !duracao.isTurboActive)
         {
             turbotempo = false;
+            Destroy(TempoTurbo.gameObject);
             TempoTurbo = null;
         }
-        //verificação gourmet
+
         if (TempoPrefab != null && TempoGourmet == null && gourmet_ativado)
         {
             gourmettempo = true;
-            TempoGourmet = instanciartempo("gourmet");
+            TempoGourmet = InstanciarTempo("gourmet");
         }
-        if (TempoGourmet != null && duracao.isGourmetActive == false)
+        if (TempoGourmet != null && !duracao.isGourmetActive)
         {
             gourmettempo = false;
+            Destroy(TempoGourmet.gameObject);
             TempoGourmet = null;
         }
-        // verificação pulo duplo
+
         if (TempoPrefab != null && TempoPulo == null && pulo_duplo_ativado)
         {
             pulotempo = true;
-            TempoPulo = instanciartempo("pulo");
+            TempoPulo = InstanciarTempo("pulo");
         }
-        if (TempoGourmet != null && duracao.temPuloDuplo == false)
+        if (TempoPulo != null && !duracao.temPuloDuplo)
         {
             pulotempo = false;
+            Destroy(TempoPulo.gameObject);
             TempoPulo = null;
         }
     }
-    private Text instanciartempo(string tipo)
+
+    private Text InstanciarTempo(string tipo)
     {
         Vector3 offsettext = new Vector3(0, -10, 0);
         Vector3 posicaoTexto = Vector3.zero;
@@ -178,13 +176,13 @@ public class Up_UI_Teste : MonoBehaviour
         switch (tipo)
         {
             case "turbo":
-                posicaoTexto = TurboPrefab.transform.position + offsettext;
+                posicaoTexto = TurboInstance != null ? TurboInstance.transform.position + offsettext : Vector3.zero;
                 break;
             case "pulo":
-                posicaoTexto = PuloPrefab.transform.position + offsettext;
+                posicaoTexto = PuloInstance != null ? PuloInstance.transform.position + offsettext : Vector3.zero;
                 break;
             case "gourmet":
-                posicaoTexto = GourmetPrefab.transform.position + offsettext;
+                posicaoTexto = GourmetInstance != null ? GourmetInstance.transform.position + offsettext : Vector3.zero;
                 break;
         }
 
@@ -192,5 +190,4 @@ public class Up_UI_Teste : MonoBehaviour
         novoTexto.transform.SetParent(this.transform);
         return novoTexto;
     }
-
 }
