@@ -10,6 +10,7 @@ public class FimDoTutorial : MonoBehaviour
     public GameObject clienteEmojiUI;
     public Sprite emojiFeliz;
     public GameObject painelFimTutorial;
+    [SerializeField] private GameObject painelFundoCinza;
 
     void Start()
     {
@@ -80,6 +81,7 @@ public class FimDoTutorial : MonoBehaviour
 
         // Mostra o painel de fim de tutorial
         if (painelFimTutorial != null)
+            painelFundoCinza.SetActive(true);
             painelFimTutorial.SetActive(true);
         
     }

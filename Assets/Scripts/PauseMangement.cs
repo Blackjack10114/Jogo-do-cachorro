@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Painéis")]
     [SerializeField] private GameObject painelPause;
     [SerializeField] private GameObject painelConfirmacao;
+    [SerializeField] private GameObject painelFundoCinza;
 
     private System.Action acaoConfirmada;
 
@@ -23,6 +24,7 @@ public class PauseMenu : MonoBehaviour
     public void AbrirPause()
     {
         Time.timeScale = 0f;
+        painelFundoCinza.SetActive(true);
         painelPause.SetActive(true);
         painelConfirmacao.SetActive(false);
     }
@@ -30,6 +32,7 @@ public class PauseMenu : MonoBehaviour
     public void FecharPause()
     {
         Time.timeScale = 1f;
+        painelFundoCinza.SetActive(false);
         painelPause.SetActive(false);
         painelConfirmacao.SetActive(false);
     }
@@ -59,6 +62,7 @@ public class PauseMenu : MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        painelPause.SetActive(false);
         painelConfirmacao.SetActive(true);
         acaoConfirmada = acao;
     }
@@ -72,5 +76,6 @@ public class PauseMenu : MonoBehaviour
     public void BotaoConfirmarNao()
     {
         painelConfirmacao.SetActive(false);
+        painelPause.SetActive(true);
     }
 }

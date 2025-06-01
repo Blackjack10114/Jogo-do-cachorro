@@ -507,7 +507,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerUp_coletado: 0
-  Power_up: {fileID: 23644327}
 --- !u!1001 &26589528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25849,7 +25848,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerUp_coletado: 0
-  Power_up: {fileID: 419842773}
 --- !u!1 &438966895
 GameObject:
   m_ObjectHideFlags: 0
@@ -26094,7 +26092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199.04114, y: -153}
+  m_AnchoredPosition: {x: -0.07614136, y: -153}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &457678916
@@ -30574,7 +30572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 209.8888, y: -152.99998}
+  m_AnchoredPosition: {x: -210.0411, y: -152.99998}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503003728
@@ -31274,7 +31272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7648315, y: -152.99998}
+  m_AnchoredPosition: {x: 209.8888, y: -152.99998}
   m_SizeDelta: {x: 120.52, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646229277
@@ -32847,7 +32845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerUp_coletado: 0
-  Power_up: {fileID: 888303109}
 --- !u!61 &888303111
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33469,6 +33466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   painelPause: {fileID: 1546361525}
   painelConfirmacao: {fileID: 1620941479}
+  painelFundoCinza: {fileID: 1860727083}
 --- !u!4 &964544240
 Transform:
   m_ObjectHideFlags: 0
@@ -33674,6 +33672,7 @@ MonoBehaviour:
   isInvincible: 0
   v: 3
   m: 3
+  vidaMaxima: 100
   pv: 100
   shield: {fileID: 0}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}
@@ -33853,6 +33852,7 @@ MonoBehaviour:
   caixaInstanciada: 0
   CaixaIndoEsquerda: 0
   CaixaIndoDireita: 0
+  DuracaoPuloDuplo: 0
   qualidadeEntrega: 100
   caixa_som: {fileID: 8300000, guid: b618d4ff71ecfd04e9322e3f5b4cc9cf, type: 3}
 --- !u!61 &991406678
@@ -34481,7 +34481,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerUp_coletado: 0
-  Power_up: {fileID: 1167752118}
 --- !u!114 &1167752120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35180,7 +35179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerUp_coletado: 0
-  Power_up: {fileID: 1271536614}
 --- !u!114 &1271536616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38156,7 +38154,6 @@ RectTransform:
   - {fileID: 2118050191}
   - {fileID: 1564950657}
   - {fileID: 1573644138}
-  - {fileID: 1620941480}
   m_Father: {fileID: 1591336695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -38938,6 +38935,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1860727086}
+  - {fileID: 1620941480}
   - {fileID: 1546361526}
   m_Father: {fileID: 232871332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39059,7 +39058,7 @@ RectTransform:
   - {fileID: 915781988}
   - {fileID: 2091269627}
   - {fileID: 866053831}
-  m_Father: {fileID: 1546361526}
+  m_Father: {fileID: 1591336695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -48478,6 +48477,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1860727083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860727086}
+  - component: {fileID: 1860727085}
+  - component: {fileID: 1860727084}
+  m_Layer: 0
+  m_Name: FundoPauseCinzento
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1860727084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860727083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.68235296}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 2366669679681698467, guid: 3ac1e0f6c46755d45b31679375bab9cf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1860727085
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860727083}
+  m_CullTransparentMesh: 1
+--- !u!224 &1860727086
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860727083}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.158103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591336695}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.5411377, y: 2.0177612}
+  m_SizeDelta: {x: 1028, y: 585}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1914191732
 GameObject:
   m_ObjectHideFlags: 0
@@ -49455,6 +49529,7 @@ MonoBehaviour:
   caixaInstanciada: 0
   CaixaIndoEsquerda: 0
   CaixaIndoDireita: 0
+  DuracaoPuloDuplo: 0
   qualidadeEntrega: 100
   caixa_som: {fileID: 0}
 --- !u!114 &1949463415
@@ -49472,6 +49547,7 @@ MonoBehaviour:
   isInvincible: 0
   v: 3
   m: 3
+  vidaMaxima: 100
   pv: 100
   shield: {fileID: 0}
   dano_som: {fileID: 8300000, guid: 0b841a0d45214374f9ee85945405756a, type: 3}

@@ -5,6 +5,7 @@ public class TutorialFim : MonoBehaviour
 {
     [SerializeField] private GameObject painelFimTutorial;
     [SerializeField] private GameObject painelConfirmacao;
+    [SerializeField] private GameObject painelFundoCinza;
 
     private System.Action acaoConfirmada;
     public void ProximaFaseTutorial()
