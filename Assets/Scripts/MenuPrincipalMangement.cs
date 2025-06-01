@@ -18,6 +18,16 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         if (painelConfirmacao != null)
             painelConfirmacao.SetActive(false);
+
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            painelOpcoes.SetActive(false);
+            painelFundoCinza.SetActive(false);
+            painelMenuInicial.SetActive(true);
+        }
     }
 
     public void Jogar()
@@ -38,12 +48,13 @@ public class MenuPrincipalMangement : MonoBehaviour
         painelMenuInicial.SetActive(false);
         painelFundoCinza.SetActive(true);
         painelOpcoes.SetActive(true);
+
     }
 
     public void FecharOpcoes()
     {
-        painelFundoCinza.SetActive(false);
         painelOpcoes.SetActive(false);
+        painelFundoCinza.SetActive(false);
         painelMenuInicial.SetActive(true);
     }
 
