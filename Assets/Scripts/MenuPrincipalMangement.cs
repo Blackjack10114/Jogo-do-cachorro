@@ -7,6 +7,7 @@ public class MenuPrincipalMangement : MonoBehaviour
 {
     [SerializeField] private string nomeDoLevelDeJogo;
     [SerializeField] private GameObject painelMenuInicial;
+    [SerializeField] private GameObject painelFundoCinza;
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
@@ -35,11 +36,13 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void AbrirOpcoes()
     {
         painelMenuInicial.SetActive(false);
+        painelFundoCinza.SetActive(true);
         painelOpcoes.SetActive(true);
     }
 
     public void FecharOpcoes()
     {
+        painelFundoCinza.SetActive(false);
         painelOpcoes.SetActive(false);
         painelMenuInicial.SetActive(true);
     }
@@ -60,6 +63,7 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        painelMenuInicial.SetActive(false);
         painelConfirmacao.SetActive(true);
         acaoConfirmada = acao;
     }
@@ -74,6 +78,7 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void BotaoConfirmarNao()
     {
         painelConfirmacao.SetActive(false);
+        painelMenuInicial.SetActive(true);
     }
 
     public void BotaoCreditos()
