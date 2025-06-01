@@ -59,7 +59,7 @@ public class SistemaPontuacao : MonoBehaviour
         if (tempoFinal < tempoMeta)
         {
             float proporcaoTempo = 1f - (tempoFinal / tempoMeta);
-            bonusTempo = Mathf.RoundToInt(950 * proporcaoTempo);
+            bonusTempo = Mathf.RoundToInt(1000 * proporcaoTempo);
         }
         Debug.Log($"DEBUG Pontuação -> VidaAtual: {vidaAtual}, TempoFinal: {tempoFinal}");
 
