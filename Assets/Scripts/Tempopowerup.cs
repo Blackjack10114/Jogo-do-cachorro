@@ -9,6 +9,7 @@ public class Tempopowerup : MonoBehaviour
     private GameObject Player, Powerup;
     private Text Texto = null;
     private bool turbo_ativado, gourmet_ativado, pulo_duplo_ativado;
+    private Caixa VerPuloDuplo;
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -16,6 +17,7 @@ public class Tempopowerup : MonoBehaviour
         Texto = GetComponent<Text>();
         Powerup = GameObject.FindWithTag("PowerUpUi");
         tempos = Powerup.GetComponent<Up_UI_Teste>();
+        VerPuloDuplo = Player.GetComponent<Caixa>();
     }
     private void Update()
     {
@@ -52,10 +54,10 @@ public class Tempopowerup : MonoBehaviour
         }
         if (pulo_duplo_ativado == true)
         {
-            if (Duration.TempoPulo <= 0 && tempos.pulo_duplo_ativado == false)
+            if (VerPuloDuplo.DuracaoPuloDuplo <= 0 && tempos.pulo_duplo_ativado == false)
             {
-                tempos.gourmettempo = false;
-                gourmet_ativado = false;
+                tempos.pulotempo = false;
+                pulo_duplo_ativado = false;
                 StartCoroutine(Delaydestruirduplo());
             }
         }
@@ -72,7 +74,7 @@ public class Tempopowerup : MonoBehaviour
         }
         if (pulo_duplo_ativado)
         {
-            Texto.text = Mathf.Round(Duration.TempoPulo).ToString();
+            Texto.text = Mathf.Round(VerPuloDuplo.DuracaoPuloDuplo).ToString();
         }
     }
     private IEnumerator Delaydestruirturbo()

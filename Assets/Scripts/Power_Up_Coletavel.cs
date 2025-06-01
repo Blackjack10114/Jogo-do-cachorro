@@ -6,7 +6,7 @@ public class Power_Up_Coletavel : MonoBehaviour
 {
     public bool PowerUp_coletado;
     private GameObject Player = null;
-    public GameObject Power_up;
+    private GameObject Power_up = null;
     private PlayerMov duracao;
     private Dano Bolha;
     bool turbo_ativado;
@@ -18,6 +18,7 @@ public class Power_Up_Coletavel : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         duracao = Player.GetComponent<PlayerMov>();
         Bolha = Player.GetComponent<Dano>();
+        Power_up = this.gameObject;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
