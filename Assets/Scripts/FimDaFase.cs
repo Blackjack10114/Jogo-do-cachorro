@@ -75,6 +75,7 @@ public class FimDaFase : MonoBehaviour
             int pontos = pontuacaoScript.GetPontuacaoFinalNumerica();
             string nota = pontuacaoScript.GetClassificacaoLetra();
 
+            PlayerPrefs.SetFloat("VidaFinal", danoScript.pv);
             PlayerPrefs.SetInt("PontuacaoFinal", pontos);
             PlayerPrefs.SetString("NotaFinal", nota);
         }

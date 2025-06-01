@@ -7,7 +7,8 @@ public class Dano : MonoBehaviour
 {
     public bool isInvincible = false;
     public float v, m;
-    public float pv = 30f;
+    public float vidaMaxima = 100f;
+    public float pv;
 
     private Rigidbody2D rb;
 
@@ -35,6 +36,7 @@ public class Dano : MonoBehaviour
 
     void Start()
     {
+        pv = vidaMaxima;
         bool_script = GetComponent<Caixa>();
         rb = GetComponent<Rigidbody2D>();
         sound = gameObject.GetComponent<AudioSource>();

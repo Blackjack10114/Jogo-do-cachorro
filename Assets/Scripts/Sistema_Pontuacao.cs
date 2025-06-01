@@ -34,13 +34,15 @@ public class SistemaPontuacao : MonoBehaviour
     {
         if (danoScript != null)
         {
-            vidaMaxima = Mathf.RoundToInt(danoScript.pv);
+            vidaMaxima = Mathf.RoundToInt(danoScript.vidaMaxima);
+
         }
     }
 
     public void CalcularPontuacaoFinal()
     {
-        float vidaAtual = danoScript.pv;
+        float vidaAtual = PlayerPrefs.GetFloat("VidaFinal", vidaMaxima);
+
         float tempoFinal = tempoScript.tempoAtual;
 
         // BÔNUS POR VIDA 
