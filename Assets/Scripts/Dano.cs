@@ -24,7 +24,10 @@ public class Dano : MonoBehaviour
     private Animator animDoug;
 
     public AudioSource audioDano;
-    
+    private float tempoUltimoDano = -999f;
+    public float intervaloMinimoSomDano = 0.75f; 
+
+
 
     [SerializeField] private string cenaFalha;
 
@@ -40,11 +43,10 @@ public class Dano : MonoBehaviour
     void Start()
     {
         audioDano = gameObject.AddComponent<AudioSource>();
+        audioDano.outputAudioMixerGroup = sfxGroup;
         pv = vidaMaxima;
         bool_script = GetComponent<Caixa>();
         rb = GetComponent<Rigidbody2D>();
-        sound = gameObject.GetComponent<AudioSource>();
-        sound.outputAudioMixerGroup = sfxGroup;
     }
 
     public void TomarDano(int dano, GameObject origem = null)
@@ -71,8 +73,12 @@ public class Dano : MonoBehaviour
             float direcao = (transform.position.x - origem.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-            audioDano.PlayOneShot(dano_som);
-            sound.Play();
+            if (Time.time - tempoUltimoDano > intervaloMinimoSomDano)
+            {
+                audioDano.PlayOneShot(dano_som);
+                tempoUltimoDano = Time.time;
+            }
+
         }
 
         // Sprite (caso espinho)
