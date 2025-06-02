@@ -38,6 +38,8 @@ public class PlayerMov : MonoBehaviour
     AudioSource sound;
     public AudioClip Correr_som;
     public AudioMixerGroup sfxGroup;
+    private bool somCorridaTocando = false;
+
     [SerializeField] private float Velocidadeanimacao;
 
     Animator animDoug;
@@ -127,15 +129,25 @@ public class PlayerMov : MonoBehaviour
         {
             stamina = 0;
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        bool estaAndando = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ||
+                   Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+
+        bool podeTocarSomCorrida = pulo != null && pulo.EstaNoChao && isRunning && estaAndando && stamina > 0;
+
+        if (podeTocarSomCorrida && !somCorridaTocando)
         {
             sound.clip = Correr_som;
+            sound.loop = true;
             sound.Play();
+            somCorridaTocando = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        else if (!podeTocarSomCorrida && somCorridaTocando)
         {
             sound.Stop();
+            sound.loop = false;
+            somCorridaTocando = false;
         }
+
         if (temPuloDuplo == true)
         {
             TempoPulo -= Time.deltaTime;
