@@ -22,7 +22,7 @@ public class Jump : MonoBehaviour
 
     public bool EstaNoChao => grounded;
     AudioSource sound;
-    public AudioClip som_pulo;
+    public AudioClip[] sonsPulo;
     public AudioMixerGroup sfxGroup;
 
     private Animator anim;
@@ -81,8 +81,12 @@ public class Jump : MonoBehaviour
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
-            sound.clip = som_pulo;
-            sound.Play();
+            if (sonsPulo.Length > 0)
+            {
+                int indice = Random.Range(0, sonsPulo.Length);
+                sound.PlayOneShot(sonsPulo[indice]);
+            }
+
 
             if (grounded)
             {

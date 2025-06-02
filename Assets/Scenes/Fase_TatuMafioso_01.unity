@@ -33130,6 +33130,7 @@ MonoBehaviour:
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
   Estasemcaixa: 0
   audioDano: {fileID: 0}
+  intervaloMinimoSomDano: 0.75
   cenaFalha: CenaFalhaTatu
 --- !u!82 &991406672
 AudioSource:
@@ -33430,7 +33431,7 @@ MonoBehaviour:
   quantidadeDePulos: 0
   grounded: 0
   ignorarpulo: 0
-  som_pulo: {fileID: 8300000, guid: 1aabc75f18e08194ab5b7256fb38749b, type: 3}
+  sonsPulo: []
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
 --- !u!212 &991406682
 SpriteRenderer:
@@ -48820,7 +48821,12 @@ MonoBehaviour:
   quantidadeDePulos: 0
   grounded: 0
   ignorarpulo: 0
-  som_pulo: {fileID: 8300000, guid: a89fd7c885d8227479a585079a85d4f4, type: 3}
+  sonsPulo:
+  - {fileID: 8300000, guid: 4b55f98f9c955b746a8ba662ad340dae, type: 3}
+  - {fileID: 8300000, guid: dc853d2cea4be514780303f7855e5eca, type: 3}
+  - {fileID: 8300000, guid: 75024526674c45440b92dcae0559dbf5, type: 3}
+  - {fileID: 8300000, guid: 5ad62d75f75d8394f9af2d2e684cb750, type: 3}
+  - {fileID: 8300000, guid: 970c67f456eeddd439d4424bea34760c, type: 3}
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
 --- !u!114 &1949463414
 MonoBehaviour:
@@ -48867,6 +48873,7 @@ MonoBehaviour:
   sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
   Estasemcaixa: 1
   audioDano: {fileID: 1346721086}
+  intervaloMinimoSomDano: 0.75
   cenaFalha: CenaFalhaTatu
 --- !u!212 &1949463416
 SpriteRenderer:
