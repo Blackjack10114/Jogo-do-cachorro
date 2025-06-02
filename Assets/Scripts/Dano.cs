@@ -23,6 +23,9 @@ public class Dano : MonoBehaviour
 
     private Animator animDoug;
 
+    public AudioSource audioDano;
+    
+
     [SerializeField] private string cenaFalha;
 
     private static readonly string[] obstaculosQueCausamDano = {
@@ -36,6 +39,7 @@ public class Dano : MonoBehaviour
 
     void Start()
     {
+        audioDano = gameObject.AddComponent<AudioSource>();
         pv = vidaMaxima;
         bool_script = GetComponent<Caixa>();
         rb = GetComponent<Rigidbody2D>();
@@ -67,7 +71,7 @@ public class Dano : MonoBehaviour
             float direcao = (transform.position.x - origem.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-            sound.clip = dano_som;
+            audioDano.PlayOneShot(dano_som);
             sound.Play();
         }
 
