@@ -21,8 +21,10 @@ public class Jump : MonoBehaviour
     private float jumpBufferTimer = 0f;
 
     public bool EstaNoChao => grounded;
-    AudioSource sound;
-    public AudioClip[] sonsPulo;
+    [SerializeField]private AudioSource audioPulo;
+    private float tempoUltimoPulo = -999f;
+    public float intervaloMinimoSomPulo = 0.1f; 
+    public AudioClip[] sonsDePulo;
     public AudioMixerGroup sfxGroup;
 
     private Animator anim;
@@ -33,8 +35,8 @@ public class Jump : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
-        sound = gameObject.GetComponent<AudioSource>();
-        sound.outputAudioMixerGroup = sfxGroup;
+        audioPulo = gameObject.AddComponent<AudioSource>();
+        audioPulo.outputAudioMixerGroup = sfxGroup;
     }
 
     void Update()
@@ -81,11 +83,14 @@ public class Jump : MonoBehaviour
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
-            if (sonsPulo.Length > 0)
+            
+            if (Time.time - tempoUltimoPulo > intervaloMinimoSomPulo && sonsDePulo.Length > 0)
             {
-                int indice = Random.Range(0, sonsPulo.Length);
-                sound.PlayOneShot(sonsPulo[indice]);
+                AudioClip somAleatorio = sonsDePulo[Random.Range(0, sonsDePulo.Length)];
+                audioPulo.PlayOneShot(somAleatorio);
+                tempoUltimoPulo = Time.time;
             }
+
 
 
             if (grounded)
