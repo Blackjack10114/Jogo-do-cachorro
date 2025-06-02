@@ -253,4 +253,15 @@ public class PlayerMov : MonoBehaviour
             plataformaAtual = collision.gameObject.GetComponent<PlataformaMovel>();
         }
     }
+
+    public void PararSomCorrida()
+    {
+        if (somCorridaTocando && sound != null)
+        {
+            sound.Stop();
+            sound.loop = false;
+            somCorridaTocando = false;
+        }
+    }
+
 }

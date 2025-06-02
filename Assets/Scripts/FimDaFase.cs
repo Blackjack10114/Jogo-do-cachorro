@@ -52,6 +52,11 @@ public class FimDaFase : MonoBehaviour
         var anim = other.GetComponent<Animator>();
         if (other.CompareTag("Player"))
         {
+            if (playerMov != null)
+            {
+                playerMov.PararSomCorrida();
+            }
+
             if (anim.GetBool("ComCaixa") == false)
             {
                // if (avisoFaltaCaixaUI != null)
