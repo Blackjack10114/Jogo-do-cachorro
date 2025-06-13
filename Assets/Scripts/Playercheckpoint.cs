@@ -29,7 +29,12 @@ public class Playercheckpoint : MonoBehaviour
     }
     private IEnumerator HabilitarCaixa()
     {
-        yield return new WaitForSeconds(0.5f);
-        bool_script.CaixaPega = true;
+        yield return new WaitForSeconds(0.1f);
+
+        if (bool_script != null)
+        {
+            bool_script.ForcarRetornoCaixaDoBuraco();
+        }
     }
+
 }

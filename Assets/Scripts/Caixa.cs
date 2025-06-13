@@ -7,7 +7,7 @@ public class Caixa : MonoBehaviour
 {
     private GameObject Player = null;
     private GameObject caixaPrefab = null;
-    private GameObject Caixa_Separada_0 = null;
+    public GameObject Caixa_Separada_0 = null;
     public float speed, move;
     public GameObject Doug;
     private Rigidbody2D rb;
@@ -121,6 +121,12 @@ public class Caixa : MonoBehaviour
         if (bool_script != null && bool_script.isInvincible == false)
         {
             Caixa_Separada_0 = Instantiate(caixaPrefab, Player.transform.position, Quaternion.identity);
+            CaixaSeparada separada = Caixa_Separada_0.GetComponent<CaixaSeparada>();
+            if (separada != null)
+            {
+                separada.SetOrigem(this);
+            }
+
             Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
             Debug.Log("Caixa instanciada");
@@ -163,4 +169,30 @@ public class Caixa : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         pegarcaixa();
     }
+
+    public void ForcarRetornoCaixaDoBuraco()
+    {
+        if (Caixa_Separada_0 != null)
+        {
+            Destroy(Caixa_Separada_0);
+            Caixa_Separada_0 = null;
+            caixaInstanciada = false;
+        }
+
+        CaixaPega = true;
+        estacomcaixa = true;
+        bool_script.Estasemcaixa = false;
+
+        if (bool_script.TryGetComponent<Animator>(out Animator anim))
+        {
+            anim.SetBool("ComCaixa", true);
+        }
+
+        if (sound != null && caixa_som != null)
+        {
+            sound.clip = caixa_som;
+            sound.Play();
+        }
+    }
+
 }
