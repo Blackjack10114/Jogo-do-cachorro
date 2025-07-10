@@ -1,9 +1,12 @@
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem.XInput;
 
 public class Jump : MonoBehaviour
 {
+    private InputController inputActions;
+
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float turboJumpMultiplier = 1.2f;
     [SerializeField] private float coyoteTime = 0.1f;
@@ -28,7 +31,11 @@ public class Jump : MonoBehaviour
     public AudioMixerGroup sfxGroup;
 
     private Animator anim;
-
+    void Awake()
+    {
+        inputActions = new InputController();
+       
+    }
 
     void Start()
     {

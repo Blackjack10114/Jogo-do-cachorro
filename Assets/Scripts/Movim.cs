@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XInput;
 
 public class PlayerMov : MonoBehaviour
 {
+
+    private InputController inputActions;
+
     [HideInInspector] public bool temPuloDuplo = false;
 
     public bool isGourmetActive = false;
@@ -44,6 +49,21 @@ public class PlayerMov : MonoBehaviour
 
     Animator animDoug;
 
+
+    void Awake()
+    {
+        inputActions = new InputController();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
     void Start()
     {
         Velocidadeanimacao = 2.5f;
@@ -67,23 +87,16 @@ public class PlayerMov : MonoBehaviour
             return;
         }
 
-        if (pulo != null && pulo.EstaNoChao)
-        {
-            isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) && (stamina > 0 || isGourmetActive);
-        }
+        Vector2 moveInput = inputActions.Player.Mov.ReadValue<Vector2>();
+        bool estaAndando = Mathf.Abs(moveInput.x) > 0.01f;
+        bool grounded = pulo != null && pulo.EstaNoChao;
+
+        isRunning = inputActions.Player.Run.IsPressed() && (stamina > 0 || isGourmetActive);
 
         if (!isRunning && stamina < 100)
-        {
             stamina += Time.deltaTime * 20;
-        }
-        if (isRunning)
-        {
-            animDoug.speed = Velocidadeanimacao;
-        }
-        if (!isRunning)
-        {
-            animDoug.speed = 1f;
-        }
+
+        animDoug.speed = isRunning ? Velocidadeanimacao : 1f;
 
         if (isTurboActive)
         {
@@ -100,39 +113,25 @@ public class PlayerMov : MonoBehaviour
         {
             gourmetTimer -= Time.deltaTime;
             if (gourmetTimer <= 0)
-            {
                 isGourmetActive = false;
-            }
         }
 
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if (estaAndando)
         {
-            MovePlayer(1);
-            IndoEsquerda = false;
-            IndoDireita = true;
+            int direction = moveInput.x > 0 ? 1 : -1;
+            MovePlayer(direction);
+            IndoDireita = direction == 1;
+            IndoEsquerda = direction == -1;
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            MovePlayer(-1);
-            IndoDireita = false;
-            IndoEsquerda = true;
-        }
-        bool estaParado =
-        !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) &&
-        !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A);
-
-        if (estaParado && plataformaAtual != null && pulo != null && pulo.EstaNoChao)
+        else if (plataformaAtual != null && grounded)
         {
             rb.linearVelocity = new Vector2(velocidadePlataforma, rb.linearVelocity.y);
         }
-        if (stamina <= 0)
-        {
-            stamina = 0;
-        }
-        bool estaAndando = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ||
-                   Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
 
-        bool podeTocarSomCorrida = pulo != null && pulo.EstaNoChao && isRunning && estaAndando && stamina > 0;
+        if (stamina <= 0)
+            stamina = 0;
+
+        bool podeTocarSomCorrida = grounded && isRunning && estaAndando && stamina > 0;
 
         if (podeTocarSomCorrida && !somCorridaTocando)
         {
@@ -148,20 +147,13 @@ public class PlayerMov : MonoBehaviour
             somCorridaTocando = false;
         }
 
-        if (temPuloDuplo == true)
-        {
+        if (temPuloDuplo)
             TempoPulo -= Time.deltaTime;
-        }
 
-        bool andando = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ||
-                   Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
-
-        animDoug.SetBool("EstaAndando", andando);
-
-        // Verifica se está no chão
-        bool grounded = pulo != null && pulo.EstaNoChao;
+        animDoug.SetBool("EstaAndando", estaAndando);
         animDoug.SetBool("Grounded", grounded);
     }
+
 
     private void MovePlayer(int direction)
     {
@@ -174,15 +166,11 @@ public class PlayerMov : MonoBehaviour
             finalSpeed *= sprintSpeedMultiplier * turboMultiplier;
 
             if (!isGourmetActive)
-            {
                 stamina -= 0.2f * staminaConsumptionMultiplier * turboStaminaReduction;
-            }
         }
 
         if (pulo != null && pulo.EstaNoChao)
-        {
             wasRunningBeforeJump = isRunning;
-        }
 
         float airControl = wasRunningBeforeJump ? sprintSpeedMultiplier * turboMultiplier : 1f;
 
@@ -192,9 +180,7 @@ public class PlayerMov : MonoBehaviour
             float velX = direction * move * finalSpeed;
 
             if (plataformaAtual != null)
-            {
                 velX += velocidadePlataforma;
-            }
 
             rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
 
@@ -205,13 +191,12 @@ public class PlayerMov : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(direction * move * speed * airControl+ velocidadePlataforma, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction * move * speed * airControl + velocidadePlataforma, rb.linearVelocity.y);
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
-        {
+        // reset do time se parar
+        if (Mathf.Abs(inputActions.Player.Mov.ReadValue<Vector2>().x) < 0.01f)
             time = 0;
-        }
 
         velocidadePlataforma = 0f;
     }
