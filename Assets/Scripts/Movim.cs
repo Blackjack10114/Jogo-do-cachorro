@@ -20,13 +20,13 @@ public class PlayerMov : MonoBehaviour
     public float TempoPulo;
 
     public float sprintSpeedMultiplier = 2f;
-    public float staminaConsumptionMultiplier = 1.0f;
+    public float staminaConsumptionMultiplier = 1.0f; //multiplica o gasto de stamina quando corre
 
     public float turboTimer = 0f;
     public float gourmetTimer = 0f;
 
-    [HideInInspector] public float turboMultiplier = 1f;
-    public float turboStaminaReduction = 1f;
+    public float turboMultiplier; //multiplica o gasto de stamina quando corre
+    public float turboStaminaReduction = 1f; //diminui o gasto de stamina um pouco com o turbo, por enquanto n interfere, mas manteve caso precise equilibrar no futuro
 
     private Rigidbody2D rb;
     private float time = 0;

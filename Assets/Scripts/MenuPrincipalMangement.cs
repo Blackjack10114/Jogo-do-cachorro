@@ -1,38 +1,58 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuPrincipalMangement : MonoBehaviour
 {
+    private InputController inputActions;
+
     [SerializeField] private string nomeDoLevelDeJogo;
     [SerializeField] private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelFundoCinza;
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
+    [SerializeField] private GameObject botaoInicial;
 
     private System.Action acaoConfirmada;
 
+    void Awake()
+    {
+        inputActions = new InputController();
+
+        // ESC para fechar opções e voltar ao menu inicial
+        inputActions.UI.Cancel.performed += ctx =>
+        {
+            if (painelOpcoes.activeSelf)
+            {
+                FecharOpcoes();
+            }
+        };
+    }
+
+    void OnEnable()
+    {
+        inputActions.Enable();
+        inputActions.Player.Disable(); // desabilita controles do jogador
+        inputActions.UI.Enable();      // habilita controles de UI
+    }
+
+    void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
     private void Start()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(botaoInicial);
+
         if (painelConfirmacao != null)
             painelConfirmacao.SetActive(false);
-
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            painelOpcoes.SetActive(false);
-            painelFundoCinza.SetActive(false);
-            painelMenuInicial.SetActive(true);
-        }
     }
 
     public void Jogar()
     {
-        // Exibe a pergunta do tutorial apenas se for a primeira vez
         if (!PlayerPrefs.HasKey("JaViuTutorialPergunta"))
         {
             painelTutorial.SetActive(true);
@@ -48,7 +68,6 @@ public class MenuPrincipalMangement : MonoBehaviour
         painelMenuInicial.SetActive(false);
         painelFundoCinza.SetActive(true);
         painelOpcoes.SetActive(true);
-
     }
 
     public void FecharOpcoes()
@@ -82,9 +101,8 @@ public class MenuPrincipalMangement : MonoBehaviour
     public void BotaoConfirmarSim()
     {
         acaoConfirmada?.Invoke();
-        acaoConfirmada = null; 
+        acaoConfirmada = null;
     }
-
 
     public void BotaoConfirmarNao()
     {
@@ -104,14 +122,14 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     public void TutorialSim()
     {
-        PlayerPrefs.SetInt("JaViuTutorialPergunta", 1); 
+        PlayerPrefs.SetInt("JaViuTutorialPergunta", 1);
         PlayerPrefs.Save();
         SceneManager.LoadScene("Tutorial");
     }
 
     public void TutorialNao()
     {
-        PlayerPrefs.SetInt("JaViuTutorialPergunta", 1); 
+        PlayerPrefs.SetInt("JaViuTutorialPergunta", 1);
         PlayerPrefs.Save();
         painelTutorial.SetActive(false);
         SceneManager.LoadScene("CenaSelecaoFase");

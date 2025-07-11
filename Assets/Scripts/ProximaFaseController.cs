@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class ProximaFaseController: MonoBehaviour
 {
     [Header("Configurações")]
-    [SerializeField] private string[] ordemFases = { "Fase_Playtest", "Fase_Alien_02" };
+    [SerializeField] private string[] ordemFases = { "Fase_Tatu_01", "Fase_Alien_02", "Fase_Dino_03" };
     [SerializeField] private Button botaoProximaFase;
     [SerializeField] private string cenaMenu = "MenuPrincipal";
     [SerializeField] private string cenaRetry;
@@ -22,7 +22,7 @@ public class ProximaFaseController: MonoBehaviour
     void Start()
     {
         // Detecta automaticamente a cena anterior
-        _cenaAnterior = PlayerPrefs.GetString("CenaAnterior", "Fase_Playtest");
+        _cenaAnterior = PlayerPrefs.GetString("CenaAnterior", "Fase_Tatu_01");
 
         ConfigurarBotao();
     }
