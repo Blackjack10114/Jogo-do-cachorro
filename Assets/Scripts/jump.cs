@@ -1,7 +1,6 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.InputSystem.XInput;
+using UnityEngine.InputSystem;
 
 public class Jump : MonoBehaviour
 {
@@ -15,26 +14,38 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
+    private Animator anim;
+
     public int quantidadeDePulos = 0;
     public bool grounded = false;
     private int groundContacts = 0;
     public bool ignorarpulo;
 
     private float coyoteTimer = 0f;
-    private float jumpBufferTimer = 0f;
+    private float jumpBufferTimer = -1f;  // agora inicia negativo
 
-    public bool EstaNoChao => grounded;
-    [SerializeField]private AudioSource audioPulo;
+    [SerializeField] private AudioSource audioPulo;
     private float tempoUltimoPulo = -999f;
-    public float intervaloMinimoSomPulo = 0.1f; 
+    public float intervaloMinimoSomPulo = 0.1f;
     public AudioClip[] sonsDePulo;
     public AudioMixerGroup sfxGroup;
 
-    private Animator anim;
+    public bool EstaNoChao => grounded;
+
     void Awake()
     {
         inputActions = new InputController();
-       
+        inputActions.Player.Jump.performed += OnJumpPerformed;
+    }
+
+    void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Disable();
     }
 
     void Start()
@@ -42,94 +53,87 @@ public class Jump : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
-        audioPulo = gameObject.AddComponent<AudioSource>();
-        audioPulo.outputAudioMixerGroup = sfxGroup;
+
+        if (!audioPulo)
+        {
+            audioPulo = gameObject.AddComponent<AudioSource>();
+            audioPulo.outputAudioMixerGroup = sfxGroup;
+        }
+    }
+
+    /// Callback chamado quando botão de pulo é pressionado
+    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    {
+        jumpBufferTimer = jumpBufferTime;  // inicia o buffer
     }
 
     void Update()
     {
-        // Buffer de pulo
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
-        {
-            jumpBufferTimer = jumpBufferTime;
-        }
-        else
-        {
-            jumpBufferTimer -= Time.deltaTime;
-        }
+        // Atualiza timers
+        jumpBufferTimer -= Time.deltaTime;
 
-        // Atualiza coyote time
         if (grounded)
-        {
             coyoteTimer = coyoteTime;
-        }
         else
-        {
             coyoteTimer -= Time.deltaTime;
-        }
+
         bool velocidadeYZero = Mathf.Abs(rb.linearVelocity.y) < 0.01f;
 
-        bool podePular = jumpBufferTimer > 0f &&
+        bool podePular =
+            jumpBufferTimer > 0f &&
             (
                 (coyoteTimer > 0f && velocidadeYZero) ||
                 (playerMov.temPuloDuplo && quantidadeDePulos < 1)
             );
 
-
         if (quantidadeDePulos >= 1 && !velocidadeYZero)
-        {
             podePular = false;
-        }
 
-        if (podePular || ((ignorarpulo && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))))
+        if (podePular || (ignorarpulo && jumpBufferTimer > 0))
         {
-            float finalJumpForce = jumpForce;
-
-            if (playerMov != null && playerMov.isTurboActive)
-                finalJumpForce *= turboJumpMultiplier;
-
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
-            
-            if (Time.time - tempoUltimoPulo > intervaloMinimoSomPulo && sonsDePulo.Length > 0)
-            {
-                AudioClip somAleatorio = sonsDePulo[Random.Range(0, sonsDePulo.Length)];
-                audioPulo.PlayOneShot(somAleatorio);
-                tempoUltimoPulo = Time.time;
-            }
-
-
-
-            if (grounded)
-            {
-                coyoteTimer = 0f;
-            }
-            else if (playerMov.temPuloDuplo)
-            {
-                quantidadeDePulos++;
-            }
-
-            if (anim != null)
-            {
-                bool estaPulando = !grounded;
-               // anim.SetBool("EstaPulando", estaPulando);
-            }
-
-            jumpBufferTimer = 0f;
+            ExecutarPulo();
+            jumpBufferTimer = -1f;  // consome o buffer
         }
+    }
+
+    private void ExecutarPulo()
+    {
+        float finalJumpForce = jumpForce;
+
+        if (playerMov != null && playerMov.isTurboActive)
+            finalJumpForce *= turboJumpMultiplier;
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
+
+        if (Time.time - tempoUltimoPulo > intervaloMinimoSomPulo && sonsDePulo.Length > 0)
+        {
+            AudioClip somAleatorio = sonsDePulo[Random.Range(0, sonsDePulo.Length)];
+            audioPulo.PlayOneShot(somAleatorio);
+            tempoUltimoPulo = Time.time;
+        }
+
+        if (grounded)
+            coyoteTimer = 0f;
+        else if (playerMov.temPuloDuplo)
+            quantidadeDePulos++;
+
+        if (anim != null)
+            anim.SetTrigger("Pulou");  // opcional
+    }
+
+    void FixedUpdate()
+    {
+        if (!grounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+            grounded = true;
+
+        if (Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+            quantidadeDePulos = 0;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") ||
-        collision.gameObject.CompareTag("PlataformaMovel") ||
-        collision.gameObject.CompareTag("PlataformaQuebradica") ||
-        collision.gameObject.CompareTag("Spike") ||
-        collision.gameObject.CompareTag("RaizRotatoria") ||
-        collision.gameObject.CompareTag("Meteorito") ||
-        collision.gameObject.CompareTag("Passaro") ||
-        collision.gameObject.CompareTag("Tatu") ||
-        collision.gameObject.CompareTag("Untagged"))
+        if (IsGroundTag(collision.gameObject.tag))
         {
             groundContacts++;
             grounded = true;
@@ -138,15 +142,7 @@ public class Jump : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") ||
-            collision.gameObject.CompareTag("PlataformaMovel") ||
-            collision.gameObject.CompareTag("PlataformaQuebradica") ||
-            collision.gameObject.CompareTag("Spike") ||
-            collision.gameObject.CompareTag("RaizRotatoria") ||
-            collision.gameObject.CompareTag("Meteorito") ||
-            collision.gameObject.CompareTag("Passaro") ||
-            collision.gameObject.CompareTag("Tatu") ||
-            collision.gameObject.CompareTag("Untagged"))
+        if (IsGroundTag(collision.gameObject.tag))
         {
             groundContacts = Mathf.Max(0, groundContacts - 1);
             if (groundContacts == 0)
@@ -154,26 +150,16 @@ public class Jump : MonoBehaviour
             ignorarpulo = false;
         }
     }
-    void FixedUpdate()
-    {
-        if (!grounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
-        {
-            grounded = true;
-        }
-        if (Mathf.Abs(rb.linearVelocity.y) < 0.01f)
-        {
-            quantidadeDePulos = 0;
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
+
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("PlataformaMovel"))
         {
             ignorarpulo = true;
             quantidadeDePulos = 0;
         }
-        bool isTouchingGround = false;
 
+        bool isTouchingGround = false;
         foreach (ContactPoint2D hitPos in collision.contacts)
         {
             if (hitPos.normal.y > 0.5f)
@@ -184,5 +170,12 @@ public class Jump : MonoBehaviour
         }
 
         grounded = isTouchingGround;
+    }
+
+    private bool IsGroundTag(string tag)
+    {
+        return tag == "Ground" || tag == "PlataformaMovel" || tag == "PlataformaQuebradica" ||
+               tag == "Spike" || tag == "RaizRotatoria" || tag == "Meteorito" ||
+               tag == "Passaro" || tag == "Tatu" || tag == "Untagged";
     }
 }
