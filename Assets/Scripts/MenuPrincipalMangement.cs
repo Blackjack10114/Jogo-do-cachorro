@@ -12,7 +12,11 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
-    [SerializeField] private GameObject botaoInicial;
+    [SerializeField] private GameObject botaoInicial; 
+    [SerializeField] private GameObject botaoInicialScroll;
+    [SerializeField] private GameObject botaoInicialTutorial;
+    [SerializeField] private GameObject botaoInicialConfirmacao;
+  
 
     private System.Action acaoConfirmada;
 
@@ -56,6 +60,8 @@ public class MenuPrincipalMangement : MonoBehaviour
         if (!PlayerPrefs.HasKey("JaViuTutorialPergunta"))
         {
             painelTutorial.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(botaoInicialTutorial);
         }
         else
         {
@@ -68,6 +74,9 @@ public class MenuPrincipalMangement : MonoBehaviour
         painelMenuInicial.SetActive(false);
         painelFundoCinza.SetActive(true);
         painelOpcoes.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(botaoInicialScroll);
     }
 
     public void FecharOpcoes()
@@ -75,6 +84,9 @@ public class MenuPrincipalMangement : MonoBehaviour
         painelOpcoes.SetActive(false);
         painelFundoCinza.SetActive(false);
         painelMenuInicial.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(botaoInicial);
     }
 
     public void SairJogo()
@@ -95,6 +107,9 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         painelMenuInicial.SetActive(false);
         painelConfirmacao.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(botaoInicialConfirmacao);
         acaoConfirmada = acao;
     }
 
@@ -108,6 +123,8 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         painelConfirmacao.SetActive(false);
         painelMenuInicial.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(botaoInicial);
     }
 
     public void BotaoCreditos()
