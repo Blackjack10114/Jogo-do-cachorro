@@ -1031,6 +1031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375069978}
+  - component: {fileID: 375069979}
   m_Layer: 5
   m_Name: MenuPrincipal
   m_TagString: Untagged
@@ -1065,6 +1066,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &375069979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375069977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultButton: {fileID: 105689002}
 --- !u!1 &386863122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,6 +1459,7 @@ GameObject:
   - component: {fileID: 457832978}
   - component: {fileID: 457832980}
   - component: {fileID: 457832979}
+  - component: {fileID: 457832981}
   m_Layer: 5
   m_Name: PanelTutorial
   m_TagString: Untagged
@@ -1513,6 +1528,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457832977}
   m_CullTransparentMesh: 1
+--- !u!114 &457832981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457832977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultButton: {fileID: 1491843183}
 --- !u!1 &503326368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1986,7 @@ GameObject:
   - component: {fileID: 663150742}
   - component: {fileID: 663150744}
   - component: {fileID: 663150743}
+  - component: {fileID: 663150745}
   m_Layer: 5
   m_Name: PanelOpcoes
   m_TagString: Untagged
@@ -1972,7 +2001,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663150741}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1984,7 +2013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000011444092, y: -0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663150743
@@ -2025,6 +2054,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663150741}
   m_CullTransparentMesh: 1
+--- !u!114 &663150745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663150741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultButton: {fileID: 646284342}
 --- !u!1 &671431112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3390,10 +3432,10 @@ MonoBehaviour:
   painelOpcoes: {fileID: 663150741}
   painelConfirmacao: {fileID: 2027304566}
   painelTutorial: {fileID: 457832977}
-  botaoInicial: {fileID: 105689002}
-  botaoInicialScroll: {fileID: 646284342}
-  botaoInicialTutorial: {fileID: 1491843183}
-  botaoInicialConfirmacao: {fileID: 1251825983}
+  menuInicialFocus: {fileID: 375069979}
+  opcoesFocus: {fileID: 663150745}
+  confirmacaoFocus: {fileID: 2027304570}
+  tutorialFocus: {fileID: 457832981}
 --- !u!4 &1158074034
 Transform:
   m_ObjectHideFlags: 0
@@ -6581,6 +6623,7 @@ GameObject:
   - component: {fileID: 2027304567}
   - component: {fileID: 2027304569}
   - component: {fileID: 2027304568}
+  - component: {fileID: 2027304570}
   m_Layer: 5
   m_Name: "PanelConfirma\xE7\xE3o"
   m_TagString: Untagged
@@ -6649,6 +6692,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027304566}
   m_CullTransparentMesh: 1
+--- !u!114 &2027304570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027304566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultButton: {fileID: 1251825983}
 --- !u!1 &2040953921
 GameObject:
   m_ObjectHideFlags: 0

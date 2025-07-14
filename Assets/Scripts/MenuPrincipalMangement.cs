@@ -12,11 +12,12 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
-    [SerializeField] private GameObject botaoInicial; 
-    [SerializeField] private GameObject botaoInicialScroll;
-    [SerializeField] private GameObject botaoInicialTutorial;
-    [SerializeField] private GameObject botaoInicialConfirmacao;
-  
+
+    [Header("Focus Managers")]
+    [SerializeField] private PanelFocusManager menuInicialFocus;
+    [SerializeField] private PanelFocusManager opcoesFocus;
+    [SerializeField] private PanelFocusManager confirmacaoFocus;
+    [SerializeField] private PanelFocusManager tutorialFocus;
 
     private System.Action acaoConfirmada;
 
@@ -48,20 +49,20 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicial);
-
         if (painelConfirmacao != null)
             painelConfirmacao.SetActive(false);
+
+        menuInicialFocus.OnOpen();
     }
 
     public void Jogar()
     {
         if (!PlayerPrefs.HasKey("JaViuTutorialPergunta"))
         {
+            menuInicialFocus.OnClose();
+
             painelTutorial.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(botaoInicialTutorial);
+            tutorialFocus.OnOpen();
         }
         else
         {
@@ -71,22 +72,24 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     public void AbrirOpcoes()
     {
+        menuInicialFocus.OnClose();
+
         painelMenuInicial.SetActive(false);
         painelFundoCinza.SetActive(true);
         painelOpcoes.SetActive(true);
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicialScroll);
+        opcoesFocus.OnOpen();
     }
 
     public void FecharOpcoes()
     {
+        opcoesFocus.OnClose();
+
         painelOpcoes.SetActive(false);
         painelFundoCinza.SetActive(false);
         painelMenuInicial.SetActive(true);
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicial);
+        menuInicialFocus.OnOpen();
     }
 
     public void SairJogo()
@@ -105,11 +108,13 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        menuInicialFocus.OnClose();
+
         painelMenuInicial.SetActive(false);
         painelConfirmacao.SetActive(true);
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicialConfirmacao);
+        confirmacaoFocus.OnOpen();
+
         acaoConfirmada = acao;
     }
 
@@ -121,10 +126,12 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     public void BotaoConfirmarNao()
     {
+        confirmacaoFocus.OnClose();
+
         painelConfirmacao.SetActive(false);
         painelMenuInicial.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicial);
+
+        menuInicialFocus.OnOpen();
     }
 
     public void BotaoCreditos()
@@ -148,6 +155,9 @@ public class MenuPrincipalMangement : MonoBehaviour
     {
         PlayerPrefs.SetInt("JaViuTutorialPergunta", 1);
         PlayerPrefs.Save();
+
+        tutorialFocus.OnClose();
+
         painelTutorial.SetActive(false);
         SceneManager.LoadScene("CenaSelecaoFase");
     }
