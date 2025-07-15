@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "3eb24c8f-0183-453b-9880-805cdf714607",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "ac67a6a9-4c41-4bfa-9f26-553b959e077f",
@@ -122,6 +131,39 @@
                 },
                 {
                     "name": "",
+                    "id": "2b7c8b71-fd2b-4985-be6e-5ff42691fc90",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e94b71d0-ab1b-4c75-9a48-5b42869a08a5",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df3ab127-4776-4fa8-a17d-740b071ccfa5",
+                    "path": "<Gamepad>/{Menu}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ce4c3e99-b507-4d62-b329-00cb22558937",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
@@ -215,15 +257,6 @@
             "id": "01c3cc08-e8f9-43f1-862d-2ac7e56ab25e",
             "actions": [
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "6d8a6c9e-9939-49ad-b795-4ebf5246ad29",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "TrackedDeviceOrientation",
                     "type": "PassThrough",
                     "id": "55326aab-8b6e-4f20-b33c-b3d1df8d126c",
@@ -315,39 +348,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "771f4755-686f-41f7-8a63-f8e1893fb259",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "031e45b9-e630-4f21-987e-5eb73c17fddb",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fa28ea0f-e1a2-4cdb-86d4-ac2fc65f823d",
-                    "path": "<Gamepad>/{Menu}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "a459f946-85ef-4b55-8060-36054c23a3ad",

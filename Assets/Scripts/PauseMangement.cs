@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -10,7 +9,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject painelPause;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelFundoCinza;
-    [SerializeField] private GameObject botaoInicial;
+
+    [Header("Focus Managers")]
+    [SerializeField] private PanelFocusManager pauseFocus;
+    [SerializeField] private PanelFocusManager confirmacaoFocus;
 
     private System.Action acaoConfirmada;
 
@@ -18,8 +20,8 @@ public class PauseMenu : MonoBehaviour
     {
         inputActions = new InputController();
 
-        // quando o jogador aperta Pause no mapa UI
-        inputActions.UI.Pause.performed += ctx =>
+        //  abrir e fechar pause com input
+        inputActions.Player.Pause.performed += ctx =>
         {
             if (!painelPause.activeSelf)
                 AbrirPause();
@@ -27,19 +29,14 @@ public class PauseMenu : MonoBehaviour
                 FecharPause();
         };
 
-        // opcionalmente já ouça o Confirm / Cancel também aqui
-        inputActions.UI.Confirm.performed += ctx =>
-        {
-            if (painelConfirmacao.activeSelf)
-                BotaoConfirmarSim();
-        };
-
+        // fechar a confirmação
         inputActions.UI.Cancel.performed += ctx =>
         {
             if (painelConfirmacao.activeSelf)
                 BotaoConfirmarNao();
         };
     }
+
 
     void OnEnable()
     {
@@ -54,28 +51,33 @@ public class PauseMenu : MonoBehaviour
     public void AbrirPause()
     {
         Time.timeScale = 0f;
+
         painelFundoCinza.SetActive(true);
         painelPause.SetActive(true);
         painelConfirmacao.SetActive(false);
 
-        // desabilita o mapa do jogador e habilita UI
         inputActions.Player.Disable();
         inputActions.UI.Enable();
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(botaoInicial);
+        pauseFocus.OnOpen();
+
+        Debug.Log("Pause aberto");
     }
 
     public void FecharPause()
     {
         Time.timeScale = 1f;
+
         painelFundoCinza.SetActive(false);
         painelPause.SetActive(false);
         painelConfirmacao.SetActive(false);
 
-        // reabilita o mapa do jogador e desabilita UI
         inputActions.UI.Disable();
         inputActions.Player.Enable();
+
+        pauseFocus.OnClose();
+
+        Debug.Log("Pause fechado");
     }
 
     public void BotaoContinuar()
@@ -103,9 +105,14 @@ public class PauseMenu : MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        pauseFocus.OnClose();
+
         painelPause.SetActive(false);
         painelConfirmacao.SetActive(true);
+
         acaoConfirmada = acao;
+
+        confirmacaoFocus.OnOpen();
     }
 
     public void BotaoConfirmarSim()
@@ -116,7 +123,13 @@ public class PauseMenu : MonoBehaviour
 
     public void BotaoConfirmarNao()
     {
+        confirmacaoFocus.OnClose();
+
         painelConfirmacao.SetActive(false);
         painelPause.SetActive(true);
+
+        pauseFocus.OnOpen();
+
+        acaoConfirmada = null;
     }
 }
