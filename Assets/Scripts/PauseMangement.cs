@@ -3,45 +3,88 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    private InputController inputActions;
+
     [Header("Painéis")]
     [SerializeField] private GameObject painelPause;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelFundoCinza;
 
+    [Header("Focus Managers")]
+    [SerializeField] private PanelFocusManager pauseFocus;
+    [SerializeField] private PanelFocusManager confirmacaoFocus;
+
     private System.Action acaoConfirmada;
 
-    private void Update()
+    void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        inputActions = new InputController();
+
+        //  abrir e fechar pause com input
+        inputActions.Player.Pause.performed += ctx =>
         {
             if (!painelPause.activeSelf)
                 AbrirPause();
             else
                 FecharPause();
-        }
+        };
+
+        // fechar a confirmação
+        inputActions.UI.Cancel.performed += ctx =>
+        {
+            if (painelConfirmacao.activeSelf)
+                BotaoConfirmarNao();
+        };
+    }
+
+
+    void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Disable();
     }
 
     public void AbrirPause()
     {
         Time.timeScale = 0f;
+
         painelFundoCinza.SetActive(true);
         painelPause.SetActive(true);
         painelConfirmacao.SetActive(false);
+
+        inputActions.Player.Disable();
+        inputActions.UI.Enable();
+
+        pauseFocus.OnOpen();
+
+        Debug.Log("Pause aberto");
     }
 
     public void FecharPause()
     {
         Time.timeScale = 1f;
+
         painelFundoCinza.SetActive(false);
         painelPause.SetActive(false);
         painelConfirmacao.SetActive(false);
+
+        inputActions.UI.Disable();
+        inputActions.Player.Enable();
+
+        pauseFocus.OnClose();
+
+        Debug.Log("Pause fechado");
     }
 
     public void BotaoContinuar()
     {
         FecharPause();
     }
-    
+
     public void BotaoMenuPrincipal()
     {
         MostrarConfirmacao(() =>
@@ -62,9 +105,14 @@ public class PauseMenu : MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        pauseFocus.OnClose();
+
         painelPause.SetActive(false);
         painelConfirmacao.SetActive(true);
+
         acaoConfirmada = acao;
+
+        confirmacaoFocus.OnOpen();
     }
 
     public void BotaoConfirmarSim()
@@ -75,7 +123,13 @@ public class PauseMenu : MonoBehaviour
 
     public void BotaoConfirmarNao()
     {
+        confirmacaoFocus.OnClose();
+
         painelConfirmacao.SetActive(false);
         painelPause.SetActive(true);
+
+        pauseFocus.OnOpen();
+
+        acaoConfirmada = null;
     }
 }
