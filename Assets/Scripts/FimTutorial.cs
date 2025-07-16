@@ -9,9 +9,8 @@ public class FimDoTutorial : MonoBehaviour
     public GameObject avisoFaltaCaixaUI;
     public GameObject clienteEmojiUI;
     public Sprite emojiFeliz;
-    public GameObject painelFimTutorial;
-    [SerializeField] private GameObject painelFundoCinza;
-    public GameObject Canvas;
+    [SerializeField] private TutorialFim tutorialFim; // Referência direta
+    [SerializeField] private GameObject Canvas;
 
     void Start()
     {
@@ -21,13 +20,12 @@ public class FimDoTutorial : MonoBehaviour
         if (clienteEmojiUI != null)
             clienteEmojiUI.SetActive(false);
 
-        if (painelFimTutorial != null)
-            painelFimTutorial.SetActive(false);
+        if (tutorialFim != null)
+            tutorialFim.painelFimTutorial.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        
         if (other.CompareTag("Player"))
         {
             var anim = other.GetComponent<Animator>();
@@ -41,6 +39,7 @@ public class FimDoTutorial : MonoBehaviour
                 StartCoroutine(ResetarEntrada());
                 return;
             }
+
             Canvas.SetActive(false);
             StartCoroutine(ReacaoClienteEFim());
         }
@@ -60,7 +59,7 @@ public class FimDoTutorial : MonoBehaviour
     private IEnumerator ReacaoClienteEFim()
     {
         Time.timeScale = 0f;
-        // Para o movimento do jogador
+
         if (playerMov != null)
         {
             playerMov.enabled = false;
@@ -68,7 +67,6 @@ public class FimDoTutorial : MonoBehaviour
             playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
-        // Mostra o emoji
         if (clienteEmojiUI != null)
         {
             clienteEmojiUI.SetActive(true);
@@ -78,13 +76,16 @@ public class FimDoTutorial : MonoBehaviour
                 emojiRenderer.sprite = emojiFeliz;
         }
 
-        // Espera 2 segundos
         yield return new WaitForSecondsRealtime(2f);
 
-        // Mostra o painel de fim de tutorial
-        if (painelFimTutorial != null)
-            painelFundoCinza.SetActive(true);
-            painelFimTutorial.SetActive(true);
-        
+        // chama corretamente o método do TutorialFim
+        if (tutorialFim != null)
+        {
+            tutorialFim.MostrarFimTutorial();
+        }
+        else
+        {
+            Debug.LogWarning("TutorialFim não atribuído no FimDoTutorial!");
+        }
     }
 }

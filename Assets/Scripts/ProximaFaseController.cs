@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
-public class ProximaFaseController: MonoBehaviour
+public class ProximaFaseController : MonoBehaviour
 {
     [Header("Configurações")]
     [SerializeField] private string[] ordemFases = { "Fase_Tatu_01", "Fase_Alien_02", "Fase_Dino_03" };
@@ -17,13 +18,18 @@ public class ProximaFaseController: MonoBehaviour
     [SerializeField] private Color corCompleto = Color.gray;
     [SerializeField] private string textoCompleto = "Demo Concluída!";
 
+    [Header("Focus Manager")]
+    [SerializeField] private PanelFocusManager confirmacaoFocus;
+    [SerializeField] private PanelFocusManager botoesPrincipaisFocus;
+
+    [Header("Botões principais da cena")]
+    [SerializeField] private Button[] botoesPrincipais;
+
     private string _cenaAnterior; // Armazena a cena que chamou a vitória
 
     void Start()
     {
-        // Detecta automaticamente a cena anterior
         _cenaAnterior = PlayerPrefs.GetString("CenaAnterior", "Fase_Tatu_01");
-
         ConfigurarBotao();
     }
 
@@ -42,10 +48,12 @@ public class ProximaFaseController: MonoBehaviour
             botaoProximaFase.image.color = corCompleto;
         }
     }
+
     public void ProximaFaseSimples()
     {
         SceneManager.LoadScene(ProximaFase);
     }
+
     public void CarregarProximaFase()
     {
         int indiceFaseAtual = System.Array.IndexOf(ordemFases, _cenaAnterior);
@@ -54,6 +62,7 @@ public class ProximaFaseController: MonoBehaviour
             SceneManager.LoadScene(ordemFases[indiceFaseAtual + 1]);
         }
     }
+
     public void Retry()
     {
         MostrarConfirmacao(() =>
@@ -61,6 +70,7 @@ public class ProximaFaseController: MonoBehaviour
             SceneManager.LoadScene(cenaRetry);
         });
     }
+
     public void VoltarAoMenu()
     {
         MostrarConfirmacao(() =>
@@ -71,9 +81,17 @@ public class ProximaFaseController: MonoBehaviour
 
     private void MostrarConfirmacao(System.Action acao)
     {
+        botoesPrincipaisFocus.OnClose();
+
         painelConfirmacao.SetActive(true);
         acaoConfirmada = acao;
+
+        foreach (var btn in botoesPrincipais)
+            btn.interactable = false;
+
+        confirmacaoFocus.OnOpen();
     }
+
 
     public void BotaoConfirmarSim()
     {
@@ -84,9 +102,19 @@ public class ProximaFaseController: MonoBehaviour
     public void BotaoConfirmarNao()
     {
         painelConfirmacao.SetActive(false);
+
+        confirmacaoFocus.OnClose();
+
+        foreach (var btn in botoesPrincipais)
+            btn.interactable = true;
+
+        botoesPrincipaisFocus.OnOpen();
+
+        acaoConfirmada = null;
+
     }
 
-    // Chamar ANTES de carregar a cena de vitória
+
     public static void RegistrarCenaAtual(string cenaAtual)
     {
         PlayerPrefs.SetString("CenaAnterior", cenaAtual);
