@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2736510712202747481}
   - component: {fileID: 8420546721790610607}
+  - component: {fileID: 3490141489081023877}
   - component: {fileID: 6028213741528096719}
   - component: {fileID: 3444483031629332467}
   - component: {fileID: 6358186907245394657}
@@ -20,7 +21,6 @@ GameObject:
   - component: {fileID: 4760391915632796381}
   - component: {fileID: 2907535445319009066}
   - component: {fileID: 7976200770619115158}
-  - component: {fileID: 3490141489081023877}
   - component: {fileID: 4544859157451826064}
   - component: {fileID: 4140402432468324973}
   m_Layer: 0
@@ -103,6 +103,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3490141489081023877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699557980529134076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac5e0e0021fc94488210f2fb5f47f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temPuloDuplo: 0
+  isGourmetActive: 0
+  isTurboActive: 0
+  speed: 4
+  move: 4
+  stamina: 100
+  TempoPulo: 0
+  sprintSpeedMultiplier: 1.5
+  staminaConsumptionMultiplier: 5
+  turboTimer: 0
+  gourmetTimer: 0
+  turboMultiplier: 1.4
+  turboStaminaReduction: 1
+  podeMover: 1
+  IndoEsquerda: 0
+  IndoDireita: 0
+  Correr_som: {fileID: 8300000, guid: a0cde4e1d7abcd249b9cee440f85a1e0, type: 3}
+  sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
+  Velocidadeanimacao: 0
 --- !u!114 &6028213741528096719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,37 +436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOut: {fileID: 4852143316860133368, guid: 3f838cd6cc533ed469bd4a3410b4ca55, type: 3}
---- !u!114 &3490141489081023877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5699557980529134076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac5e0e0021fc94488210f2fb5f47f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  temPuloDuplo: 0
-  isGourmetActive: 0
-  isTurboActive: 0
-  speed: 4
-  move: 4
-  stamina: 100
-  TempoPulo: 0
-  sprintSpeedMultiplier: 1.5
-  staminaConsumptionMultiplier: 5
-  turboTimer: 0
-  gourmetTimer: 0
-  turboMultiplier: 1.4
-  turboStaminaReduction: 1
-  podeMover: 1
-  IndoEsquerda: 0
-  IndoDireita: 0
-  Correr_som: {fileID: 8300000, guid: a0cde4e1d7abcd249b9cee440f85a1e0, type: 3}
-  sfxGroup: {fileID: -6999924873096516284, guid: 2110f834c7d2e734fa345283514be66d, type: 2}
-  Velocidadeanimacao: 0
 --- !u!95 &4544859157451826064
 Animator:
   serializedVersion: 7
