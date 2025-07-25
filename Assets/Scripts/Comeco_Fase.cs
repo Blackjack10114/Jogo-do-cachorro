@@ -11,6 +11,7 @@ public class Comeco_Fase : MonoBehaviour
     public Image barra_vida;
     private Vector3 offset;
     private GameObject Player;
+    public static bool FaseComecou = false;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class Comeco_Fase : MonoBehaviour
         if (apertou_botao)
         {
             Time.timeScale = 1f;
+            Comeco_Fase.FaseComecou = true;
             Destroy(this.gameObject);
         }
     }

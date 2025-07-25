@@ -81,6 +81,17 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
+        if (!Comeco_Fase.FaseComecou)
+        {
+            rb.linearVelocity = Vector2.zero;
+            animDoug.SetBool("EstaAndando", false);
+            animDoug.SetBool("Grounded", pulo != null && pulo.EstaNoChao);
+
+            PararSomCorrida(); // Evita que o som continue antes da fase começar
+
+            return; // Interrompe toda a lógica até a fase começar
+        }
+
         if (!podeMover)
         {
             rb.linearVelocity = Vector2.zero;
