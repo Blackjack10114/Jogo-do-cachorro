@@ -1,10 +1,18 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Seta_Consumidor : MonoBehaviour
 {
-    public Vector3 offset = new Vector3(4f, 0f, 0f);
+    public Vector3 offset = new(4f, 0f, 0f);
     private GameObject Consumidor, Player;
     private bool visivel;
+
+    public InputController inputActions; //Chama a função do input(Controlador)
+
+    public void Awake()
+    {
+        inputActions = new InputController();
+    }
     void Start()
     {
         visivel = true;
@@ -14,23 +22,15 @@ public class Seta_Consumidor : MonoBehaviour
 
     void Update()
     {
-        if (visivel)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Debug.Log("invisivel");
-                GetComponent<SpriteRenderer>().enabled = false;
-                visivel = false;
-            }
+        //Alterna entre a seta 
+        if(inputActions.Player.Seta.WasPressedThisFrame())
+        { 
+           Debug.Log("seta invisivel");
+            visivel = !visivel;
+            GetComponent<SpriteRenderer>().enabled = visivel;
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                GetComponent<SpriteRenderer>().enabled = true;
-                visivel = true;
-            }
-        }
+
+       //posiciona e rotaciona a seta
         transform.position = Player.transform.position + offset;
 
         Vector3 direction = Consumidor.transform.position - Player.transform.position;
@@ -39,4 +39,15 @@ public class Seta_Consumidor : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
+
+    //Caso queira desativar ou ativar o input em algum momento
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
 }

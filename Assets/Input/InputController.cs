@@ -294,8 +294,8 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5189a2fe-7304-4cc4-8bfe-95e99735ee4a"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""5c642b59-3e82-4f67-8a81-79059fb49853"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -305,8 +305,8 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5c642b59-3e82-4f67-8a81-79059fb49853"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""id"": ""5189a2fe-7304-4cc4-8bfe-95e99735ee4a"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -328,7 +328,29 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""919a634d-7c71-403a-9106-df140be370c8"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Seta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29ad85a8-1e26-4683-884a-82688ba1a98b"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Seta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b34c71c-62e3-4c4b-8913-81b7f44bd443"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

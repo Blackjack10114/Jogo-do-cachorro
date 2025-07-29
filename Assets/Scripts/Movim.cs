@@ -49,6 +49,8 @@ public class PlayerMov : MonoBehaviour
 
     Animator animDoug;
 
+    private Comeco_Fase comecoFase; // Variavel que verifica se começou a fase para liberar o movimento
+
 
     void Awake()
     {
@@ -66,6 +68,7 @@ public class PlayerMov : MonoBehaviour
 
     void Start()
     {
+        comecoFase = FindFirstObjectByType<Comeco_Fase>();// Procura um objeto da cena com script Comeco_Fase
         Velocidadeanimacao = 2.5f;
         animDoug = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -81,7 +84,8 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
-        if (!Comeco_Fase.FaseComecou)
+        // Verica se o Script comeco fase está ativo, se tiver ele bloqueia o mov, se n ele já começa ativo
+        if (comecoFase != null && !Comeco_Fase.FaseComecou) 
         {
             rb.linearVelocity = Vector2.zero;
             animDoug.SetBool("EstaAndando", false);
@@ -177,7 +181,7 @@ public class PlayerMov : MonoBehaviour
             finalSpeed *= sprintSpeedMultiplier * turboMultiplier;
 
             if (!isGourmetActive)
-                stamina -= 0.2f * staminaConsumptionMultiplier * turboStaminaReduction;
+                stamina -= 10f * staminaConsumptionMultiplier * turboStaminaReduction * Time.deltaTime;
         }
 
         if (pulo != null && pulo.EstaNoChao)
