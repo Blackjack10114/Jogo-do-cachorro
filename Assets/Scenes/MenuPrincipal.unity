@@ -1090,6 +1090,7 @@ GameObject:
   - component: {fileID: 320419486}
   - component: {fileID: 320419488}
   - component: {fileID: 320419487}
+  - component: {fileID: 320419489}
   m_Layer: 5
   m_Name: VolumeMaster
   m_TagString: Untagged
@@ -1158,6 +1159,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320419485}
   m_CullTransparentMesh: 1
+--- !u!114 &320419489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320419485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:69038cbc511977b4882873d1b8dd4510
+    m_TableEntryReference:
+      m_KeyId: 4040180184682496
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320419487}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &375069977
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2127,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1644171898}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6167234
+  m_Size: 0.61672336
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3266,6 +3307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 941786284}
   - component: {fileID: 941786283}
+  - component: {fileID: 941786285}
   m_Layer: 0
   m_Name: GerenciadorIdioma
   m_TagString: Untagged
@@ -3300,6 +3342,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941786285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941786282}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fffbf8ab9edde4db3223d565913532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &948633125
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,7 +3804,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 921985929}
   m_HandleRect: {fileID: 921985928}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6187,6 +6241,7 @@ GameObject:
   - component: {fileID: 1625611491}
   - component: {fileID: 1625611493}
   - component: {fileID: 1625611492}
+  - component: {fileID: 1625611494}
   m_Layer: 5
   m_Name: "VolumeM\xFAsica"
   m_TagString: Untagged
@@ -6255,6 +6310,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625611490}
   m_CullTransparentMesh: 1
+--- !u!114 &1625611494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625611490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:69038cbc511977b4882873d1b8dd4510
+    m_TableEntryReference:
+      m_KeyId: 4040311575449600
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625611492}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1644171897
 GameObject:
   m_ObjectHideFlags: 0
@@ -7547,7 +7642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Volume SFX
+  m_Text: SFX
 --- !u!222 &2040953924
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7703,6 +7798,7 @@ GameObject:
   - component: {fileID: 2072861035}
   - component: {fileID: 2072861037}
   - component: {fileID: 2072861036}
+  - component: {fileID: 2072861038}
   m_Layer: 5
   m_Name: "TituloOp\xE7\xF5es"
   m_TagString: Untagged
@@ -7771,6 +7867,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072861034}
   m_CullTransparentMesh: 1
+--- !u!114 &2072861038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072861034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:69038cbc511977b4882873d1b8dd4510
+    m_TableEntryReference:
+      m_KeyId: 5914178129920
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072861036}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2089211533
 GameObject:
   m_ObjectHideFlags: 0
