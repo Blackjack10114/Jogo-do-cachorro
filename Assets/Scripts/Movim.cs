@@ -151,6 +151,7 @@ public class PlayerMov : MonoBehaviour
         if (podeTocarSomCorrida && !somCorridaTocando)
         {
             sound.clip = Correr_som;
+            sound.volume = 1.4f;
             sound.loop = true;
             sound.Play();
             somCorridaTocando = true;
