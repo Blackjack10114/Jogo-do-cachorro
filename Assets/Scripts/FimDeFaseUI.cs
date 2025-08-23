@@ -83,19 +83,19 @@ public class FimDeFaseUI : MonoBehaviour
         }
 
         if (textoTempoFinal != null)
-            textoTempoFinal.text = $"Tempo Final: {tempo:F2}s";
+            textoTempoFinal.text = $"{tempo:F2}s";
 
         if (textoVidaFinal != null)
-            textoVidaFinal.text = $"Vida da Caixa: {vida:F0}%";
+            textoVidaFinal.text = $"{vida:F0}%";
 
         if (textoQuantidadeOssos != null)
-            textoQuantidadeOssos.text = $"Ossos Coletados: {ossos}/3";
+            textoQuantidadeOssos.text = $"{ossos}/3";
 
         if (textoPontuacao != null)
-            textoPontuacao.text = "Pontuação: " + pontos;
+            textoPontuacao.text = "" + pontos;
 
         if (textoNota != null)
-            textoNota.text = "Nota: " + nota;
+            textoNota.text = "" + nota;
 
         if (estrelasUI != null)
             estrelasUI.AtualizarEstrelasNota(nota);
