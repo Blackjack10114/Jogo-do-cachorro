@@ -84,7 +84,7 @@ public class ProximaFaseController : MonoBehaviour
     {
         MostrarConfirmacao(() =>
         {
-            SceneManager.LoadScene(cenaFimDemo);
+            SceneFadeUI.Instance.FadeToScene(cenaFimDemo);
         });
     }
 

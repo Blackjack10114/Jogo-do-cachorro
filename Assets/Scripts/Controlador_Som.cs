@@ -70,6 +70,14 @@ public class Controlador_Som : MonoBehaviour
             }
         }
 
+        // Cena Fim de Demo -> sem música
+        if (cena.name == "CenaFimDeDemo")
+        {
+            musicaSource.Stop();
+            musicaSource.clip = null; // opcional, garante que não tenha nada
+            return;
+        }
+
         TrocarMusicaPorCena(cena.name); // cena normal
     }
 
