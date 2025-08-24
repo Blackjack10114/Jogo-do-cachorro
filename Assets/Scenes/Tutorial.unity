@@ -1463,8 +1463,10 @@ MonoBehaviour:
   painelPause: {fileID: 1863487156}
   painelConfirmacao: {fileID: 1403913150}
   painelFundoCinza: {fileID: 1529974716}
+  painelComoJogar: {fileID: 1092879647}
   pauseFocus: {fileID: 1863487158}
   confirmacaoFocus: {fileID: 1403913152}
+  comojogarFocus: {fileID: 1092879646}
 --- !u!4 &388401829
 Transform:
   m_ObjectHideFlags: 0
@@ -5713,6 +5715,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoReiniciar
       objectReference: {fileID: 0}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 388401827}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoVoltarPause
+      objectReference: {fileID: 0}
     - target: {fileID: 5937124772430162462, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5817,6 +5827,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoConfirmarSim
       objectReference: {fileID: 0}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 388401827}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoComoJogar
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5825,6 +5843,22 @@ PrefabInstance:
       addedObject: {fileID: 879521139}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+--- !u!114 &1092879646 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2000514595352344327, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 1092879645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092879647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1092879647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8760067957117375540, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 1092879645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1137455671
 PrefabInstance:
   m_ObjectHideFlags: 0

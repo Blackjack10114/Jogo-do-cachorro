@@ -24792,6 +24792,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &373748516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8760067957117375540, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 8192139609300247716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &373748518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2000514595352344327, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 8192139609300247716}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373748516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &471400837
 GameObject:
   m_ObjectHideFlags: 0
@@ -45859,6 +45875,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1546361525}
     - target: {fileID: 246558090815703637, guid: ee1035128f28a9c479c93c6c63621654, type: 3}
+      propertyPath: comojogarFocus
+      value: 
+      objectReference: {fileID: 373748518}
+    - target: {fileID: 246558090815703637, guid: ee1035128f28a9c479c93c6c63621654, type: 3}
+      propertyPath: painelComoJogar
+      value: 
+      objectReference: {fileID: 373748516}
+    - target: {fileID: 246558090815703637, guid: ee1035128f28a9c479c93c6c63621654, type: 3}
       propertyPath: confirmacaoFocus
       value: 
       objectReference: {fileID: 1620941483}
@@ -46000,6 +46024,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 964544238}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 964544238}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoVoltarPause
+      objectReference: {fileID: 0}
     - target: {fileID: 5937124772430162462, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -46092,6 +46124,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 964544238}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 964544238}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoComoJogar
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -9,10 +9,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject painelPause;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelFundoCinza;
+    [SerializeField] private GameObject painelComoJogar;
 
     [Header("Focus Managers")]
     [SerializeField] private PanelFocusManager pauseFocus;
     [SerializeField] private PanelFocusManager confirmacaoFocus;
+    [SerializeField] private PanelFocusManager comojogarFocus;
+
 
     private System.Action acaoConfirmada;
 
@@ -80,6 +83,26 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Pause fechado");
     }
 
+
+    public void BotaoComoJogar()
+    {
+        pauseFocus.OnClose();
+
+        painelPause.SetActive(false);
+        painelComoJogar.SetActive(true);
+
+        comojogarFocus.OnOpen();
+    }
+
+    public void BotaoVoltarPause()
+    {
+        comojogarFocus.OnClose();
+
+        painelComoJogar.SetActive(false);
+        painelPause.SetActive(true);
+
+        pauseFocus.OnOpen();
+    }
     public void BotaoContinuar()
     {
         FecharPause();

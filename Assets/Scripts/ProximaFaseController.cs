@@ -10,6 +10,7 @@ public class ProximaFaseController : MonoBehaviour
     [SerializeField] private Button botaoProximaFase;
     [SerializeField] private string cenaMenu = "MenuPrincipal";
     [SerializeField] private string cenaRetry;
+    [SerializeField] private string cenaFimDemo = "CenaFimDeDemo";
     [SerializeField] private string ProximaFase;
     [SerializeField] private GameObject painelConfirmacao;
     private System.Action acaoConfirmada;
@@ -76,6 +77,14 @@ public class ProximaFaseController : MonoBehaviour
         MostrarConfirmacao(() =>
         {
             SceneManager.LoadScene(cenaMenu);
+        });
+    }
+
+    public void FimDemo()
+    {
+        MostrarConfirmacao(() =>
+        {
+            SceneManager.LoadScene(cenaFimDemo);
         });
     }
 

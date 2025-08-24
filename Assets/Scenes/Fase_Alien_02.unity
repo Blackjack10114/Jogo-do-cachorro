@@ -5938,6 +5938,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoReiniciar
       objectReference: {fileID: 0}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 814170377}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoVoltarPause
+      objectReference: {fileID: 0}
     - target: {fileID: 3717084003732644427, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6077,6 +6085,14 @@ PrefabInstance:
     - target: {fileID: 8070728629027984846, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoConfirmarSim
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 814170377}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoComoJogar
       objectReference: {fileID: 0}
     - target: {fileID: 8844619896323543102, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_AnchorMax.x
@@ -21718,6 +21734,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &526942305 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2000514595352344327, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 299570456}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526942306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &526942306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8760067957117375540, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 299570456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &527023819
 GameObject:
   m_ObjectHideFlags: 0
@@ -59266,8 +59298,10 @@ MonoBehaviour:
   painelPause: {fileID: 299570462}
   painelConfirmacao: {fileID: 299570461}
   painelFundoCinza: {fileID: 299570460}
+  painelComoJogar: {fileID: 526942306}
   pauseFocus: {fileID: 299570459}
   confirmacaoFocus: {fileID: 299570457}
+  comojogarFocus: {fileID: 526942305}
 --- !u!4 &814170379
 Transform:
   m_ObjectHideFlags: 0

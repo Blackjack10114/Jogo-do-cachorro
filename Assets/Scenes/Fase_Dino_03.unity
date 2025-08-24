@@ -197,6 +197,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b3b0ce7d0a81749a407a8340699d29, type: 3}
+--- !u!114 &17661517 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2000514595352344327, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 1802473026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17661518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &17661518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8760067957117375540, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+  m_PrefabInstance: {fileID: 1802473026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &17915298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1246,8 +1262,10 @@ MonoBehaviour:
   painelPause: {fileID: 1802473032}
   painelConfirmacao: {fileID: 1802473031}
   painelFundoCinza: {fileID: 1802473030}
+  painelComoJogar: {fileID: 17661518}
   pauseFocus: {fileID: 1802473029}
   confirmacaoFocus: {fileID: 1802473028}
+  comojogarFocus: {fileID: 17661517}
 --- !u!4 &96197022
 Transform:
   m_ObjectHideFlags: 0
@@ -40999,6 +41017,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoReiniciar
       objectReference: {fileID: 0}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 96197020}
+    - target: {fileID: 3237719110113764129, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoVoltarPause
+      objectReference: {fileID: 0}
     - target: {fileID: 5937124772430162462, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -41102,6 +41128,14 @@ PrefabInstance:
     - target: {fileID: 8070728629027984846, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BotaoConfirmarSim
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 96197020}
+    - target: {fileID: 8799126750542090040, guid: 34dbdd96d92df134bbebd4d5e4132573, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BotaoComoJogar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
