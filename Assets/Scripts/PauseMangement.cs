@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PanelFocusManager confirmacaoFocus;
     [SerializeField] private PanelFocusManager comojogarFocus;
 
-
+    public static bool JogoPausado { get; private set; }
     private System.Action acaoConfirmada;
 
     void Awake()
@@ -26,6 +26,8 @@ public class PauseMenu : MonoBehaviour
         //  abrir e fechar pause com input
         inputActions.Player.Pause.performed += ctx =>
         {
+            if (!Comeco_Fase.FaseComecou) return;
+
             if (!painelPause.activeSelf)
                 AbrirPause();
             else
@@ -53,6 +55,7 @@ public class PauseMenu : MonoBehaviour
 
     public void AbrirPause()
     {
+        JogoPausado = true;
         Time.timeScale = 0f;
 
         painelFundoCinza.SetActive(true);
@@ -69,6 +72,7 @@ public class PauseMenu : MonoBehaviour
 
     public void FecharPause()
     {
+        JogoPausado = false;
         Time.timeScale = 1f;
 
         painelFundoCinza.SetActive(false);

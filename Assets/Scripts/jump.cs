@@ -69,6 +69,18 @@ public class Jump : MonoBehaviour
 
     void Update()
     {
+        if (FindFirstObjectByType<Comeco_Fase>() != null && !Comeco_Fase.FaseComecou)
+        {
+            jumpBufferTimer = -1f;
+            return;
+        }
+
+        if (PauseMenu.JogoPausado)
+        {
+            jumpBufferTimer = -1f; // garante que não acumula clique no pause
+            return;
+        }
+
         // Atualiza timers
         jumpBufferTimer -= Time.deltaTime;
 
