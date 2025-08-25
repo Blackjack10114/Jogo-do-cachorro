@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Audio;
+﻿using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Audio;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Caixa : MonoBehaviour
 {
@@ -106,6 +107,13 @@ public class Caixa : MonoBehaviour
             caixaInstanciada = true;
             CaixaPega = false;
             StartCoroutine(Delaycriarcaixa());
+
+            // avisa a seta que a caixa caiu
+            var seta = Object.FindFirstObjectByType<SetaDirecional>();
+            if (seta != null)
+            {
+                seta.DefinirCaixaCaida(Caixa_Separada_0);
+            }
         }
     }
 
@@ -114,7 +122,7 @@ public class Caixa : MonoBehaviour
     {
         qualidadeEntrega -= dano;
         qualidadeEntrega = Mathf.Clamp(qualidadeEntrega, 0f, 100f);
-        Debug.Log("📦 Qualidade da entrega atual: " + qualidadeEntrega);
+        Debug.Log("Qualidade da entrega atual: " + qualidadeEntrega);
     }
     public void Criarcaixa()
     {
@@ -130,6 +138,14 @@ public class Caixa : MonoBehaviour
             Physics2D.IgnoreCollision(Player.GetComponent<Collider2D>(), Caixa_Separada_0.GetComponent<Collider2D>());
             Rigidbody2D caixaRb = Caixa_Separada_0.GetComponent<Rigidbody2D>();
             Debug.Log("Caixa instanciada");
+
+            // avisa a seta agora que a caixa existe
+            var seta = Object.FindFirstObjectByType<SetaDirecional>();
+            if (seta != null)
+            {
+                seta.DefinirCaixaCaida(Caixa_Separada_0);
+            }
+
             if (caixaRb != null && Direcao.IndoDireita)
             {
                 caixaRb.linearVelocity = new Vector2(-move * speed, caixaRb.linearVelocity.y);
@@ -157,6 +173,13 @@ public class Caixa : MonoBehaviour
 
         sound.clip = caixa_som;
         sound.Play();
+
+        // avisa a seta que não tem mais caixa caída
+    var seta = Object.FindFirstObjectByType<SetaDirecional>();
+        if (seta != null)
+        {
+            seta.LimparCaixaCaida();
+        }
     }
     private IEnumerator Delaycriarcaixa()
     {
