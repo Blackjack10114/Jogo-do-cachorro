@@ -116,6 +116,7 @@ public class PauseMenu : MonoBehaviour
     {
         MostrarConfirmacao(() =>
         {
+            JogoPausado = false;
             Time.timeScale = 1f;
             SceneManager.LoadScene("MenuPrincipal");
         });
@@ -125,6 +126,7 @@ public class PauseMenu : MonoBehaviour
     {
         MostrarConfirmacao(() =>
         {
+            JogoPausado = false;
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         });
