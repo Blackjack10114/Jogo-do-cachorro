@@ -12,12 +12,14 @@ public class MenuPrincipalMangement : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject painelConfirmacao;
     [SerializeField] private GameObject painelTutorial;
+    [SerializeField] private GameObject painelComoJogar;
 
-    [Header("Focus Managers")]
+   [Header("Focus Managers")]
     [SerializeField] private PanelFocusManager menuInicialFocus;
     [SerializeField] private PanelFocusManager opcoesFocus;
     [SerializeField] private PanelFocusManager confirmacaoFocus;
     [SerializeField] private PanelFocusManager tutorialFocus;
+    [SerializeField] private PanelFocusManager comojogarFocus;
 
     private System.Action acaoConfirmada;
 
@@ -160,5 +162,24 @@ public class MenuPrincipalMangement : MonoBehaviour
 
         painelTutorial.SetActive(false);
         SceneManager.LoadScene("CenaSelecaoFase");
+    }
+
+    public void BotaoComoJogar()
+    {
+        opcoesFocus.OnClose();
+
+        painelOpcoes.SetActive(false);
+        painelComoJogar.SetActive(true);
+
+        comojogarFocus.OnOpen();
+    }
+    public void BotaoVoltarOpcoes()
+    {
+        comojogarFocus.OnClose();
+
+        painelComoJogar.SetActive(false);
+        painelOpcoes.SetActive(true);
+
+        opcoesFocus.OnOpen();
     }
 }
