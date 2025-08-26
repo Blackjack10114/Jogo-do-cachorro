@@ -84,6 +84,13 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.JogoPausado)
+        {
+            rb.linearVelocity = Vector2.zero; // garante que não "anda" congelado
+            animDoug.SetBool("EstaAndando", false);
+            return;
+        }
+
         // Verica se o Script comeco fase está ativo, se tiver ele bloqueia o mov, se n ele já começa ativo
         if (comecoFase != null && !Comeco_Fase.FaseComecou) 
         {
@@ -264,5 +271,13 @@ public class PlayerMov : MonoBehaviour
             somCorridaTocando = false;
         }
     }
+
+    public void ResetarInput()
+    {
+        rb.linearVelocity = Vector2.zero;
+        IndoDireita = false;
+        IndoEsquerda = false;
+    }
+
 
 }

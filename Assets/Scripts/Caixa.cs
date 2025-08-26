@@ -17,7 +17,7 @@ public class Caixa : MonoBehaviour
     private Dano bool_script;
     private PlayerMov Direcao;
     public bool CaixaPega = true;
-    private bool estacomcaixa;
+    //private bool estacomcaixa;
     private bool tempuloduplo;
     public bool caixaInstanciada = false;
     [HideInInspector] public bool CaixaIndoEsquerda, CaixaIndoDireita;
@@ -166,7 +166,7 @@ public class Caixa : MonoBehaviour
         Destroy(Caixa_Separada_0);
         time = 0;
         caixaInstanciada = false;
-        estacomcaixa = true;
+        //estacomcaixa = true;
 
         animDoug.SetBool("ComCaixa", true);
 
@@ -203,7 +203,7 @@ public class Caixa : MonoBehaviour
         }
 
         CaixaPega = true;
-        estacomcaixa = true;
+        //estacomcaixa = true;
         bool_script.Estasemcaixa = false;
 
         if (bool_script.TryGetComponent<Animator>(out Animator anim))

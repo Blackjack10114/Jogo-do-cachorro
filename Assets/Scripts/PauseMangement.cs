@@ -16,22 +16,29 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PanelFocusManager confirmacaoFocus;
     [SerializeField] private PanelFocusManager comojogarFocus;
 
+    public static bool EstaPausado() => JogoPausado;
+    PlayerMov PlayerMov;
     public static bool JogoPausado { get; private set; }
     private System.Action acaoConfirmada;
 
     void Awake()
     {
         inputActions = new InputController();
+        PlayerMov = FindFirstObjectByType<PlayerMov>();
 
         //  abrir e fechar pause com input
         inputActions.Player.Pause.performed += ctx =>
         {
-            if (!Comeco_Fase.FaseComecou) return;
-
-            if (!painelPause.activeSelf)
-                AbrirPause();
-            else
-                FecharPause();
+            var comeco = FindFirstObjectByType<Comeco_Fase>();
+            // Se n existe Comeco_Fase ou se a fase já começou pode pausar
+            if (comeco == null || Comeco_Fase.FaseComecou)
+            {
+                if (!painelPause.activeSelf)
+                    AbrirPause();
+                else
+                    FecharPause();
+            }
+            
         };
 
         // fechar a confirmação
@@ -56,6 +63,7 @@ public class PauseMenu : MonoBehaviour
     public void AbrirPause()
     {
         JogoPausado = true;
+        PlayerMov.ResetarInput();
         Time.timeScale = 0f;
 
         painelFundoCinza.SetActive(true);
@@ -161,4 +169,14 @@ public class PauseMenu : MonoBehaviour
 
         acaoConfirmada = null;
     }
+
+    void OnDestroy()
+    {
+        if (JogoPausado)
+        {
+            Time.timeScale = 1f;
+            JogoPausado = false;
+        }
+    }
+
 }

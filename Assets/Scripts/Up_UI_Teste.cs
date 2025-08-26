@@ -14,7 +14,7 @@ public class Up_UI_Teste : MonoBehaviour
     public bool pulo_duplo_ativado;
 
     private bool turbo_insta, gourmet_insta, pulo_insta, bolha_insta;
-    private bool bolha_ativada;
+    //private bool bolha_ativada;
 
     // Prefab references
     private GameObject TurboPrefabRef;
@@ -99,13 +99,13 @@ public class Up_UI_Teste : MonoBehaviour
             Vector3 pos = this.transform.position + new Vector3(8f, 0f, 0f);
             BolhaInstance = Instantiate(BolhaPrefabRef, pos, Quaternion.identity);
             BolhaInstance.transform.parent = this.transform;
-            bolha_ativada = true;
+            //bolha_ativada = true;
             bolha_insta = true;
         }
         if (!Bolha.isInvincible && BolhaInstance != null)
         {
             Destroy(BolhaInstance);
-            bolha_ativada = false;
+            //bolha_ativada = false;
             bolha_insta = false;
         }
 

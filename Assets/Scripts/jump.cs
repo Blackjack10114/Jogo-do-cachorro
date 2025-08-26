@@ -129,9 +129,6 @@ public class Jump : MonoBehaviour
             coyoteTimer = 0f;
         else if (playerMov.temPuloDuplo)
             quantidadeDePulos++;
-
-        if (anim != null)
-            anim.SetTrigger("Pulou");  // opcional
     }
 
     void FixedUpdate()
