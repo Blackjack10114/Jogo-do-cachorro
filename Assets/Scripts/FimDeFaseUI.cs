@@ -17,6 +17,7 @@ public class FimDeFaseUI : MonoBehaviour
     public Text textoVidaFinal;
     public Text textoQuantidadeOssos;
     public Text textoEntrega; // Texto que exibe "Entrega Concluída" ou "Entrega Falhou"
+    public string nota;
 
     void Start()
     {
@@ -60,7 +61,7 @@ public class FimDeFaseUI : MonoBehaviour
         int pontosOssos = PlayerPrefs.GetInt("PontosOssos", 0);
         int penalidade = PlayerPrefs.GetInt("Penalidades", 0);
         int pontos = PlayerPrefs.GetInt("PontuacaoNumerica", 0);
-        string nota = PlayerPrefs.GetString("ClassificacaoLetra", "F");
+        nota = PlayerPrefs.GetString("ClassificacaoLetra", "F");
 
         if (textoBonus != null)
             textoBonus.text = $"Bônus Total: {bonusTempo + bonusVida}";
