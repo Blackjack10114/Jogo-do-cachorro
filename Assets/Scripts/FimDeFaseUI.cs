@@ -18,6 +18,7 @@ public class FimDeFaseUI : MonoBehaviour
     public Text textoQuantidadeOssos;
     public Text textoEntrega; // Texto que exibe "Entrega Concluída" ou "Entrega Falhou"
     public string nota;
+    public float tempo;
 
     void Start()
     {
@@ -53,7 +54,7 @@ public class FimDeFaseUI : MonoBehaviour
         if (textoEntrega != null)
             textoEntrega.text = "ENTREGA CONCLUÍDA!";
 
-        float tempo = PlayerPrefs.GetFloat("TempoFinal", 0f);
+        tempo = PlayerPrefs.GetFloat("TempoFinal", 0f);
         float vida = PlayerPrefs.GetFloat("VidaFinal", 0f);
         int ossos = PlayerPrefs.GetInt("OssosColetados", 0);
         int bonusTempo = PlayerPrefs.GetInt("BonusTempo", 0);

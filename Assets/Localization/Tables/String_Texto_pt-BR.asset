@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: pt-BR
   m_SharedData: {fileID: 11400000, guid: 69038cbc511977b4882873d1b8dd4510, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 289343686959431781
   m_TableData:
   - m_Id: 88960962560
     m_Localized: JOGAR
@@ -105,9 +106,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12658769670213632
-    m_Localized: 'Nota:'
+    m_Localized: Nota:{0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 289343686959431781
   - m_Id: 12658810728255488
     m_Localized: 'Score:'
     m_Metadata:
@@ -121,9 +123,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12658935445884928
-    m_Localized: 'Tempo:'
+    m_Localized: 'Tempo: {0}'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 289343686959431781
   - m_Id: 12701970506485760
     m_Localized: Sair
     m_Metadata:
@@ -158,4 +161,11 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 289343686959431781
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 12658769670213632
+        - id: 12658935445884928
