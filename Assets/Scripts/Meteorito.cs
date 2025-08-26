@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class Meteorito : MonoBehaviour
 {
     public enum DirecaoQueda
@@ -16,6 +16,8 @@ public class Meteorito : MonoBehaviour
     public GameObject efeitoExplosao;
 
     private Rigidbody2D rb;
+    private Collider2D col;
+    [SerializeField] private float tempoInvulneravel = 2f;
     private bool ativado = false;
 
     void Start()
@@ -23,8 +25,16 @@ public class Meteorito : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.zero;
+        col = GetComponent<Collider2D>();
+        StartCoroutine(Invulneravel());
     }
 
+    IEnumerator Invulneravel()
+    {
+        col.enabled = false;
+        yield return new WaitForSeconds(tempoInvulneravel);
+        col.enabled = true;
+    }
     public void AtivarQueda()
     {
         if (!ativado)
