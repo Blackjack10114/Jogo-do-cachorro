@@ -54120,7 +54120,7 @@ CompositeCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
+  m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -87864,9 +87864,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3062272551987386012, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 3202952607080895479, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
       propertyPath: m_Name
       value: PauseController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363513792841852120, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.2261353
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068340421790947035, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.599518
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441591997844882257, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441591997844882257, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441591997844882257, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.40241134
       objectReference: {fileID: 0}
     - target: {fileID: 7359655091163613981, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -87908,6 +87932,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8071525989821961727, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071525989821961727, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071525989821961727, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362703871165208408, guid: aa4cb6b6e9f4e6a458852988d6af708e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -87917,6 +87957,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 9025316265415849467}
   - {fileID: 810705217}
   - {fileID: 1541392531}
   - {fileID: 362991262}
@@ -87986,7 +88027,6 @@ SceneRoots:
   - {fileID: 350654430}
   - {fileID: 186588784}
   - {fileID: 830204115}
-  - {fileID: 9025316265415849467}
   - {fileID: 1492554172}
   - {fileID: 671128028}
   - {fileID: 1097754300}
