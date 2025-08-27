@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     PlayerMov PlayerMov;
     public static bool JogoPausado { get; private set; }
     private System.Action acaoConfirmada;
-
+   
     void Awake()
     {
         inputActions = new InputController();
@@ -30,15 +30,23 @@ public class PauseMenu : MonoBehaviour
         inputActions.Player.Pause.performed += ctx =>
         {
             var comeco = FindFirstObjectByType<Comeco_Fase>();
-            // Se n existe Comeco_Fase ou se a fase já começou pode pausar
-            if (comeco == null || Comeco_Fase.FaseComecou)
+            if (comeco == null) // Cena sem Comeco_Fase (tipo tutorial)
+            {
+                // Pode pausar sempre
+                if (!painelPause.activeSelf)
+                    AbrirPause();
+                else
+                    FecharPause();
+            }
+            else if (Comeco_Fase.FaseComecou) // Cena com Comeco_Fase, mas só depois que começou
             {
                 if (!painelPause.activeSelf)
                     AbrirPause();
                 else
                     FecharPause();
             }
-            
+
+
         };
 
         // fechar a confirmação

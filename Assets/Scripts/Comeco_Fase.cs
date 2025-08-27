@@ -13,6 +13,11 @@ public class Comeco_Fase : MonoBehaviour
     private GameObject Player;
     public static bool FaseComecou = false;
 
+    void Awake()
+    {
+        // Sempre reseta quando a cena começa
+        FaseComecou = false;
+    }
     void Start()
     {
         offset = new Vector3(1f, 3.5f, 0f);
