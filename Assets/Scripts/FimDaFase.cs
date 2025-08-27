@@ -197,7 +197,7 @@ public class FimDaFase : MonoBehaviour
         if (estaalien)
         {
             Time.timeScale = 0f;
-            Player.transform.position = new Vector3(672f, 911.3f, 0f);
+            Player.transform.position = new Vector3(672f, 910.322f, 0f);
             if (playerMov != null)
             {
                 playerMov.enabled = false;
