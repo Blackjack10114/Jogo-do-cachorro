@@ -42,7 +42,7 @@ public class GerenciadorDeJogo : MonoBehaviour
         return PlayerPrefs.GetInt("TutorialConcluido", 0) == 1;
     }
 
-    public void ResetarProgresso()
+    public static void ResetarProgresso()
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
