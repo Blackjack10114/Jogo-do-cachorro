@@ -113,6 +113,7 @@ public class MenuPrincipalMangement : MonoBehaviour
         menuInicialFocus.OnClose();
 
         painelMenuInicial.SetActive(false);
+        painelFundoCinza.SetActive(true);
         painelConfirmacao.SetActive(true);
 
         confirmacaoFocus.OnOpen();
@@ -131,6 +132,7 @@ public class MenuPrincipalMangement : MonoBehaviour
         confirmacaoFocus.OnClose();
 
         painelConfirmacao.SetActive(false);
+        painelFundoCinza.SetActive(false);
         painelMenuInicial.SetActive(true);
 
         menuInicialFocus.OnOpen();
