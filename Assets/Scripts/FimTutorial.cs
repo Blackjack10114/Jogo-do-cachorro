@@ -43,9 +43,16 @@ public class FimDoTutorial : MonoBehaviour
             Canvas.SetActive(false);
             StartCoroutine(ReacaoClienteEFim());
         }
+        if (other.CompareTag("Player"))
+        {
+            if (playerMov != null)
+            {
+                playerMov.PararSomCorrida();
+            }
+        }
     }
 
-    private IEnumerator ResetarEntrada()
+private IEnumerator ResetarEntrada()
     {
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSecondsRealtime(2f);
