@@ -12,6 +12,7 @@ public class SceneFadeUI : MonoBehaviour
 
     private PlayerMov playerMov;
     private Jump jump;
+    private bool inicioufade;
 
     private bool bloqueouInput = false;
     public static bool FadeEmAndamento { get; private set; }
@@ -28,6 +29,8 @@ public class SceneFadeUI : MonoBehaviour
 
     public void FadeToScene(string cenaDestino)
     {
+        if (inicioufade) return; // impede múltiplos fades
+        inicioufade = true;
         StartCoroutine(FadeAndSwitchScenes(cenaDestino));
     }
 
@@ -105,5 +108,6 @@ public class SceneFadeUI : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = true;
         FadeEmAndamento = false;
+        inicioufade = false;
     }
 }
