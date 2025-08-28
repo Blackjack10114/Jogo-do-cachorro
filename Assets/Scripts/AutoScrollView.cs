@@ -7,23 +7,22 @@ public class AutoScrollView : MonoBehaviour
     public ScrollRect scrollRect;
     public float smoothSpeed = 10f;
     public float padding = 10f; // espaço extra em pixels
-    public float disableTimeAfterManualScroll = 1f; // tempo que desativa após mexer
+    public float disableTime = 1f; // tempo que o auto scroll fica desativado após mexer no scroll
 
-    private float disableTimer = 15f;
+    private float disableTimer;
 
     void Update()
     {
-        // detecta scroll manual do usuário
-        if (Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0.01f)
+        // Se mexeu no scroll manualmente -> pausa auto scroll
+        if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f || Input.GetMouseButton(0))
         {
-            disableTimer = disableTimeAfterManualScroll;
+            disableTimer = disableTime;
         }
 
-        // conta tempo até reativar
-        if (disableTimer > 0f)
+        if (disableTimer > 0)
         {
             disableTimer -= Time.unscaledDeltaTime;
-            return; // não faz autoscroll enquanto o timer > 0
+            return; // não roda autoscroll enquanto o usuário tá controlando
         }
 
         GameObject current = EventSystem.current.currentSelectedGameObject;
