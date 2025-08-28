@@ -47,7 +47,7 @@ public class MostrarTempo : MonoBehaviour
         float tempoArredondado = Mathf.Round(tempofinal.tempo * 10f) / 10f;
         localStringNota.Arguments = new object[] { tempoArredondado };
         localStringNota.RefreshString();
-        Debug.LogWarning("[MostrarTempo] Tempo arredondado usado na LocalizedString: " + tempoArredondado + "s");
+        Debug.LogWarning("[MostrarTempo] Tempo arredondado usado na LocalizedString: " + tempoArredondado);
     }
 
 }
