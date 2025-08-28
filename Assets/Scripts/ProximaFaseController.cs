@@ -25,6 +25,8 @@ public class ProximaFaseController : MonoBehaviour
 
     [Header("Botões principais da cena")]
     [SerializeField] private Button[] botoesPrincipais;
+    public GameObject Sim;
+    public GameObject Nao;
 
     private string _cenaAnterior; // Armazena a cena que chamou a vitória
 
@@ -85,6 +87,16 @@ public class ProximaFaseController : MonoBehaviour
         MostrarConfirmacao(() =>
         {
             SceneFadeUI.Instance.FadeToScene(cenaFimDemo);
+            Button botao = Sim.GetComponent<Button>();
+            if (botao != null)
+            {
+                botao.interactable = false;
+            }
+            Button botaonao = Nao.GetComponent<Button>();
+            if (botaonao != null)
+            {
+                botaonao.interactable = false;
+            }
         });
     }
 
