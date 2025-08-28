@@ -13,6 +13,7 @@ public class PlayerMov : MonoBehaviour
 
     public bool isGourmetActive = false;
     public bool isTurboActive = false;
+    private bool travarRecuperacao = false;
 
     public float speed = 5f;
     public float move = 1f;
@@ -27,6 +28,8 @@ public class PlayerMov : MonoBehaviour
 
     public float turboMultiplier; //multiplica o gasto de stamina quando corre
     public float turboStaminaReduction = 1f; //diminui o gasto de stamina um pouco com o turbo, por enquanto n interfere, mas manteve caso precise equilibrar no futuro
+    private float turboMultiplierBase;
+    private float turboStaminaReductionBase;
 
     private Rigidbody2D rb;
     private float time = 0;
@@ -75,6 +78,8 @@ public class PlayerMov : MonoBehaviour
         pulo = GetComponent<Jump>();
         sound = gameObject.GetComponent<AudioSource>();
         sound.outputAudioMixerGroup = sfxGroup;
+        turboMultiplierBase = turboMultiplier;
+        turboStaminaReductionBase = turboStaminaReduction;
     }
 
     public void AplicarVelocidadePlataforma(float vel)
@@ -113,12 +118,31 @@ public class PlayerMov : MonoBehaviour
         bool estaAndando = Mathf.Abs(moveInput.x) > 0.01f;
         bool grounded = pulo != null && pulo.EstaNoChao;
 
-        isRunning = inputActions.Player.Run.IsPressed() && (stamina > 0 || isGourmetActive);
+        // trava quando stamina acaba
+        if (stamina <= 0.01f && !isGourmetActive)
+        {
+            stamina = 0f;
+            isRunning = false;
 
-        if (!isRunning && stamina < 100)
+            // trava a recuperação se ainda estiver segurando o botão de correr
+            travarRecuperacao = inputActions.Player.Run.IsPressed();
+        }
+        else
+        {
+            isRunning = inputActions.Player.Run.IsPressed() && (stamina > 0 || isGourmetActive);
+        }
+
+        // Se não está correndo e stamina < 100, só recupera se não estiver travado
+        if (!isRunning && stamina < 100 && !travarRecuperacao)
             stamina += Time.deltaTime * 20;
 
-        animDoug.speed = isRunning ? Velocidadeanimacao : 1f;
+        // Se soltou o botão, libera a recuperação
+        if (!inputActions.Player.Run.IsPressed())
+            travarRecuperacao = false;
+
+
+        animDoug.speed = (isRunning && stamina > 0.01f) ? Velocidadeanimacao : 1f;
+
 
         if (isTurboActive)
         {
@@ -126,8 +150,8 @@ public class PlayerMov : MonoBehaviour
             if (turboTimer <= 0)
             {
                 isTurboActive = false;
-                turboMultiplier = 1f;
-                turboStaminaReduction = 1f;
+                turboMultiplier = turboMultiplierBase;           // volta pro valor original do prefab
+                turboStaminaReduction = turboStaminaReductionBase;
             }
         }
 
@@ -189,8 +213,18 @@ public class PlayerMov : MonoBehaviour
             finalSpeed *= sprintSpeedMultiplier * turboMultiplier;
 
             if (!isGourmetActive)
+            {
                 stamina -= 10f * staminaConsumptionMultiplier * turboStaminaReduction * Time.deltaTime;
+                
+            }
+
         }
+
+        // clamp na stamina no final
+        if (stamina < 1f)
+            stamina = 0f;
+        if (stamina > 100f)
+            stamina = 100f;
 
         if (pulo != null && pulo.EstaNoChao)
             wasRunningBeforeJump = isRunning;
