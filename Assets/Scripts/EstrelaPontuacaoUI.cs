@@ -15,7 +15,7 @@ public class EstrelaPontuacaoUI : MonoBehaviour
     void Start()
     {
         CriarEstrelas();
-        string nota = PlayerPrefs.GetString("NotaFinal", "F");
+        string nota = PlayerPrefs.GetString("ClassificacaoLetra", "F");
         AtualizarEstrelasNota(nota);
     }
 
