@@ -13,7 +13,7 @@ public class AutoScrollView : MonoBehaviour
 
     void Update()
     {
-        // á aSe mexeu no scroll manualmente -> pausa auto scroll
+        //  Se mexeu no scroll manualmente -> pausa auto scroll
         if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f || Input.GetMouseButton(0))
         {
             disableTimer = disableTime;
