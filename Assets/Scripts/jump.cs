@@ -20,6 +20,7 @@ public class Jump : MonoBehaviour
     public bool grounded = false;
     private int groundContacts = 0;
     public bool ignorarpulo;
+    public bool ignorarProximoPulo = false;
 
     private float coyoteTimer = 0f;
     private float jumpBufferTimer = -1f;  // agora inicia negativo
@@ -64,7 +65,13 @@ public class Jump : MonoBehaviour
     /// Callback chamado quando botão de pulo é pressionado
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        jumpBufferTimer = jumpBufferTime;  // inicia o buffer
+        if (ignorarProximoPulo)
+        {
+            ignorarProximoPulo = false;
+            return; // ignora o pulo no controle para o pause
+        }
+
+        jumpBufferTimer = jumpBufferTime;
     }
 
     void Update()
@@ -80,6 +87,7 @@ public class Jump : MonoBehaviour
             jumpBufferTimer = -1f; // garante que não acumula clique no pause
             return;
         }
+
 
         // Atualiza timers
         jumpBufferTimer -= Time.deltaTime;
@@ -187,4 +195,13 @@ public class Jump : MonoBehaviour
                tag == "Spike" || tag == "RaizRotatoria" || tag == "Meteorito" ||
                tag == "Passaro" || tag == "Tatu" || tag == "Untagged";
     }
+
+    public void PararSomPulo()
+    {
+        if (audioPulo != null && audioPulo.isPlaying)
+        {
+            audioPulo.Stop();
+        }
+    }
+
 }

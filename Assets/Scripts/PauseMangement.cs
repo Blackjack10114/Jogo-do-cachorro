@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
 public class PauseMenu : MonoBehaviour
 {
     private InputController inputActions;
@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     public static bool EstaPausado() => JogoPausado;
     PlayerMov PlayerMov;
+    Jump Jump;
     public static bool JogoPausado { get; private set; }
     private System.Action acaoConfirmada;
    
@@ -25,6 +26,7 @@ public class PauseMenu : MonoBehaviour
     {
         inputActions = new InputController();
         PlayerMov = FindFirstObjectByType<PlayerMov>();
+        Jump = FindFirstObjectByType<Jump>();
 
         //  abrir e fechar pause com input
         inputActions.Player.Pause.performed += ctx =>
@@ -72,6 +74,8 @@ public class PauseMenu : MonoBehaviour
     {
         JogoPausado = true;
         PlayerMov.ResetarInput();
+        PlayerMov.PararSomCorrida();
+        Jump.PararSomPulo();
         Time.timeScale = 0f;
 
         painelFundoCinza.SetActive(true);
@@ -88,21 +92,8 @@ public class PauseMenu : MonoBehaviour
 
     public void FecharPause()
     {
-        JogoPausado = false;
-        Time.timeScale = 1f;
-
-        painelFundoCinza.SetActive(false);
-        painelPause.SetActive(false);
-        painelConfirmacao.SetActive(false);
-
-        inputActions.UI.Disable();
-        inputActions.Player.Enable();
-
-        pauseFocus.OnClose();
-
-        Debug.Log("Pause fechado");
+        StartCoroutine(FecharPauseComDelay());
     }
-
 
     public void BotaoComoJogar()
     {
@@ -186,5 +177,31 @@ public class PauseMenu : MonoBehaviour
             JogoPausado = false;
         }
     }
+    private IEnumerator FecharPauseComDelay()
+    {
+        // garante que o jogo não mexe ainda
+        inputActions.Player.Disable();
 
+        // espera alguns ms no tempo real (ignora o timescale)
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        // reseta o estado do botão de pulo
+        var jumpAction = inputActions.Player.Jump;
+        jumpAction.Reset();  // limpa valores acumulados
+
+        // só depois libera o jogo
+        JogoPausado = false;
+        Time.timeScale = 1f;
+
+        painelFundoCinza.SetActive(false);
+        painelPause.SetActive(false);
+        painelConfirmacao.SetActive(false);
+
+        inputActions.UI.Disable();
+        inputActions.Player.Enable();
+
+        pauseFocus.OnClose();
+
+        Debug.Log("Pause fechado com delay");
+    }
 }

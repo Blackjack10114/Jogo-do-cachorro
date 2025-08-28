@@ -5,17 +5,20 @@ public class FimDoTutorial : MonoBehaviour
 {
     private Dano danoScript;
     private PlayerMov playerMov;
+    private Jump jump;
 
     public GameObject avisoFaltaCaixaUI;
     public GameObject clienteEmojiUI;
     public Sprite emojiFeliz;
-    [SerializeField] private TutorialFim tutorialFim; // Referência direta
+
+    [SerializeField] private TutorialFim tutorialFim;
     [SerializeField] private GameObject Canvas;
 
     void Start()
     {
         danoScript = Object.FindFirstObjectByType<Dano>();
         playerMov = Object.FindFirstObjectByType<PlayerMov>();
+        jump = Object.FindFirstObjectByType<Jump>();
 
         if (clienteEmojiUI != null)
             clienteEmojiUI.SetActive(false);
@@ -26,33 +29,30 @@ public class FimDoTutorial : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        var anim = other.GetComponent<Animator>();
+
+        if (anim != null && anim.GetBool("ComCaixa") == false)
         {
-            var anim = other.GetComponent<Animator>();
+            if (avisoFaltaCaixaUI != null)
+                avisoFaltaCaixaUI.SetActive(true);
 
-            if (anim != null && anim.GetBool("ComCaixa") == false)
-            {
-                if (avisoFaltaCaixaUI != null)
-                    avisoFaltaCaixaUI.SetActive(true);
+            Debug.Log("A entrega não foi feita! Volte e recupere a caixa.");
+            StartCoroutine(ResetarEntrada());
+            return;
+        }
 
-                Debug.Log("A entrega não foi feita! Volte e recupere a caixa.");
-                StartCoroutine(ResetarEntrada());
-                return;
-            }
+        if (playerMov != null)
+            playerMov.PararSomCorrida();
 
+        if (Canvas != null)
             Canvas.SetActive(false);
-            StartCoroutine(ReacaoClienteEFim());
-        }
-        if (other.CompareTag("Player"))
-        {
-            if (playerMov != null)
-            {
-                playerMov.PararSomCorrida();
-            }
-        }
+
+        StartCoroutine(ReacaoClienteEFim());
     }
 
-private IEnumerator ResetarEntrada()
+    private IEnumerator ResetarEntrada()
     {
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSecondsRealtime(2f);
@@ -70,8 +70,26 @@ private IEnumerator ResetarEntrada()
         if (playerMov != null)
         {
             playerMov.enabled = false;
-            playerMov.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-            playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            playerMov.PararSomCorrida();
+
+            var rb = playerMov.GetComponent<Rigidbody2D>();
+            rb.linearVelocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            // força o Doug ficar parado
+            var anim = playerMov.GetComponent<Animator>();
+            if (anim != null)
+            {
+                anim.SetBool("EstaAndando", false);  // não andando
+                anim.SetBool("Grounded", true);   // está no chão
+                                                  // não mexemos no ComCaix, ele já deve estar correto (true/false)
+            }
+        }
+
+        if (jump != null)
+        {
+            jump.enabled = false;
+            jump.PararSomPulo();
         }
 
         if (clienteEmojiUI != null)
@@ -85,14 +103,9 @@ private IEnumerator ResetarEntrada()
 
         yield return new WaitForSecondsRealtime(2f);
 
-        // chama corretamente o método do TutorialFim
         if (tutorialFim != null)
         {
             tutorialFim.MostrarFimTutorial();
-        }
-        else
-        {
-            Debug.LogWarning("TutorialFim não atribuído no FimDoTutorial!");
         }
     }
 }
