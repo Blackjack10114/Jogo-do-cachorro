@@ -62,7 +62,7 @@ public class MenuPrincipalMangement : MonoBehaviour
         if (!PlayerPrefs.HasKey("JaViuTutorialPergunta"))
         {
             menuInicialFocus.OnClose();
-
+            painelMenuInicial.SetActive(false);
             painelTutorial.SetActive(true);
             tutorialFocus.OnOpen();
         }
@@ -150,6 +150,7 @@ public class MenuPrincipalMangement : MonoBehaviour
 
     public void TutorialSim()
     {
+        painelMenuInicial.SetActive(true);
         PlayerPrefs.SetInt("JaViuTutorialPergunta", 1);
         PlayerPrefs.Save();
         SceneManager.LoadScene("Tutorial");
@@ -162,6 +163,7 @@ public class MenuPrincipalMangement : MonoBehaviour
 
         tutorialFocus.OnClose();
 
+        painelMenuInicial.SetActive(true);
         painelTutorial.SetActive(false);
         SceneManager.LoadScene("CenaSelecaoFase");
     }
