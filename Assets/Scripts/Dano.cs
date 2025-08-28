@@ -177,10 +177,24 @@ public class Dano : MonoBehaviour
         if (!entregaFalhou && pv <= 0f)
         {
             entregaFalhou = true;
+
+            // Garante que falha sempre é "F" e 0 estrelas
+            PlayerPrefs.SetString("ClassificacaoLetra", "F");
+            PlayerPrefs.SetInt("PontuacaoNumerica", 0);
+            PlayerPrefs.SetFloat("PontuacaoFinal", 0f); // estrelas
+            PlayerPrefs.SetInt("BonusVida", 0);
+            PlayerPrefs.SetInt("BonusTempo", 0);
+            PlayerPrefs.SetInt("BonusTotal", 0);
+            PlayerPrefs.SetInt("PontosOssos", 0);
+            PlayerPrefs.SetInt("OssosColetados", 0);
+            PlayerPrefs.SetFloat("TempoFinal", 0f);
+            PlayerPrefs.SetFloat("VidaFinal", 0f);
             PlayerPrefs.SetInt("EntregaFalhou", 1);
             PlayerPrefs.Save();
+
             Time.timeScale = 1f;
             SceneManager.LoadScene(cenaFalha);
         }
+
     }
 }

@@ -26,12 +26,15 @@ public class PowerUp : MonoBehaviour
                         player.turboMultiplier = this.turboMultiplier;
                         player.turboStaminaReduction = this.turboStaminaReduction; // Aplica a redução no consumo de stamina
                         player.turboTimer = duration;
+                        // Recupera um pouco de stamina
+                        player.stamina = Mathf.Min(player.stamina + 20f, 100f);
                         break;
 
                     case PowerUpType.Gourmet:
                         // Ativa o gourmet (ex: reduz consumo de stamina ou outro efeito)
                         player.isGourmetActive = true;
                         player.gourmetTimer = duration;
+                        player.stamina = 100f;
                         Debug.Log("Gourmet ativado!");
                         break;
 

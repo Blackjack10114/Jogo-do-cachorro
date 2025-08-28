@@ -10,6 +10,12 @@ public class SceneFadeUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 1f;
 
+    private PlayerMov playerMov;
+    private Jump jump;
+
+    private bool bloqueouInput = false;
+    public static bool FadeEmAndamento { get; private set; }
+
     void Awake()
     {
         // Singleton
@@ -27,7 +33,30 @@ public class SceneFadeUI : MonoBehaviour
 
     private IEnumerator FadeAndSwitchScenes(string cenaDestino)
     {
-        // FADE OUT (escurece a tela)
+
+        FadeEmAndamento = true;
+        canvasGroup.blocksRaycasts = true;  // bloqueia cliques
+        canvasGroup.interactable = false;
+
+        // Pega os scripts do jogador (na cena atual)
+        playerMov = FindFirstObjectByType<PlayerMov>();
+        jump = FindFirstObjectByType<Jump>();
+
+        // === BLOQUEAR INPUTS ===
+        if (playerMov != null)
+        {
+            playerMov.ResetarInput();
+            playerMov.PararSomCorrida();
+            playerMov.enabled = false;
+        }
+        if (jump != null)
+        {
+            jump.PararSomPulo();
+            jump.enabled = false;
+        }
+        bloqueouInput = true;
+
+        // --- FADE OUT (escurece a tela) ---
         float t = 0f;
         while (t < fadeDuration)
         {
@@ -36,25 +65,24 @@ public class SceneFadeUI : MonoBehaviour
             yield return null;
         }
 
-        canvasGroup.alpha = 1f; // garante alpha máximo no final até trocar a cena
+        canvasGroup.alpha = 1f; // garante alpha máximo
 
         // Carrega a próxima CENA sem ativar ainda
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(cenaDestino);
         asyncLoad.allowSceneActivation = false;
 
-        // Espera carregar até 90%
         while (asyncLoad.progress < 0.9f)
-        {
             yield return null;
-        }
 
-        // Ativa a cena carregada
         asyncLoad.allowSceneActivation = true;
 
-        // Espera o próximo frame para cena estar visível
-        yield return null;
+        yield return null; // espera cena ativar
 
-        // FADE IN (revela a nova cena)
+        // Atualiza referências para a nova cena
+        playerMov = FindFirstObjectByType<PlayerMov>();
+        jump = FindFirstObjectByType<Jump>();
+
+        // --- FADE IN (revela a cena nova) ---
         t = 0f;
         while (t < fadeDuration)
         {
@@ -63,6 +91,19 @@ public class SceneFadeUI : MonoBehaviour
             yield return null;
         }
 
-        canvasGroup.alpha = 0f; // totalmente transparente no fim
+        canvasGroup.alpha = 0f;
+
+        // === DESBLOQUEAR INPUTS ===
+        if (bloqueouInput)
+        {
+            if (playerMov != null) playerMov.enabled = true;
+            if (jump != null) jump.enabled = true;
+            bloqueouInput = false;
+        }
+
+        // === LIBERA INTERAÇÕES UI ===
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = true;
+        FadeEmAndamento = false;
     }
 }

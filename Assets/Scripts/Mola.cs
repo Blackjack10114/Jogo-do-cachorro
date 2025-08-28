@@ -48,7 +48,11 @@ public class Mola : MonoBehaviour
 
             // Desativa movimento
             if (playerMov != null)
+            {
+                playerMov.PararSomCorrida();
                 playerMov.enabled = false;
+            }
+                
 
             // Inicia animação
             if (anim != null)
