@@ -33,6 +33,12 @@ public class Jump : MonoBehaviour
 
     public bool EstaNoChao => grounded;
 
+    private Collider2D col;
+
+    [SerializeField] private PhysicsMaterial2D groundMaterial;
+    [SerializeField] private PhysicsMaterial2D airMaterial;
+
+
     void Awake()
     {
         inputActions = new InputController();
@@ -54,6 +60,7 @@ public class Jump : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMov = GetComponent<PlayerMov>();
+        col = GetComponent<Collider2D>();
 
         if (!audioPulo)
         {
@@ -114,6 +121,12 @@ public class Jump : MonoBehaviour
             ExecutarPulo();
             jumpBufferTimer = -1f;  // consome o buffer
         }
+
+        if (grounded)
+            col.sharedMaterial = groundMaterial;
+        else
+            col.sharedMaterial = airMaterial;
+        
     }
 
     private void ExecutarPulo()
