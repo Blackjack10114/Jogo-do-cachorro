@@ -126,7 +126,12 @@ public class Jump : MonoBehaviour
             col.sharedMaterial = groundMaterial;
         else
             col.sharedMaterial = airMaterial;
-        
+
+        if (!grounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+            grounded = true;
+
+        if (Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+            quantidadeDePulos = 0;
     }
 
     private void ExecutarPulo()
@@ -154,11 +159,7 @@ public class Jump : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!grounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
-            grounded = true;
-
-        if (Mathf.Abs(rb.linearVelocity.y) < 0.01f)
-            quantidadeDePulos = 0;
+        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -189,7 +190,7 @@ public class Jump : MonoBehaviour
             quantidadeDePulos = 0;
         }
 
-        bool isTouchingGround = false;
+        /*bool isTouchingGround = false;
         foreach (ContactPoint2D hitPos in collision.contacts)
         {
             if (hitPos.normal.y > 0.5f)
@@ -200,6 +201,7 @@ public class Jump : MonoBehaviour
         }
 
         grounded = isTouchingGround;
+        */
     }
 
     private bool IsGroundTag(string tag)
