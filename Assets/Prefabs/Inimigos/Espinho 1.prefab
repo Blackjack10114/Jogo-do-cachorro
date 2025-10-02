@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2568549045715332299}
   - component: {fileID: 6704278598522094152}
   - component: {fileID: 6739718049190151957}
+  - component: {fileID: 7644855444752883212}
   m_Layer: 0
   m_Name: Espinho 1
   m_TagString: Spike
@@ -121,7 +122,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
+  m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 1.9428571}
   m_SpriteTilingProperty:
@@ -162,3 +163,62 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!66 &7644855444752883212
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182305034386467386}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9eb85025c5d61cb4fb1ddb7addc1efcc, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 6704278598522094152}
+    m_ColliderPaths:
+    - - X: 20571430
+        Y: 38857144
+      - X: -20571430
+        Y: 38857144
+      - X: -20571430
+        Y: 0
+      - X: 20571430
+        Y: 0
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 2.0571136, y: 0}
+      - {x: 2.0571136, y: 3.8857145}
+      - {x: -2.057143, y: 3.8856852}
+      - {x: -2.0571136, y: 0}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 1182305034386467386}

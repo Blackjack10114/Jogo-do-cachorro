@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using static Mola;
 
 public class Dano : MonoBehaviour
 {
@@ -33,10 +34,6 @@ public class Dano : MonoBehaviour
 
     private static readonly string[] obstaculosQueCausamDano = {
         "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
-    };
-
-    private static readonly string[] obstaculosQueCaemCaixa = {
-        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
     };
 
 
@@ -121,9 +118,28 @@ public class Dano : MonoBehaviour
 
     private void TratarColisao(GameObject colisor)
     {
-        if (!bool_script.CaixaPega) return;
-
         if (!TagCausaDano(colisor.tag)) return;
+
+        float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
+
+        if (!bool_script.CaixaPega)
+        {
+            // Sem caixa → só knockback (não perde vida da entrega)
+            rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
+            rb.AddForce(Vector2.up * 150, ForceMode2D.Impulse);
+            StartCoroutine(LimitarKnockback(rb));
+
+            if (Time.time - tempoUltimoDano > intervaloMinimoSomDano)
+            {
+                audioDano.PlayOneShot(dano_som);
+                tempoUltimoDano = Time.time;
+            }
+
+            return; // sai da função, não chama TomarDano
+        }
+
+        
+
         if (isInvincible)
         {
             if (shield != null)
@@ -132,7 +148,6 @@ public class Dano : MonoBehaviour
                 shield = null;
             }
             StartCoroutine(DelayInvincibilityReset());
-            float direcao = (transform.position.x - colisor.transform.position.x) >= 0 ? 1f : -1f;
             rb.linearVelocity = new Vector2(direcao * m * v, rb.linearVelocity.y);
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
             return;
@@ -140,15 +155,6 @@ public class Dano : MonoBehaviour
 
         // Aplica dano padrão
         TomarDano(10, colisor);
-    }
-
-    private bool TagCaiCaixa(string tagcaixa)
-    {
-        foreach (string t in obstaculosQueCaemCaixa)
-        {
-            if (tagcaixa == t) return true;
-        }
-        return false;
     }
 
     private bool TagCausaDano(string tag)
@@ -170,6 +176,15 @@ public class Dano : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         GetComponent<PlayerMov>().enabled = true;
+    }
+
+    IEnumerator LimitarKnockback(Rigidbody2D alvo)
+    {
+        yield return new WaitForFixedUpdate();
+        if (alvo.linearVelocity.y > 25f)
+        {
+            alvo.linearVelocity = new Vector2(alvo.linearVelocity.x, 25f);
+        }
     }
 
     void Update()

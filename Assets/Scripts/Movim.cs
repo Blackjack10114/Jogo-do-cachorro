@@ -199,8 +199,10 @@ public class PlayerMov : MonoBehaviour
 
         animDoug.SetBool("EstaAndando", estaAndando);
         animDoug.SetBool("Grounded", grounded);
-    }
 
+        //Debug.Log("Velocidade atual: " + rb.linearVelocity.magnitude);
+        //Debug.Log("Velocidade X: " + rb.linearVelocity.x + " | Velocidade Y: " + rb.linearVelocity.y);
+    }
 
     private void MovePlayer(int direction)
     {

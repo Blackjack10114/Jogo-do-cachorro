@@ -18,6 +18,7 @@ public class FimDaFase : MonoBehaviour
     public Sprite emojiFeliz;
     public Sprite emojiNeutro;
     public Sprite emojiBravo;
+    public Sprite emojiSemCaixa;
     string sceneName;
     private bool estatatu, estadino, estaalien, Terminouanimacao;
     public Sprite Sprite_Dog_Sem_Caixa;
@@ -29,6 +30,7 @@ public class FimDaFase : MonoBehaviour
     private GameObject meteorofinal, consumidor;
     public TempoFase tempoScript;
 
+    private bool mostrouSemCaixa = false;
 
     void Start()
     {
@@ -59,13 +61,18 @@ public class FimDaFase : MonoBehaviour
 
             if (anim.GetBool("ComCaixa") == false)
             {
-               // if (avisoFaltaCaixaUI != null)
-               //     avisoFaltaCaixaUI.SetActive(true);
-
-                Debug.Log(" A entrega não foi feita! Volte e recupere a caixa.");
-               // StartCoroutine(ResetarEntrada());
+                if (!mostrouSemCaixa)
+                {
+                    mostrouSemCaixa = true;
+                    StartCoroutine(MostrarEmojiTemp(5f)); // mostra por 5 segundos
+                }
                 return;
             }
+            if (clienteEmojiUI != null)
+                clienteEmojiUI.SetActive(false);
+     
+            
+
             if (estatatu)
             {
                 Comecar_animacao();
@@ -115,6 +122,7 @@ public class FimDaFase : MonoBehaviour
             playerMov.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
+        mostrouSemCaixa = false; // reseta bool, caso esteja com emojisemcaixa
         // Ativa o cliente/emoji
         if (clienteEmojiUI != null)
         {
@@ -470,4 +478,27 @@ public class FimDaFase : MonoBehaviour
             SceneManager.LoadScene(cenaFim);
         }
     }
-}
+    private IEnumerator MostrarEmojiTemp(float duracao)
+    {
+        if (clienteEmojiUI != null)
+        {
+            clienteEmojiUI.SetActive(true);
+            var emojiRenderer = clienteEmojiUI.GetComponent<SpriteRenderer>();
+        if (emojiRenderer != null)
+        {
+            emojiRenderer.sortingLayerName = "HUD";
+            emojiRenderer.sortingOrder = 8;
+            emojiRenderer.sprite = emojiSemCaixa;
+        }
+           
+        }
+
+        yield return new WaitForSecondsRealtime(duracao);
+
+            clienteEmojiUI.SetActive(false);
+        if (clienteEmojiUI != null)
+            clienteEmojiUI.SetActive(false);
+        mostrouSemCaixa = false;
+        }
+    }
+

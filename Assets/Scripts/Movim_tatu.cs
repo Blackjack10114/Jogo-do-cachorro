@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -16,21 +17,11 @@ public class Movim_tatu : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
 
-        // Evita atrito que poderia travar ou desacelerar o tatu
-        if (rb.sharedMaterial == null)
-        {
-            var mat = new PhysicsMaterial2D("TatuMaterial")
-            {
-                friction = 0f,
-                bounciness = 0f
-            };
-            rb.sharedMaterial = mat;
-        }
-
         // Faz o tatu ser imune a empurrões do Player
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.freezeRotation = true;
-        rb.mass = 1000f; // massa bem alta, quase impossível o Player empurrar
+        rb.mass = 9999f; 
+        rb.gravityScale = 10f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -42,20 +33,37 @@ public class Movim_tatu : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall") ||
-            collision.gameObject.CompareTag("Walld") ||
-            collision.gameObject.CompareTag("Spike") ||
-            collision.gameObject.CompareTag("Tatu") ||
-            collision.gameObject.CompareTag("Player") ||
-            collision.gameObject.CompareTag("caixa"))
-        {
-            // pega o primeiro ponto de contato
-            ContactPoint2D contact = collision.contacts[0];
+        GameObject other = collision.gameObject;
 
-            // diferença entre ponto de contato e centro do tatu
+        // empurra player ou caixa ---
+        if (other.CompareTag("Player") || other.CompareTag("caixa"))
+        {
+            Rigidbody2D rbAlvo = other.GetComponent<Rigidbody2D>();
+            if (rbAlvo != null)
+            {
+                float lado = other.transform.position.x - transform.position.x;
+
+                // direções possíveis: empurrar sempre para DIAGONAL contrária
+                Vector2 direcao = lado < 0 ? new Vector2(-1f, 0.3f) : new Vector2(1f, 0.3f);
+
+                // se for player, dá um impulso mais forte
+                float forca = other.CompareTag("Player") ? 100f : 80f;
+
+                rbAlvo.AddForce(direcao.normalized * forca, ForceMode2D.Impulse);
+
+                StartCoroutine(LimitarKnockback(rbAlvo));
+            }
+        }
+
+        // --- mudar direção em colisões com "paredes/obstáculos" ---
+        if (other.CompareTag("Wall") ||
+            other.CompareTag("Walld") ||
+            other.CompareTag("Spike") ||
+            other.CompareTag("Tatu"))
+        {
+            ContactPoint2D contact = collision.contacts[0];
             float direcaoColisao = contact.point.x - transform.position.x;
 
-            // Se o contato foi do lado que ele ESTÁ andando → troca direção
             if (indoParaEsquerda && direcaoColisao < 0)
             {
                 MudarDirecao();
@@ -64,26 +72,17 @@ public class Movim_tatu : MonoBehaviour
             {
                 MudarDirecao();
             }
-            // Se o contato veio do lado oposto → ignora
         }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+
+
+    IEnumerator LimitarKnockback(Rigidbody2D alvo)
     {
-        if (other.CompareTag("Player"))
+        yield return new WaitForFixedUpdate();
+        if (alvo.linearVelocity.y > 25f)
         {
-            Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
-            if (playerRb != null)
-            {
-                // verifica a posição relativa do player em relação ao tatu
-                float lado = other.transform.position.x - transform.position.x;
-
-                // define a direção de empurrão: esquerda ou direita
-                Vector2 direcao = lado < 0 ? new Vector2(-1f, 1f) : new Vector2(1f, 1f);
-
-                // aplica força diagonal
-                playerRb.AddForce(direcao.normalized * 80f, ForceMode2D.Impulse);
-            }
+            alvo.linearVelocity = new Vector2(alvo.linearVelocity.x, 25f);
         }
     }
 
