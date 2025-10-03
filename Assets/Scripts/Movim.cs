@@ -89,6 +89,13 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
+        // IGNORAR INPUT E RESETAR A BANDEIRA
+        if (Comeco_Fase.inputParaComecarFoiUsado)
+        {
+            Comeco_Fase.inputParaComecarFoiUsado = false;
+            return; // Pula fora e não move o personagem
+        }
+
         if (PauseMenu.JogoPausado)
         {
             rb.linearVelocity = Vector2.zero; // garante que não "anda" congelado
@@ -97,14 +104,12 @@ public class PlayerMov : MonoBehaviour
         }
 
         // Verica se o Script comeco fase está ativo, se tiver ele bloqueia o mov, se n ele já começa ativo
-        if (comecoFase != null && !Comeco_Fase.FaseComecou) 
+        if (comecoFase != null && !Comeco_Fase.FaseComecou)
         {
             rb.linearVelocity = Vector2.zero;
             animDoug.SetBool("EstaAndando", false);
             animDoug.SetBool("Grounded", pulo != null && pulo.EstaNoChao);
-
             PararSomCorrida(); // Evita que o som continue antes da fase começar
-
             return; // Interrompe toda a lógica até a fase começar
         }
 
@@ -114,6 +119,7 @@ public class PlayerMov : MonoBehaviour
             return;
         }
 
+        // ... O restante do seu código do Update do PlayerMov continua aqui ...
         Vector2 moveInput = inputActions.Player.Mov.ReadValue<Vector2>();
         bool estaAndando = Mathf.Abs(moveInput.x) > 0.01f;
         bool grounded = pulo != null && pulo.EstaNoChao;
