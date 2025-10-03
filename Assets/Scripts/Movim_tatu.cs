@@ -12,6 +12,7 @@ public class Movim_tatu : MonoBehaviour
     private SpriteRenderer sprite;
     private bool indoParaEsquerda = true;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,11 +36,12 @@ public class Movim_tatu : MonoBehaviour
     {
         GameObject other = collision.gameObject;
 
-        // empurra player ou caixa ---
+        // empurra player ou caixa
         if (other.CompareTag("Player") || other.CompareTag("caixa"))
         {
-            Rigidbody2D rbAlvo = other.GetComponent<Rigidbody2D>();
-            if (rbAlvo != null)
+            KnockbackReceiver receiver = other.GetComponent<KnockbackReceiver>();
+
+            if (receiver != null && receiver.PodeReceberKnockback())
             {
                 float lado = other.transform.position.x - transform.position.x;
 
@@ -49,13 +51,12 @@ public class Movim_tatu : MonoBehaviour
                 // se for player, dá um impulso mais forte
                 float forca = other.CompareTag("Player") ? 100f : 80f;
 
-                rbAlvo.AddForce(direcao.normalized * forca, ForceMode2D.Impulse);
-
-                StartCoroutine(LimitarKnockback(rbAlvo));
+                // Chama o receiver para aplicar o knockback
+                receiver.AplicarKnockback(direcao, forca);
             }
         }
-
-        // --- mudar direção em colisões com "paredes/obstáculos" ---
+        // StartCoroutine(LimitarKnockback(rbAlvo));
+        // mudar direção em colisões com "paredes/obstáculos"
         if (other.CompareTag("Wall") ||
             other.CompareTag("Walld") ||
             other.CompareTag("Spike") ||

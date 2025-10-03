@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 7976200770619115158}
   - component: {fileID: 4544859157451826064}
   - component: {fileID: 4140402432468324973}
+  - component: {fileID: 6803361478637118161}
+  - component: {fileID: 7938723816789854127}
   m_Layer: 0
   m_Name: Doug
   m_TagString: Player
@@ -491,6 +493,32 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6803361478637118161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699557980529134076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023a7b0648a51ea469ef30342505dc3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intervaloKnockback: 0.2
+  knockbackMaxY: 25
+--- !u!114 &7938723816789854127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699557980529134076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2815ac87b34010549b0f66ce2cb0421e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7963358355824694730
 GameObject:
   m_ObjectHideFlags: 0
