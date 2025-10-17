@@ -1,23 +1,23 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class ResetDebugController : MonoBehaviour
 {
-    private float comboWindow = 0.5f; // tempo m·ximo entre os botıes
+    private float comboWindow = 0.5f; // tempo m√°ximo entre os bot√µes
     private float[] resetTimes;
     private float[] skipTimes;
 
-    // botıes exigidos pro reset
+    public float delayAposUso = 2.0f;
+    private static float proximoUsoPermitido = 0f;
+
     private InputControl[] resetButtons;
-    // botıes exigidos pro skip
     private InputControl[] skipButtons;
 
-    private string[] sequenciaDeFases = {
-        "Tutorial",
-        "Fase_TatuMafioso_01",
-        "Fase_Alien_02",
-        "Fase_Dino_03"};
+    // ? REMOVIDO: A sequ√™ncia de fases n√£o √© mais necess√°ria aqui.
+    // O GerenciadorDeJogo j√° sabe a ordem correta.
+    // private string[] sequenciaDeFases = { ... };
+
     private void Start()
     {
         var gamepad = Gamepad.current;
@@ -28,66 +28,74 @@ public class ResetDebugController : MonoBehaviour
             return;
         }
 
-       
-
-    // combinaÁ„o pra RESET (sticks + triggers + shoulders)
-    resetButtons = new InputControl[]
+        // combina√ß√£o pra RESET (sem altera√ß√£o aqui)
+        resetButtons = new InputControl[]
         {
-            gamepad.leftStickButton,
-            gamepad.rightStickButton,
-            gamepad.leftTrigger,
-            gamepad.rightTrigger,
-            gamepad.leftShoulder,
-            gamepad.rightShoulder
+            gamepad.leftStickButton, gamepad.rightStickButton, gamepad.leftTrigger,
+            gamepad.rightTrigger, gamepad.leftShoulder, gamepad.rightShoulder
         };
         resetTimes = new float[resetButtons.Length];
 
-        // combinaÁ„o pra SKIP (start + select + triggers + shoulders)
+        // combina√ß√£o pra SKIP (sem altera√ß√£o aqui)
         skipButtons = new InputControl[]
         {
-            gamepad.startButton,
-            gamepad.selectButton,
-            gamepad.leftTrigger,
-            gamepad.rightTrigger,
-            gamepad.leftShoulder,
-            gamepad.rightShoulder
+            gamepad.startButton, gamepad.selectButton, gamepad.leftTrigger,
+            gamepad.rightTrigger, gamepad.leftShoulder, gamepad.rightShoulder
         };
         skipTimes = new float[skipButtons.Length];
     }
 
-  
     private void Update()
     {
+        if (Time.time < proximoUsoPermitido)
+        {
+            return;
+        }
+
         if (Gamepad.current == null) return;
 
-        // escuta reset
+        // --- L√≥gica de Reset ---
         for (int i = 0; i < resetButtons.Length; i++)
         {
             if (resetButtons[i].IsPressed())
                 resetTimes[i] = Time.time;
         }
+
         if (AllPressedWithin(resetTimes, comboWindow))
         {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
+            GerenciadorDeJogo.ResetarProgresso();
             Debug.Log("Progresso resetado pelo controle!");
             SceneManager.LoadScene("MenuPrincipal");
+
+            // Limpa os timers de AMBOS os combos
             ClearTimes(resetTimes);
+            ClearTimes(skipTimes); 
+
+            proximoUsoPermitido = Time.time + delayAposUso;
         }
 
-        // escuta skip
+        // --- L√≥gica de Skip ---
         for (int i = 0; i < skipButtons.Length; i++)
         {
             if (skipButtons[i].IsPressed())
                 skipTimes[i] = Time.time;
         }
+
         if (AllPressedWithin(skipTimes, comboWindow))
         {
             Debug.Log("Skip de fase!");
-            SkipToNextScene();
+            GerenciadorDeJogo.Instance.IrParaProximaFase();
+
+            // Limpa os timers de AMBOS os combos
             ClearTimes(skipTimes);
+            ClearTimes(resetTimes); 
+
+            proximoUsoPermitido = Time.time + delayAposUso;
         }
     }
+
+    // O resto do script (AllPressedWithin e ClearTimes) continua igual.
+    // O m√©todo SkipToNextScene() foi removido pois n√£o √© mais usado.
 
     private bool AllPressedWithin(float[] times, float window)
     {
@@ -108,41 +116,5 @@ public class ResetDebugController : MonoBehaviour
     {
         for (int i = 0; i < times.Length; i++)
             times[i] = 0;
-    }
-
-    private void SkipToNextScene()
-    {
-        string cenaAtual = SceneManager.GetActiveScene().name;
-        int indiceAtual = -1;
-
-        for (int i = 0; i < sequenciaDeFases.Length; i++)
-        {
-            if (sequenciaDeFases[i] == cenaAtual)
-            {
-                indiceAtual = i;
-                break;
-            }
-        }
-
-        if (indiceAtual == -1)
-        {
-            SceneManager.LoadScene(sequenciaDeFases[0]);
-            return;
-        }
-
-        // Verifica se a cena atual È a ˙ltima da lista
-        if (indiceAtual == sequenciaDeFases.Length - 1)
-        {
-            Debug.Log("⁄ltima fase da sequÍncia. O skip n„o far· nada.");
-            return; // Simplesmente sai da funÁ„o
-        }
-        // --- FIM DA L”GICA NOVA ---
-
-        // Se n„o for a ˙ltima, continua com o skip normal
-        int proximoIndice = indiceAtual + 1; // N„o precisamos mais do "%" aqui
-        string proximaCena = sequenciaDeFases[proximoIndice];
-
-        Debug.Log($"Skipando de '{cenaAtual}' para '{proximaCena}'");
-        SceneManager.LoadScene(proximaCena);
     }
 }

@@ -74,7 +74,7 @@ public class CenaFimDeDemoController : MonoBehaviour
     {
         // Executa o fade
         yield return new WaitForSeconds(1f);
-        GerenciadorDeJogo.ResetarProgresso();
+        //GerenciadorDeJogo.ResetarProgresso();
         SceneFadeUI.Instance.FadeToScene("MenuPrincipal");
     }
 }

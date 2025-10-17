@@ -89,12 +89,6 @@ public class PlayerMov : MonoBehaviour
 
     void Update()
     {
-        // IGNORAR INPUT E RESETAR A BANDEIRA
-        if (Comeco_Fase.inputParaComecarFoiUsado)
-        {
-            Comeco_Fase.inputParaComecarFoiUsado = false;
-            return; // Pula fora e não move o personagem
-        }
 
         if (PauseMenu.JogoPausado)
         {
@@ -119,7 +113,6 @@ public class PlayerMov : MonoBehaviour
             return;
         }
 
-        // ... O restante do seu código do Update do PlayerMov continua aqui ...
         Vector2 moveInput = inputActions.Player.Mov.ReadValue<Vector2>();
         bool estaAndando = Mathf.Abs(moveInput.x) > 0.01f;
         bool grounded = pulo != null && pulo.EstaNoChao;
@@ -209,6 +202,7 @@ public class PlayerMov : MonoBehaviour
         //Debug.Log("Velocidade atual: " + rb.linearVelocity.magnitude);
         //Debug.Log("Velocidade X: " + rb.linearVelocity.x + " | Velocidade Y: " + rb.linearVelocity.y);
     }
+
 
     private void MovePlayer(int direction)
     {

@@ -163,6 +163,13 @@ public class Jump : MonoBehaviour
             quantidadeDePulos++;
     }
 
+    private void LateUpdate()
+    {
+        if (Comeco_Fase.inputParaComecarFoiUsado)
+        {
+            Comeco_Fase.inputParaComecarFoiUsado = false;
+        }
+    }
     void FixedUpdate()
     {
         
