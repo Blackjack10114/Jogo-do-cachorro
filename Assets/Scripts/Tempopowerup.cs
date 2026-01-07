@@ -1,98 +1,54 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Tempopowerup : MonoBehaviour
 {
-    private PlayerMov Duration;
-    private Up_UI_Teste tempos;
-    private GameObject Player, Powerup;
-    private Text Texto = null;
-    private bool turbo_ativado, gourmet_ativado, pulo_duplo_ativado;
-    private Caixa VerPuloDuplo;
-    private void Start()
+    public enum TipoPowerUp
     {
-        Player = GameObject.FindWithTag("Player");
-        Duration = Player.GetComponent<PlayerMov>();
-        Texto = GetComponent<Text>();
-        Powerup = GameObject.FindWithTag("PowerUpUi");
-        tempos = Powerup.GetComponent<Up_UI_Teste>();
-        VerPuloDuplo = Player.GetComponent<Caixa>();
+        Turbo,
+        Gourmet,
+        PuloDuplo
     }
-    private void Update()
+
+    public TipoPowerUp tipo;
+
+    private PlayerMov player;
+    private Caixa caixa;
+    private Text texto;
+
+    void Start()
     {
-        if (Duration.isTurboActive == true)
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerMov>();
+        caixa = player.GetComponent<Caixa>();
+        texto = GetComponent<Text>();
+    }
+
+    void Update()
+    {
+        switch (tipo)
         {
-            turbo_ativado = true;
-        }
-        if (Duration.isGourmetActive == true)
-        {
-            gourmet_ativado = true;
-        }
-        if (Duration.temPuloDuplo == true)
-        {
-            pulo_duplo_ativado = true;
-        }
-        mostrartempo();
-        if (turbo_ativado == true)
-        {
-            if (Duration.turboTimer <= 0 && tempos.turbo_ativado == false) 
-            {
-                tempos.turbotempo = false;
-                turbo_ativado = false;
-                StartCoroutine(Delaydestruirturbo());
-            }
-        }
-        if (gourmet_ativado == true)
-        {
-            if (Duration.gourmetTimer <= 0 && tempos.gourmet_ativado == false) 
-            {
-                tempos.gourmettempo = false;
-                gourmet_ativado = false;
-                StartCoroutine(Delaydestruirgourmet());
-            }
-        }
-        if (pulo_duplo_ativado == true)
-        {
-            if (VerPuloDuplo.DuracaoPuloDuplo <= 0 && tempos.pulo_duplo_ativado == false)
-            {
-                tempos.pulotempo = false;
-                pulo_duplo_ativado = false;
-                StartCoroutine(Delaydestruirduplo());
-            }
+            case TipoPowerUp.Turbo:
+                Atualizar(player.isTurboActive, player.turboTimer);
+                break;
+
+            case TipoPowerUp.Gourmet:
+                Atualizar(player.isGourmetActive, player.gourmetTimer);
+                break;
+
+            case TipoPowerUp.PuloDuplo:
+                Atualizar(player.temPuloDuplo, caixa.DuracaoPuloDuplo);
+                break;
         }
     }
-    private void mostrartempo()
+
+    void Atualizar(bool ativo, float tempo)
     {
-        if (turbo_ativado)
+        if (!ativo)
         {
-            Texto.text = Mathf.Round(Duration.turboTimer).ToString();
+            Destroy(gameObject);
+            return;
         }
-        if (gourmet_ativado)
-        {
-            Texto.text = Mathf.Round(Duration.gourmetTimer).ToString();
-        }
-        if (pulo_duplo_ativado)
-        {
-            Texto.text = Mathf.Round(VerPuloDuplo.DuracaoPuloDuplo).ToString();
-        }
-    }
-    private IEnumerator Delaydestruirturbo()
-    {
-        yield return new WaitForSeconds(0.01f);
-        turbo_ativado = false;
-        Destroy(this.gameObject);
-    }
-    private IEnumerator Delaydestruirgourmet()
-    {
-        yield return new WaitForSeconds(0.01f);
-        gourmet_ativado = false;
-        Destroy(this.gameObject);
-    }
-    private IEnumerator Delaydestruirduplo()
-    {
-        yield return new WaitForSeconds(0.01f);
-        pulo_duplo_ativado = false;
-        Destroy(this.gameObject);
+
+        texto.text = Mathf.CeilToInt(tempo).ToString();
     }
 }

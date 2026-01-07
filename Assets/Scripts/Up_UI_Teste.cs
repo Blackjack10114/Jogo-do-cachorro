@@ -1,10 +1,11 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
+using static Tempopowerup;
 
 public class Up_UI_Teste : MonoBehaviour
 {
-    private PlayerMov duracao;
+    private PlayerMov duracaot, duracaop, duracaog;
     private GameObject Player;
     private Vector3 offsetpowerup;
 
@@ -41,7 +42,9 @@ public class Up_UI_Teste : MonoBehaviour
     {
         offsetpowerup = new Vector3(16f, 0f, 0f);
         Player = GameObject.FindWithTag("Player");
-        duracao = Player.GetComponent<PlayerMov>();
+        duracaot = Player.GetComponent<PlayerMov>();
+        duracaog = Player.GetComponent<PlayerMov>();
+        duracaop = Player.GetComponent<PlayerMov>();
         Bolha = Player.GetComponent<Dano>();
         VerPuloDuplo = Player.GetComponent<Caixa>();
 
@@ -56,7 +59,7 @@ public class Up_UI_Teste : MonoBehaviour
     void Update()
     {
         // --- Turbo ---
-        if (duracao.isTurboActive && TurboPrefabRef != null && !turbo_insta)
+        if (duracaot.isTurboActive && TurboPrefabRef != null && !turbo_insta)
         {
             turbo_ativado = true;
             Vector3 pos = (gourmet_ativado && gourmet_insta) || (pulo_duplo_ativado && pulo_insta)
@@ -67,7 +70,7 @@ public class Up_UI_Teste : MonoBehaviour
             TurboInstance.transform.parent = this.transform;
             turbo_insta = true;
         }
-        if (!duracao.isTurboActive && TurboInstance != null)
+        if (!duracaot.isTurboActive && TurboInstance != null)
         {
             Destroy(TurboInstance);
             turbo_ativado = false;
@@ -75,7 +78,7 @@ public class Up_UI_Teste : MonoBehaviour
         }
 
         // --- Gourmet ---
-        if (duracao.isGourmetActive && GourmetPrefabRef != null && !gourmet_insta)
+        if (duracaog.isGourmetActive && GourmetPrefabRef != null && !gourmet_insta)
         {
             gourmet_ativado = true;
             Vector3 pos = (turbo_ativado && turbo_insta) || (pulo_duplo_ativado && pulo_insta)
@@ -86,7 +89,7 @@ public class Up_UI_Teste : MonoBehaviour
             GourmetInstance.transform.parent = this.transform;
             gourmet_insta = true;
         }
-        if (!duracao.isGourmetActive && GourmetInstance != null)
+        if (!duracaog.isGourmetActive && GourmetInstance != null)
         {
             Destroy(GourmetInstance);
             gourmet_ativado = false;
@@ -110,7 +113,7 @@ public class Up_UI_Teste : MonoBehaviour
         }
 
         // --- Pulo Duplo ---
-        if (duracao.temPuloDuplo && PuloPrefabRef != null && !pulo_insta)
+        if (duracaop.temPuloDuplo && PuloPrefabRef != null && !pulo_insta)
         {
             pulo_duplo_ativado = true;
             Debug.Log("Pulo instanciado");
@@ -123,7 +126,7 @@ public class Up_UI_Teste : MonoBehaviour
             PuloInstance.transform.parent = this.transform;
             pulo_insta = true;
         }
-        if (!duracao.temPuloDuplo && PuloInstance != null)
+        if (!duracaop.temPuloDuplo && PuloInstance != null)
         {
             Destroy(PuloInstance);
             pulo_duplo_ativado = false;
@@ -136,7 +139,7 @@ public class Up_UI_Teste : MonoBehaviour
             turbotempo = true;
             TempoTurbo = InstanciarTempo("turbo");
         }
-        if (TempoTurbo != null && !duracao.isTurboActive)
+        if (TempoTurbo != null && !duracaot.isTurboActive)
         {
             turbotempo = false;
             Destroy(TempoTurbo.gameObject);
@@ -148,7 +151,7 @@ public class Up_UI_Teste : MonoBehaviour
             gourmettempo = true;
             TempoGourmet = InstanciarTempo("gourmet");
         }
-        if (TempoGourmet != null && !duracao.isGourmetActive)
+        if (TempoGourmet != null && !duracaog.isGourmetActive)
         {
             gourmettempo = false;
             Destroy(TempoGourmet.gameObject);
@@ -160,7 +163,7 @@ public class Up_UI_Teste : MonoBehaviour
             pulotempo = true;
             TempoPulo = InstanciarTempo("pulo");
         }
-        if (TempoPulo != null && !duracao.temPuloDuplo)
+        if (TempoPulo != null && !duracaop.temPuloDuplo)
         {
             pulotempo = false;
             Destroy(TempoPulo.gameObject);
@@ -172,22 +175,31 @@ public class Up_UI_Teste : MonoBehaviour
     {
         Vector3 offsettext = new Vector3(0, -10, 0);
         Vector3 posicaoTexto = Vector3.zero;
+        TipoPowerUp tipoEnum = TipoPowerUp.Turbo;
 
         switch (tipo)
         {
             case "turbo":
-                posicaoTexto = TurboInstance != null ? TurboInstance.transform.position + offsettext : Vector3.zero;
+                posicaoTexto = TurboInstance.transform.position + offsettext;
+                tipoEnum = TipoPowerUp.Turbo;
                 break;
-            case "pulo":
-                posicaoTexto = PuloInstance != null ? PuloInstance.transform.position + offsettext : Vector3.zero;
-                break;
+
             case "gourmet":
-                posicaoTexto = GourmetInstance != null ? GourmetInstance.transform.position + offsettext : Vector3.zero;
+                posicaoTexto = GourmetInstance.transform.position + offsettext;
+                tipoEnum = TipoPowerUp.Gourmet;
+                break;
+
+            case "pulo":
+                posicaoTexto = PuloInstance.transform.position + offsettext;
+                tipoEnum = TipoPowerUp.PuloDuplo;
                 break;
         }
 
         Text novoTexto = Instantiate(TempoPrefab, posicaoTexto, Quaternion.identity);
-        novoTexto.transform.SetParent(this.transform);
+        novoTexto.transform.SetParent(transform);
+
+        novoTexto.GetComponent<Tempopowerup>().tipo = tipoEnum;
+
         return novoTexto;
     }
 }
