@@ -51,7 +51,7 @@ public class Mola : MonoBehaviour
             {
                 playerMov.PararSomCorrida();
                 playerMov.enabled = false;
-            }
+            }            
                 
 
             // Inicia animação

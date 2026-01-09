@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caixa: {fileID: 1189246814}
-  Canvas: {fileID: 0}
+  Canvas: {fileID: 1172410595}
   cenaFim: CenaFimDeFaseAlien
   avisoFaltaCaixaUI: {fileID: 1189246814}
   clienteEmojiUI: {fileID: 1545905367}
@@ -411,7 +411,7 @@ MonoBehaviour:
   destino2: {fileID: 875407890}
   tempoDeMovimento: 2
   Comida_fase: {fileID: 5326673451445531734, guid: f5401af1c90d1964c8ff19ec9a17d7b5, type: 3}
-  tempoScript: {fileID: 0}
+  tempoScript: {fileID: 1172410594}
 --- !u!212 &61524622
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72720,6 +72720,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
+--- !u!114 &1172410594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6449834315993299249, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
+  m_PrefabInstance: {fileID: 1172410593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc29df8886daf804897e96c21d2757fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1172410595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4953340794854329516, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
+  m_PrefabInstance: {fileID: 1172410593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1188539019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72775,6 +72791,10 @@ PrefabInstance:
     - target: {fileID: 6028213741528096719, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
       propertyPath: cenaFalha
       value: CenaFalhaAlien
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483816715435571900, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
