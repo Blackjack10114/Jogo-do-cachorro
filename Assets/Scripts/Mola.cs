@@ -116,7 +116,7 @@ public class Mola : MonoBehaviour
 
     private IEnumerator Delaypassavel()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         permitirVerChao = true;
     }
 
