@@ -73,6 +73,7 @@ public class Mola : MonoBehaviour
         // 🔥 Desativa limites físicos do pulo
         verificarChao.ignorarLimiteDeQueda = true;
         verificarChao.ignorarJumpCut = true;
+        verificarChao.molado = true;
 
         Vector2 impulso = CalcularImpulso();
         rb.AddForce(impulso, ForceMode2D.Impulse);
@@ -103,6 +104,19 @@ public class Mola : MonoBehaviour
     private IEnumerator DelayVerificarChao()
     {
         yield return new WaitForSeconds(0.3f);
+        if (verificarChao.encostoupassavel)
+        {
+            StartCoroutine(Delaypassavel());
+        }
+        else
+        {
+            permitirVerChao = true;
+        }
+    }
+
+    private IEnumerator Delaypassavel()
+    {
+        yield return new WaitForSeconds(0.4f);
         permitirVerChao = true;
     }
 
@@ -116,6 +130,8 @@ public class Mola : MonoBehaviour
 
                 verificarChao.ignorarLimiteDeQueda = false;
                 verificarChao.ignorarJumpCut = false;
+                verificarChao.encostoupassavel = false;
+                verificarChao.molado = false;
 
                 permitirVerChao = false;
                 preparado = false;

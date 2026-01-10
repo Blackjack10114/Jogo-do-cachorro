@@ -72619,6 +72619,10 @@ PrefabInstance:
       propertyPath: Ossinho
       value: 
       objectReference: {fileID: 527951720}
+    - target: {fileID: 3095695423849928717, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4420872531023967635, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
       propertyPath: Ossinho
       value: 
@@ -72746,11 +72750,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2736510712202747481, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 395.7
+      value: 402
       objectReference: {fileID: 0}
     - target: {fileID: 2736510712202747481, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2736510712202747481, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -75918,7 +75922,7 @@ Transform:
   m_GameObject: {fileID: 1478200894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 395.7, y: -3.5, z: -10}
+  m_LocalPosition: {x: 402, y: -3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78711,7 +78715,7 @@ Transform:
   m_GameObject: {fileID: 2062198224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 395.7, y: -3.5, z: -10}
+  m_LocalPosition: {x: 402, y: -3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78927,6 +78931,9 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
+  aceleracaoNoAr: 15
+  velocidadeMaximaNoAr: 25
+  desaceleracaoNoAr: 30
   podeMover: 1
   IndoEsquerda: 0
   IndoDireita: 0
@@ -78949,10 +78956,19 @@ MonoBehaviour:
   turboJumpMultiplier: 0.9
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  jumpCutMultiplier: 0.5
+  gravidadeBase: 1
+  multiplicadorQueda: 2.5
+  multiplicadorQuedaLonga: 3.5
+  velocidadeMaximaQueda: -25
+  ignorarLimiteDeQueda: 0
+  ignorarJumpCut: 0
   quantidadeDePulos: 0
   grounded: 0
+  encostoupassavel: 0
   ignorarpulo: 0
   ignorarProximoPulo: 0
+  molado: 0
   audioPulo: {fileID: 0}
   intervaloMinimoSomPulo: 0.1
   sonsDePulo: []

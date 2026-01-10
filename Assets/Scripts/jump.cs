@@ -29,9 +29,11 @@ public class Jump : MonoBehaviour
 
     public int quantidadeDePulos = 0;
     public bool grounded = false;
+    public bool encostoupassavel;
     private int groundContacts = 0;
     public bool ignorarpulo;
     public bool ignorarProximoPulo = false;
+    public bool molado;
 
     private float coyoteTimer = 0f;
     private float jumpBufferTimer = -1f;  // agora inicia negativo
@@ -231,6 +233,12 @@ public class Jump : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (molado && collision.gameObject.TryGetComponent<PlatformEffector2D>(out var effector))
+        {
+            encostoupassavel = true;
+            Debug.Log("Colidiu com PlatformEffector2D");
+            return;
+        }
         if (IsGroundTag(collision.gameObject.tag))
         {
             groundContacts++;
