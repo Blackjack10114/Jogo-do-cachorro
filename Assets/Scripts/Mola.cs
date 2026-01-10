@@ -70,6 +70,9 @@ public class Mola : MonoBehaviour
             rb.Sleep();
             rb.WakeUp();
         }
+        // 🔥 Desativa limites físicos do pulo
+        verificarChao.ignorarLimiteDeQueda = true;
+        verificarChao.ignorarJumpCut = true;
 
         Vector2 impulso = CalcularImpulso();
         rb.AddForce(impulso, ForceMode2D.Impulse);
@@ -82,6 +85,7 @@ public class Mola : MonoBehaviour
 
         StartCoroutine(DelayVerificarChao());
     }
+
 
     private Vector2 CalcularImpulso()
     {
@@ -109,9 +113,14 @@ public class Mola : MonoBehaviour
             if (verificarChao.grounded)
             {
                 playerMov.enabled = true;
+
+                verificarChao.ignorarLimiteDeQueda = false;
+                verificarChao.ignorarJumpCut = false;
+
                 permitirVerChao = false;
                 preparado = false;
             }
+
         }
     }
 }

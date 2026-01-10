@@ -22,6 +22,9 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
+    [HideInInspector] public bool ignorarLimiteDeQueda = false;
+    [HideInInspector] public bool ignorarJumpCut = false;
+
     private Animator anim;
 
     public int quantidadeDePulos = 0;
@@ -136,13 +139,14 @@ public class Jump : MonoBehaviour
             jumpBufferTimer = -1f;  // consome o buffer
         }
 
-        if (!inputActions.Player.Jump.IsPressed() && rb.linearVelocity.y > 0)
+        if (!ignorarJumpCut && !inputActions.Player.Jump.IsPressed() && rb.linearVelocity.y > 0)
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
                 rb.linearVelocity.y * jumpCutMultiplier
             );
         }
+
 
 
         if (grounded)
@@ -201,7 +205,7 @@ public class Jump : MonoBehaviour
             return;
 
         // Se estiver caindo
-        if (rb.linearVelocity.y < 0)
+        if (!ignorarLimiteDeQueda && rb.linearVelocity.y < 0)
         {
             float multiplicador = inputActions.Player.Jump.IsPressed()
                 ? multiplicadorQueda
@@ -213,8 +217,9 @@ public class Jump : MonoBehaviour
             );
 
             // Limita velocidade máxima de queda
-            if (rb.linearVelocity.y < velocidadeMaximaQueda)
+            if (!ignorarLimiteDeQueda && rb.linearVelocity.y < velocidadeMaximaQueda)
             {
+                Debug.LogWarning("limitando");
                 rb.linearVelocity = new Vector2(
                     rb.linearVelocity.x,
                     velocidadeMaximaQueda
