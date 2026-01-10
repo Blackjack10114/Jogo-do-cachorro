@@ -12,6 +12,13 @@ public class Jump : MonoBehaviour
     [SerializeField] private float jumpBufferTime = 0.1f;
     [SerializeField] float jumpCutMultiplier = 0.5f;
 
+    [Header("Gravidade Extra")]
+    [SerializeField] private float gravidadeBase = 1f;
+    [SerializeField] private float multiplicadorQueda = 2.5f;
+    [SerializeField] private float multiplicadorQuedaLonga = 3.5f;
+    [SerializeField] private float velocidadeMaximaQueda = -25f;
+
+
     private Rigidbody2D rb;
     private PlayerMov playerMov;
 
@@ -189,8 +196,33 @@ public class Jump : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
+        // Se estiver subindo, usa gravidade normal
+        if (rb.linearVelocity.y > 0)
+            return;
+
+        // Se estiver caindo
+        if (rb.linearVelocity.y < 0)
+        {
+            float multiplicador = inputActions.Player.Jump.IsPressed()
+                ? multiplicadorQueda
+                : multiplicadorQuedaLonga;
+
+            rb.AddForce(
+                Vector2.up * Physics2D.gravity.y * (multiplicador - gravidadeBase),
+                ForceMode2D.Force
+            );
+
+            // Limita velocidade máxima de queda
+            if (rb.linearVelocity.y < velocidadeMaximaQueda)
+            {
+                rb.linearVelocity = new Vector2(
+                    rb.linearVelocity.x,
+                    velocidadeMaximaQueda
+                );
+            }
+        }
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {

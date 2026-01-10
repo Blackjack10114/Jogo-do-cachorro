@@ -25950,6 +25950,18 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 315
       objectReference: {fileID: 0}
+    - target: {fileID: 6358186907245394657, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
+      propertyPath: multiplicadorQueda
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358186907245394657, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
+      propertyPath: velocidadeMaximaQueda
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358186907245394657, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
+      propertyPath: multiplicadorQuedaLonga
+      value: 5.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32821,9 +32833,9 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
-  airAcceleration: 30
-  airMaxSpeed: 25
-  airDeceleration: 20
+  aceleracaoNoAr: 15
+  velocidadeMaximaNoAr: 25
+  desaceleracaoNoAr: 30
   podeMover: 1
   IndoEsquerda: 0
   IndoDireita: 0
@@ -32847,6 +32859,10 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpCutMultiplier: 0.5
+  gravidadeBase: 1
+  multiplicadorQueda: 2.5
+  multiplicadorQuedaLonga: 3.5
+  velocidadeMaximaQueda: -25
   quantidadeDePulos: 0
   grounded: 0
   ignorarpulo: 0
