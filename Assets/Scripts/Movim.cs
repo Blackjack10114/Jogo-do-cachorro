@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XInput;
+using static Mola;
 
 public class PlayerMov : MonoBehaviour
 {
@@ -34,7 +35,13 @@ public class PlayerMov : MonoBehaviour
     private Rigidbody2D rb;
     private float time = 0;
     private bool isRunning = false;
-    private bool wasRunningBeforeJump = false;
+    //private bool wasRunningBeforeJump = false;
+
+    [SerializeField] float aceleracaoNoAr = 15f;
+    [SerializeField] float velocidadeMaximaNoAr = 25f;
+    [SerializeField] float desaceleracaoNoAr = 30f;
+
+
 
     private PlataformaMovel plataformaAtual = null;
     private Jump pulo;
@@ -229,11 +236,6 @@ public class PlayerMov : MonoBehaviour
             stamina = 100f;
 
         if (pulo != null && pulo.EstaNoChao)
-            wasRunningBeforeJump = isRunning;
-
-        float airControl = wasRunningBeforeJump ? sprintSpeedMultiplier * turboMultiplier : 1f;
-
-        if (pulo != null && pulo.EstaNoChao)
         {
             time += Time.deltaTime;
             float velX = direction * move * finalSpeed;
@@ -250,7 +252,24 @@ public class PlayerMov : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(direction * move * speed * airControl + velocidadePlataforma, rb.linearVelocity.y);
+            // Controle no Ar
+            float velocidadeAlvo = direction * velocidadeMaximaNoAr;
+            float diferencaVelocidade = velocidadeAlvo - rb.linearVelocity.x;
+
+            float aceleracaoAtual = Mathf.Abs(velocidadeAlvo) > 0.01f
+                ? aceleracaoNoAr
+                : desaceleracaoNoAr;
+
+            float movimentoHorizontal = Mathf.Clamp(
+                diferencaVelocidade * aceleracaoAtual * Time.deltaTime,
+                -velocidadeMaximaNoAr,
+                velocidadeMaximaNoAr
+            );
+
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x + movimentoHorizontal,
+                rb.linearVelocity.y
+            );
         }
 
         // reset do time se parar

@@ -6,10 +6,11 @@ public class Jump : MonoBehaviour
 {
     private InputController inputActions;
 
-    [SerializeField] private float jumpForce = 15f;
+    [SerializeField] private float jumpForce = 315f;
     [SerializeField] private float turboJumpMultiplier = 1.2f;
     [SerializeField] private float coyoteTime = 0.1f;
     [SerializeField] private float jumpBufferTime = 0.1f;
+    [SerializeField] float jumpCutMultiplier = 0.5f;
 
     private Rigidbody2D rb;
     private PlayerMov playerMov;
@@ -128,6 +129,15 @@ public class Jump : MonoBehaviour
             jumpBufferTimer = -1f;  // consome o buffer
         }
 
+        if (!inputActions.Player.Jump.IsPressed() && rb.linearVelocity.y > 0)
+        {
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                rb.linearVelocity.y * jumpCutMultiplier
+            );
+        }
+
+
         if (grounded)
             col.sharedMaterial = groundMaterial;
         else
@@ -149,6 +159,13 @@ public class Jump : MonoBehaviour
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
+
+        float horizontalBoost = rb.linearVelocity.x * 0.04f;
+        rb.linearVelocity = new Vector2(
+            rb.linearVelocity.x + horizontalBoost,
+            rb.linearVelocity.y
+        );
+
 
         if (Time.time - tempoUltimoPulo > intervaloMinimoSomPulo && sonsDePulo.Length > 0)
         {
