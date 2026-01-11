@@ -14,9 +14,17 @@ public class Jump : MonoBehaviour
 
     [Header("Gravidade Extra")]
     [SerializeField] private float gravidadeBase = 1f;
-    [SerializeField] private float multiplicadorQueda = 2.5f;
-    [SerializeField] private float multiplicadorQuedaLonga = 3.5f;
+    //[SerializeField] private float multiplicadorQueda = 2.5f;
+    //[SerializeField] private float multiplicadorQuedaLonga = 3.5f;
     [SerializeField] private float velocidadeMaximaQueda = -25f;
+
+    [Header("Gravidade Variável da Queda")]
+    [SerializeField] float gravidadeQuedaInicial = 2f;
+    [SerializeField] float gravidadeQuedaMedia = 3.5f;
+    [SerializeField] float gravidadeQuedaFinal = 5f;
+
+    [SerializeField] float velocidadeQuedaMedia = -8f;
+    [SerializeField] float velocidadeQuedaForte = -14f;
 
 
     private Rigidbody2D rb;
@@ -200,7 +208,7 @@ public class Jump : MonoBehaviour
             Comeco_Fase.inputParaComecarFoiUsado = false;
         }
     }
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         // Se estiver subindo, usa gravidade normal
         if (rb.linearVelocity.y > 0)
@@ -228,7 +236,51 @@ public class Jump : MonoBehaviour
                 );
             }
         }
+    }*/
+
+    void FixedUpdate()
+    {
+        // Se estiver subindo, não altera a gravidade
+        if (rb.linearVelocity.y > 0)
+            return;
+
+        // Se estiver caindo
+        if (rb.linearVelocity.y < 0)
+        {
+            float multiplicadorGravidade;
+
+            // Início da queda (mais controle no ar)
+            if (rb.linearVelocity.y > velocidadeQuedaMedia)
+            {
+                multiplicadorGravidade = gravidadeQuedaInicial;
+            }
+            // Queda média
+            else if (rb.linearVelocity.y > velocidadeQuedaForte)
+            {
+                multiplicadorGravidade = gravidadeQuedaMedia;
+            }
+            // Queda final (impacto forte)
+            else
+            {
+                multiplicadorGravidade = gravidadeQuedaFinal;
+            }
+
+            rb.AddForce(
+                Vector2.up * Physics2D.gravity.y * (multiplicadorGravidade - gravidadeBase),
+                ForceMode2D.Force
+            );
+
+            // Limite de velocidade máxima de queda
+            if (!ignorarLimiteDeQueda && rb.linearVelocity.y < velocidadeMaximaQueda)
+            {
+                rb.linearVelocity = new Vector2(
+                    rb.linearVelocity.x,
+                    velocidadeMaximaQueda
+                );
+            }
+        }
     }
+
 
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -37,11 +37,10 @@ public class PlayerMov : MonoBehaviour
     private bool isRunning = false;
     //private bool wasRunningBeforeJump = false;
 
+    [Header("Controle no Ar")]
     [SerializeField] float aceleracaoNoAr = 15f;
     [SerializeField] float velocidadeMaximaNoAr = 25f;
     [SerializeField] float desaceleracaoNoAr = 30f;
-
-
 
     private PlataformaMovel plataformaAtual = null;
     private Jump pulo;
