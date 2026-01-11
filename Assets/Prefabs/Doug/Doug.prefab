@@ -133,6 +133,9 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
+  aceleracaoNoAr: 15
+  velocidadeMaximaNoAr: 25
+  desaceleracaoNoAr: 30
   podeMover: 1
   IndoEsquerda: 0
   IndoDireita: 0
@@ -162,7 +165,7 @@ MonoBehaviour:
   Estasemcaixa: 1
   audioDano: {fileID: 894007059038305028}
   intervaloMinimoSomDano: 0.75
-  cenaFalha: CenaFalhaTatu
+  cenaFalha: CenaFalhaAlien
 --- !u!114 &3444483031629332467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,10 +206,22 @@ MonoBehaviour:
   turboJumpMultiplier: 1
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  jumpCutMultiplier: 0.5
+  gravidadeBase: 3.5
+  velocidadeMaximaQueda: -500
+  gravidadeQuedaInicial: 6
+  gravidadeQuedaMedia: 8
+  gravidadeQuedaFinal: 10
+  velocidadeQuedaMedia: -50
+  velocidadeQuedaForte: -100
+  ignorarLimiteDeQueda: 0
+  ignorarJumpCut: 0
   quantidadeDePulos: 0
   grounded: 0
+  encostoupassavel: 0
   ignorarpulo: 0
   ignorarProximoPulo: 0
+  molado: 0
   audioPulo: {fileID: 4207880194439403965}
   intervaloMinimoSomPulo: 0.1
   sonsDePulo:

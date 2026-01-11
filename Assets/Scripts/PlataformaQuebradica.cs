@@ -7,9 +7,13 @@ public class PlataformaQuebradiça : MonoBehaviour
     public float delayAntesDeQuebrar = 0.5f;
     public float delayAntesDeSumir = 0.3f;
 
+    [Header("Reaparecimento")]
+    public float tempoParaReaparecer = 4f;
+    public float duracaoFadeReaparecer = 0.5f;
+
     [Header("Sons")]
-    public AudioClip somAviso;   // Som de aviso (range, tremor)
-    public AudioClip somQuebrar; // Som da quebra
+    public AudioClip somAviso;
+    public AudioClip somQuebrar;
     public AudioSource audioSource;
 
     private bool quebrando = false;
@@ -22,7 +26,6 @@ public class PlataformaQuebradiça : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
 
-        // Pega o AudioSource no próprio objeto ou nos filhos
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -42,20 +45,56 @@ public class PlataformaQuebradiça : MonoBehaviour
 
     IEnumerator Quebrar()
     {
-        // 🔊 Som de aviso (começando a quebrar)
-        if (audioSource != null && somAviso != null)
+        if (audioSource && somAviso)
             audioSource.PlayOneShot(somAviso);
 
         yield return new WaitForSeconds(delayAntesDeQuebrar);
 
-        // 🔊 Som da quebra
-        if (audioSource != null && somQuebrar != null)
+        if (audioSource && somQuebrar)
             audioSource.PlayOneShot(somQuebrar);
 
         col.enabled = false;
-        sr.color = new Color(1, 1, 1, 0.5f); // efeito visual de "quebrando"
+        sr.color = new Color(1, 1, 1, 0.5f);
 
         yield return new WaitForSeconds(delayAntesDeSumir);
-        gameObject.SetActive(false);
+
+        sr.enabled = false;
+
+        yield return new WaitForSeconds(tempoParaReaparecer);
+
+        yield return StartCoroutine(ReaparecerComFade());
     }
+    IEnumerator ReaparecerComFade()
+    {
+        sr.enabled = true;
+        col.enabled = false;
+
+        float tempo = 0f;
+        Color cor = sr.color;
+        cor.a = 0f;
+        sr.color = cor;
+
+        while (tempo < duracaoFadeReaparecer)
+        {
+            tempo += Time.deltaTime;
+            cor.a = Mathf.Lerp(0f, 1f, tempo / duracaoFadeReaparecer);
+            sr.color = cor;
+            yield return null;
+        }
+
+        cor.a = 1f;
+        sr.color = cor;
+
+        col.enabled = true;
+        quebrando = false;
+    }
+
+   /* void Reaparecer()
+    {
+        sr.enabled = true;
+        col.enabled = true;
+        sr.color = Color.white;
+        quebrando = false;
+    }
+   */
 }

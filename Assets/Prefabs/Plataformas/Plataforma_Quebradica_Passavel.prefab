@@ -187,6 +187,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -208,6 +210,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -282,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayAntesDeQuebrar: 2
   delayAntesDeSumir: 0.5
+  tempoParaReaparecer: 4
   somAviso: {fileID: 8300000, guid: e4daf2d9b1ecfb349838658cfbaf417c, type: 3}
   somQuebrar: {fileID: 8300000, guid: a8ef4ea424c50c6468a89f2a475c1c9c, type: 3}
   audioSource: {fileID: 9181918833152837874}
