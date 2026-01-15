@@ -134,7 +134,7 @@ MonoBehaviour:
   turboMultiplier: 1
   turboStaminaReduction: 1
   aceleracaoNoAr: 15
-  velocidadeMaximaNoAr: 25
+  velocidadeMaximaNoAr: 27.5
   desaceleracaoNoAr: 30
   podeMover: 1
   IndoEsquerda: 0
@@ -202,18 +202,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7352d21d86d924cab34a091fe88ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 330
+  jumpForce: 320
   turboJumpMultiplier: 1
   coyoteTime: 0.1
   jumpBufferTime: 0.1
-  jumpCutMultiplier: 0.5
+  jumpCutMultiplier: 0.75
   gravidadeBase: 3.5
-  velocidadeMaximaQueda: -500
-  gravidadeQuedaInicial: 6
-  gravidadeQuedaMedia: 8
-  gravidadeQuedaFinal: 10
-  velocidadeQuedaMedia: -50
-  velocidadeQuedaForte: -100
+  velocidadeMaximaQueda: -100
+  gravidadeQuedaInicial: 3.5
+  gravidadeQuedaMedia: 5
+  gravidadeQuedaFinal: 6
+  velocidadeQuedaMedia: -20
+  velocidadeQuedaForte: -50
   ignorarLimiteDeQueda: 0
   ignorarJumpCut: 0
   quantidadeDePulos: 0

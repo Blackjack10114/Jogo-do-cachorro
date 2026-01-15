@@ -6,10 +6,10 @@ public class Jump : MonoBehaviour
 {
     private InputController inputActions;
 
-    [SerializeField] private float jumpForce = 315f;
-    [SerializeField] private float turboJumpMultiplier = 1.2f;
-    [SerializeField] private float coyoteTime = 0.1f;
-    [SerializeField] private float jumpBufferTime = 0.1f;
+    [SerializeField] float jumpForce = 315f;
+    [SerializeField] float turboJumpMultiplier = 1.2f;
+    [SerializeField] float coyoteTime = 0.1f;
+    [SerializeField] float jumpBufferTime = 0.1f;
     [SerializeField] float jumpCutMultiplier = 0.5f;
 
     [Header("Gravidade Extra")]
@@ -188,6 +188,7 @@ public class Jump : MonoBehaviour
         );
 
 
+
         if (Time.time - tempoUltimoPulo > intervaloMinimoSomPulo && sonsDePulo.Length > 0)
         {
             AudioClip somAleatorio = sonsDePulo[Random.Range(0, sonsDePulo.Length)];
@@ -266,9 +267,9 @@ public class Jump : MonoBehaviour
             }
 
             rb.AddForce(
-                Vector2.up * Physics2D.gravity.y * (multiplicadorGravidade - gravidadeBase),
-                ForceMode2D.Force
-            );
+      Vector2.up * Physics2D.gravity.y * (multiplicadorGravidade - gravidadeBase),
+      ForceMode2D.Impulse
+  );
 
             // Limite de velocidade máxima de queda
             if (!ignorarLimiteDeQueda && rb.linearVelocity.y < velocidadeMaximaQueda)

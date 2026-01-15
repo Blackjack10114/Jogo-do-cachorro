@@ -6,27 +6,35 @@ public class AutoScrollView : MonoBehaviour
 {
     public ScrollRect scrollRect;
     public float smoothSpeed = 10f;
-    public float padding = 10f; // espaço extra em pixels
-    public float disableTime = 1f; // tempo que o auto scroll fica desativado após mexer no scroll
+    public float disableTime = 0.5f;
 
     private float disableTimer;
+    private bool ignorarPrimeiroFrame;
+
+    void OnEnable()
+    {
+        ignorarPrimeiroFrame = true;
+        disableTimer = disableTime;
+    }
 
     void Update()
     {
-        //  Se mexeu no scroll manualmente -> pausa auto scroll
-        if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f || Input.GetMouseButton(0))
+        if (scrollRect == null || scrollRect.content == null || scrollRect.viewport == null)
+            return;
+
+        if (ignorarPrimeiroFrame)
         {
-            disableTimer = disableTime;
+            ignorarPrimeiroFrame = false;
+            return;
         }
 
-        if (disableTimer > 0)
+        if (disableTimer > 0f)
         {
             disableTimer -= Time.unscaledDeltaTime;
-            return; // não roda autoscroll enquanto o usuário tá controlando
+            return;
         }
 
         GameObject current = EventSystem.current.currentSelectedGameObject;
-
         if (current == null || !current.transform.IsChildOf(scrollRect.content))
             return;
 
@@ -34,61 +42,73 @@ public class AutoScrollView : MonoBehaviour
         RectTransform selected = current.GetComponent<RectTransform>();
         RectTransform viewport = scrollRect.viewport;
 
-        float contentHeight = CalculateContentHeight(content);
+        float contentHeight = content.rect.height;
         float viewportHeight = viewport.rect.height;
 
-        Vector3[] viewportCorners = new Vector3[4];
-        Vector3[] selectedCorners = new Vector3[4];
+        if (contentHeight <= viewportHeight)
+            return;
 
-        viewport.GetWorldCorners(viewportCorners);
-        selected.GetWorldCorners(selectedCorners);
+        // posição Y do item dentro do content
+        float itemPosY = Mathf.Abs(selected.localPosition.y);
+        float itemHeight = selected.rect.height;
 
-        float viewportTop = viewportCorners[1].y;
-        float viewportBottom = viewportCorners[0].y;
-
-        float selectedTop = selectedCorners[1].y + padding;
-        float selectedBottom = selectedCorners[0].y - padding;
-
-        float diff = 0f;
-
-        if (selectedTop > viewportTop) // fora acima
+        // se for o primeiro item ativo -> força topo
+        if (IsPrimeiroItemAtivo(selected, content))
         {
-            diff = selectedTop - viewportTop;
-        }
-        else if (selectedBottom < viewportBottom) // fora abaixo
-        {
-            diff = selectedBottom - viewportBottom;
-        }
-        else
-        {
-            return; // já visível
+            scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+                scrollRect.verticalNormalizedPosition,
+                1f,
+                Time.unscaledDeltaTime * smoothSpeed
+            );
+            return;
         }
 
-        float normalizedDiff = diff / (contentHeight - viewportHeight);
-        float currentNorm = scrollRect.verticalNormalizedPosition;
+        // se for o último item ativo -> força fundo
+        if (IsUltimoItemAtivo(selected, content))
+        {
+            scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+                scrollRect.verticalNormalizedPosition,
+                0f,
+                Time.unscaledDeltaTime * smoothSpeed
+            );
+            return;
+        }
 
-        float targetNorm = Mathf.Clamp01(currentNorm + normalizedDiff);
+        // posiciona o scroll baseado no item
+        float target =
+            1f - ((itemPosY - viewportHeight * 0.5f + itemHeight * 0.5f)
+            / (contentHeight - viewportHeight));
 
-        scrollRect.verticalNormalizedPosition =
-            Mathf.Lerp(currentNorm, targetNorm, Time.unscaledDeltaTime * smoothSpeed);
+        target = Mathf.Clamp01(target);
+
+        scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+            scrollRect.verticalNormalizedPosition,
+            target,
+            Time.unscaledDeltaTime * smoothSpeed
+        );
     }
-
-    private float CalculateContentHeight(RectTransform content)
+    bool IsPrimeiroItemAtivo(RectTransform selected, RectTransform content)
     {
-        float minY = float.MaxValue;
-        float maxY = float.MinValue;
-
-        foreach (RectTransform child in content)
+        foreach (Transform child in content)
         {
-            if (!child.gameObject.activeSelf) continue;
+            if (!child.gameObject.activeSelf)
+                continue;
 
-            Vector3[] corners = new Vector3[4];
-            child.GetWorldCorners(corners);
-
-            minY = Mathf.Min(minY, corners[0].y);
-            maxY = Mathf.Max(maxY, corners[1].y);
+            return child == selected;
         }
-
-        return Mathf.Abs(maxY - minY);
+        return false;
     }
+
+    bool IsUltimoItemAtivo(RectTransform selected, RectTransform content)
+    {
+        for (int i = content.childCount - 1; i >= 0; i--)
+        {
+            if (!content.GetChild(i).gameObject.activeSelf)
+                continue;
+
+            return content.GetChild(i) == selected;
+        }
+        return false;
+    }
+
 }

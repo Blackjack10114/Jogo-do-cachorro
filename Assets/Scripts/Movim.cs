@@ -259,10 +259,16 @@ public class PlayerMov : MonoBehaviour
                 ? aceleracaoNoAr
                 : desaceleracaoNoAr;
 
-            float movimentoHorizontal = Mathf.Clamp(
-                diferencaVelocidade * aceleracaoAtual * Time.deltaTime,
-                -velocidadeMaximaNoAr,
-                velocidadeMaximaNoAr
+            float movimentoHorizontal =
+     diferencaVelocidade * aceleracaoAtual * Time.deltaTime;
+
+            rb.linearVelocity = new Vector2(
+                Mathf.Clamp(
+                    rb.linearVelocity.x + movimentoHorizontal,
+                    -velocidadeMaximaNoAr,
+                    velocidadeMaximaNoAr
+                ),
+                rb.linearVelocity.y
             );
 
             rb.linearVelocity = new Vector2(

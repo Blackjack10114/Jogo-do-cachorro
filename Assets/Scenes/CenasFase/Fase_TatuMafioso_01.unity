@@ -34764,6 +34764,9 @@ MonoBehaviour:
   gourmetTimer: 0
   turboMultiplier: 1
   turboStaminaReduction: 1
+  aceleracaoNoAr: 15
+  velocidadeMaximaNoAr: 25
+  desaceleracaoNoAr: 30
   podeMover: 1
   IndoEsquerda: 0
   IndoDireita: 0
@@ -34786,10 +34789,22 @@ MonoBehaviour:
   turboJumpMultiplier: 1
   coyoteTime: 0.1
   jumpBufferTime: 0.1
+  jumpCutMultiplier: 0.5
+  gravidadeBase: 1
+  velocidadeMaximaQueda: -25
+  gravidadeQuedaInicial: 2
+  gravidadeQuedaMedia: 3.5
+  gravidadeQuedaFinal: 5
+  velocidadeQuedaMedia: -8
+  velocidadeQuedaForte: -14
+  ignorarLimiteDeQueda: 0
+  ignorarJumpCut: 0
   quantidadeDePulos: 0
   grounded: 0
+  encostoupassavel: 0
   ignorarpulo: 0
   ignorarProximoPulo: 0
+  molado: 0
   audioPulo: {fileID: 0}
   intervaloMinimoSomPulo: 0.1
   sonsDePulo: []
@@ -50088,6 +50103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doug
       objectReference: {fileID: 0}
+    - target: {fileID: 6028213741528096719, guid: 1d8f0f2ce1571a842aefe0a588fa041a, type: 3}
+      propertyPath: cenaFalha
+      value: CenaFalhaTatu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -50162,6 +50181,10 @@ PrefabInstance:
       propertyPath: Ossinho
       value: 
       objectReference: {fileID: 1579122913}
+    - target: {fileID: 3095695423849928717, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4420872531023967635, guid: 5bad781bd06704441b4d2e2d11eb7083, type: 3}
       propertyPath: Ossinho
       value: 
@@ -50271,7 +50294,6 @@ SceneRoots:
   - {fileID: 2133424413}
   - {fileID: 949217068}
   - {fileID: 1215632293}
-  - {fileID: 8683971880224166313}
   - {fileID: 983287774}
   - {fileID: 1082619901}
   - {fileID: 1478400618}
@@ -50282,6 +50304,7 @@ SceneRoots:
   - {fileID: 943501909}
   - {fileID: 1045930132}
   - {fileID: 991406683}
+  - {fileID: 8683971880224166313}
   - {fileID: 6650677092439457037}
   - {fileID: 695917303}
   - {fileID: 700007230}

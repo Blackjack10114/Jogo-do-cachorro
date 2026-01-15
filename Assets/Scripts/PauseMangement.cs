@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     private InputController inputActions;
@@ -84,6 +85,14 @@ public class PauseMenu : MonoBehaviour
 
         inputActions.Player.Disable();
         inputActions.UI.Enable();
+
+        var scroll = painelPause.GetComponentInChildren<ScrollRect>();
+        if (scroll != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            scroll.verticalNormalizedPosition = 1f;
+        }
+
 
         pauseFocus.OnOpen();
 
