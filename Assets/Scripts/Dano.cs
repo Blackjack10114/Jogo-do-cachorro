@@ -33,7 +33,7 @@ public class Dano : MonoBehaviour
     [SerializeField] private string cenaFalha;
 
     private static readonly string[] obstaculosQueCausamDano = {
-        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito"
+        "Spike", "Buraco", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "Espada"
     };
 
 
