@@ -46,6 +46,10 @@ public class Espada_Fantasma : MonoBehaviour
         {
             Avancar();
         }
+        else
+        {
+            rb.linearVelocity = direcaoAtaque * velocidade * 0;
+        }
     }
 
     void DetectarPlayer()
@@ -77,6 +81,7 @@ public class Espada_Fantasma : MonoBehaviour
         if (timerMira <= 0f)
         {
             atacando = true;
+            StartCoroutine(Reiniciar());
         }
     }
 
@@ -99,7 +104,6 @@ public class Espada_Fantasma : MonoBehaviour
                 collision.collider,
                 GetComponent<Collider2D>()
             );
-            StartCoroutine(Destruir());
         }
     }
 
@@ -114,9 +118,11 @@ public class Espada_Fantasma : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distanciaDeteccao);
     }
-    private IEnumerator Destruir()
+    private IEnumerator Reiniciar()
     {
-        yield return new WaitForSeconds(4.5f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(3f);
+        detectouPlayer = false;
+        atacando = false;
+        Atacou = false;
     }
 }
