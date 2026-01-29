@@ -4,27 +4,23 @@ using UnityEngine.UI;
 
 public class AutoScrollView : MonoBehaviour
 {
+    [Header("Referências")]
     public ScrollRect scrollRect;
-    public float smoothSpeed = 10f;
-    public float disableTime = 0.5f;
 
-    private float disableTimer;
+    [Header("Configuração")]
+    public float smoothSpeed = 10f;
+
+    private bool autoScrollAtivo = true;
     private bool ignorarPrimeiroFrame;
 
     void OnEnable()
     {
         ignorarPrimeiroFrame = true;
-        disableTimer = disableTime;
+        autoScrollAtivo = true; 
     }
 
     void Update()
     {
-        if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f)
-        {
-            disableTimer = disableTime;
-            return;
-        }
-
         if (scrollRect == null || scrollRect.content == null || scrollRect.viewport == null)
             return;
 
@@ -34,11 +30,10 @@ public class AutoScrollView : MonoBehaviour
             return;
         }
 
-        if (disableTimer > 0f)
-        {
-            disableTimer -= Time.unscaledDeltaTime;
+        DetectarInput();
+
+        if (!autoScrollAtivo)
             return;
-        }
 
         GameObject current = EventSystem.current.currentSelectedGameObject;
         if (current == null || !current.transform.IsChildOf(scrollRect.content))
@@ -54,11 +49,7 @@ public class AutoScrollView : MonoBehaviour
         if (contentHeight <= viewportHeight)
             return;
 
-        // posição Y do item dentro do content
-        float itemPosY = Mathf.Abs(selected.localPosition.y);
-        float itemHeight = selected.rect.height;
-
-        // se for o primeiro item ativo -> força topo
+        // primeiro item - força topo
         if (IsPrimeiroItemAtivo(selected, content))
         {
             scrollRect.verticalNormalizedPosition = Mathf.Lerp(
@@ -69,7 +60,7 @@ public class AutoScrollView : MonoBehaviour
             return;
         }
 
-        // se for o último item ativo -> força fundo
+        // último item - força fundo
         if (IsUltimoItemAtivo(selected, content))
         {
             scrollRect.verticalNormalizedPosition = Mathf.Lerp(
@@ -80,7 +71,10 @@ public class AutoScrollView : MonoBehaviour
             return;
         }
 
-        // posiciona o scroll baseado no item
+        // centraliza o item selecionado
+        float itemPosY = Mathf.Abs(selected.localPosition.y);
+        float itemHeight = selected.rect.height;
+
         float target =
             1f - ((itemPosY - viewportHeight * 0.5f + itemHeight * 0.5f)
             / (contentHeight - viewportHeight));
@@ -93,6 +87,23 @@ public class AutoScrollView : MonoBehaviour
             Time.unscaledDeltaTime * smoothSpeed
         );
     }
+
+    private void DetectarInput()
+    {
+        // mouse mexeu no scroll
+        if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f || Input.GetMouseButton(0))
+        {
+            autoScrollAtivo = false;
+            return;
+        }
+
+        // teclado / controle
+        if (Input.anyKeyDown)
+        {
+            autoScrollAtivo = true;
+        }
+    }
+
     bool IsPrimeiroItemAtivo(RectTransform selected, RectTransform content)
     {
         foreach (Transform child in content)
@@ -116,5 +127,4 @@ public class AutoScrollView : MonoBehaviour
         }
         return false;
     }
-
 }

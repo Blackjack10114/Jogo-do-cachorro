@@ -35,11 +35,10 @@ public class PauseMenu : MonoBehaviour
             var comeco = FindFirstObjectByType<Comeco_Fase>();
             if (comeco == null) // Cena sem Comeco_Fase (tipo tutorial)
             {
-                // Pode pausar sempre
-                if (!painelPause.activeSelf)
+                if (!painelPause.activeSelf && !JogoPausado)
+                {
                     AbrirPause();
-                else
-                    FecharPause();
+                }
             }
             else if (Comeco_Fase.FaseComecou) // Cena com Comeco_Fase, mas só depois que começou
             {
@@ -52,11 +51,24 @@ public class PauseMenu : MonoBehaviour
 
         };
 
-        // fechar a confirmação
         inputActions.UI.Cancel.performed += ctx =>
         {
             if (painelConfirmacao.activeSelf)
+            {
                 BotaoConfirmarNao();
+                return;
+            }
+
+            if (painelComoJogar.activeSelf)
+            {
+                BotaoVoltarPause();
+                return;
+            }
+
+            if (painelPause.activeSelf)
+            {
+                FecharPause();
+            }
         };
     }
 
