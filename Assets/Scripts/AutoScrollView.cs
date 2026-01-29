@@ -19,6 +19,12 @@ public class AutoScrollView : MonoBehaviour
 
     void Update()
     {
+        if (Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f)
+        {
+            disableTimer = disableTime;
+            return;
+        }
+
         if (scrollRect == null || scrollRect.content == null || scrollRect.viewport == null)
             return;
 
