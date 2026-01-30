@@ -425,6 +425,8 @@ MonoBehaviour:
   botoesPrincipais:
   - {fileID: 3712434404889102790}
   - {fileID: 8102297887373295204}
+  Sim: {fileID: 0}
+  Nao: {fileID: 0}
 --- !u!1 &1380464108308396679
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +439,8 @@ GameObject:
   - component: {fileID: 6506947611402152556}
   - component: {fileID: 6580852686501952793}
   - component: {fileID: 8858906373217918352}
+  - component: {fileID: 2681570219673757951}
+  - component: {fileID: 7340646837575839780}
   m_Layer: 5
   m_Name: Sim_Confirmarcao
   m_TagString: Untagged
@@ -558,6 +562,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2681570219673757951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380464108308396679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
+--- !u!114 &7340646837575839780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380464108308396679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
 --- !u!1 &1965134731428855449
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +909,8 @@ GameObject:
   - component: {fileID: 9213362519729332508}
   - component: {fileID: 3311192735772309741}
   - component: {fileID: 8272235112563550405}
+  - component: {fileID: 7581196120514565701}
+  - component: {fileID: 9085949883922481178}
   m_Layer: 5
   m_Name: Nao_Confirmacao
   m_TagString: Untagged
@@ -1000,6 +1032,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7581196120514565701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310281098027808605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
+--- !u!114 &9085949883922481178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310281098027808605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
 --- !u!1 &8263500293695498746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3472339033352206161, guid: 818523167992469439887a5d106dbfc9, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 44
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3845984608626995459, guid: 818523167992469439887a5d106dbfc9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1426,14 +1484,57 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2798289752324319605, guid: 818523167992469439887a5d106dbfc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4270244528990269488}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5115874873780043857, guid: 818523167992469439887a5d106dbfc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6197045384131909341}
+    - targetCorrespondingSourceObject: {fileID: 5115874873780043857, guid: 818523167992469439887a5d106dbfc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1955974107134015613}
+    - targetCorrespondingSourceObject: {fileID: 1572117200574700131, guid: 818523167992469439887a5d106dbfc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6145690356677427517}
+    - targetCorrespondingSourceObject: {fileID: 1572117200574700131, guid: 818523167992469439887a5d106dbfc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5785265766611776832}
   m_SourcePrefab: {fileID: 100100000, guid: 818523167992469439887a5d106dbfc9, type: 3}
+--- !u!1 &1086825996767778052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5115874873780043857, guid: 818523167992469439887a5d106dbfc9, type: 3}
+  m_PrefabInstance: {fileID: 5326090863510639957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6197045384131909341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086825996767778052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
+--- !u!114 &1955974107134015613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086825996767778052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
 --- !u!114 &3712434404889102790 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8822309811457350803, guid: 818523167992469439887a5d106dbfc9, type: 3}
   m_PrefabInstance: {fileID: 5326090863510639957}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1086825996767778052}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -1455,6 +1556,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cb6cf93bc268442a85a8a099cafb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6646005904024538934 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1572117200574700131, guid: 818523167992469439887a5d106dbfc9, type: 3}
+  m_PrefabInstance: {fileID: 5326090863510639957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6145690356677427517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646005904024538934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
+--- !u!114 &5785265766611776832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646005904024538934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
 --- !u!224 &8016291749501172768 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2798289752324319605, guid: 818523167992469439887a5d106dbfc9, type: 3}
@@ -1465,7 +1597,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4150971318370118449, guid: 818523167992469439887a5d106dbfc9, type: 3}
   m_PrefabInstance: {fileID: 5326090863510639957}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6646005904024538934}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
