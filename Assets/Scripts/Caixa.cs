@@ -31,7 +31,7 @@ public class Caixa : MonoBehaviour
     private Animator animDoug;
 
     private static readonly string[] obstaculosQueCaemCaixa = {
-        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa", "Espada", "Fantasma"
+        "Spike", "Tatu", "RaizRotatoria", "Passaro", "Meteorito", "PlataformaReativa", "Espada", "Fantasma", "Candelabro"
     };
     private bool TagCaiCaixa(string tagcaixa)
     {
