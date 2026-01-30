@@ -763,6 +763,8 @@ GameObject:
   - component: {fileID: 251118749}
   - component: {fileID: 251118748}
   - component: {fileID: 251118747}
+  - component: {fileID: 251118751}
+  - component: {fileID: 251118750}
   m_Layer: 5
   m_Name: SAIR_MENU
   m_TagString: Untagged
@@ -884,6 +886,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251118745}
   m_CullTransparentMesh: 1
+--- !u!114 &251118750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251118745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
+--- !u!114 &251118751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251118745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
 --- !u!1 &267857547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +3014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2826925149423447107, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -27.217194
+      value: -3.5714304
       objectReference: {fileID: 0}
     - target: {fileID: 2826925149423447107, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3011,6 +3039,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5041226281692098989, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 974125631}
+    - targetCorrespondingSourceObject: {fileID: 5041226281692098989, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 974125633}
+    - targetCorrespondingSourceObject: {fileID: 5041226281692098989, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 974125632}
   m_SourcePrefab: {fileID: 100100000, guid: 6587ad36250257447b6185b4d85e03d5, type: 3}
 --- !u!224 &974125629 stripped
 RectTransform:
@@ -3038,6 +3072,32 @@ MonoBehaviour:
   nomeCena: Fase_Alien_02
   spriteLiberado: {fileID: -3968474369372183958, guid: 4529a76095196e442bfba99232f9e856, type: 3}
   spriteBloqueado: {fileID: -6733687581531205988, guid: 4529a76095196e442bfba99232f9e856, type: 3}
+--- !u!114 &974125632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974125630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
+--- !u!114 &974125633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974125630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
 --- !u!1 &1017986119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,6 +3734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2815ac87b34010549b0f66ce2cb0421e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayAposUso: 2
 --- !u!1 &1159193120
 GameObject:
   m_ObjectHideFlags: 0
@@ -4225,7 +4286,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -4233,6 +4293,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1267258734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5578,7 +5639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2745478316544177614, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -27.21719
+      value: -3.5714266
       objectReference: {fileID: 0}
     - target: {fileID: 2745478316544177614, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5603,6 +5664,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9084013814062352472, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674070342}
+    - targetCorrespondingSourceObject: {fileID: 9084013814062352472, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674070344}
+    - targetCorrespondingSourceObject: {fileID: 9084013814062352472, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674070343}
   m_SourcePrefab: {fileID: 100100000, guid: ee32cf2feeef05541836b7b342bb3bfe, type: 3}
 --- !u!224 &1674070340 stripped
 RectTransform:
@@ -5630,6 +5697,32 @@ MonoBehaviour:
   nomeCena: Fase_Dino_03
   spriteLiberado: {fileID: -3968474369372183958, guid: 4529a76095196e442bfba99232f9e856, type: 3}
   spriteBloqueado: {fileID: -6733687581531205988, guid: 4529a76095196e442bfba99232f9e856, type: 3}
+--- !u!114 &1674070343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674070341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
+--- !u!114 &1674070344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674070341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
 --- !u!1 &1721100732
 GameObject:
   m_ObjectHideFlags: 0
@@ -5969,8 +6062,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.836533, y: 123.34631}
-  m_SizeDelta: {x: 655.7199, y: 170.8561}
+  m_AnchoredPosition: {x: -5.836533, y: 139.28572}
+  m_SizeDelta: {x: 655.7199, y: 75.618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1906631489
 MonoBehaviour:
@@ -6895,7 +6988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 183385449162101206, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -27.21719
+      value: -3.5714266
       objectReference: {fileID: 0}
     - target: {fileID: 183385449162101206, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6936,6 +7029,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3446239816611979350, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2095094087}
+    - targetCorrespondingSourceObject: {fileID: 3446239816611979350, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095094089}
+    - targetCorrespondingSourceObject: {fileID: 3446239816611979350, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095094088}
   m_SourcePrefab: {fileID: 100100000, guid: f3525925f8db8d242bdc098444d7937a, type: 3}
 --- !u!224 &2095094085 stripped
 RectTransform:
@@ -6963,6 +7062,32 @@ MonoBehaviour:
   nomeCena: Fase_TatuMafioso_01
   spriteLiberado: {fileID: -3968474369372183958, guid: 4529a76095196e442bfba99232f9e856, type: 3}
   spriteBloqueado: {fileID: -6733687581531205988, guid: 4529a76095196e442bfba99232f9e856, type: 3}
+--- !u!114 &2095094088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095094086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5951c7a41854740ac49fcc0352ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelecionarAoPassarMouse
+--- !u!114 &2095094089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095094086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fc1ffcdc6d8cc468f39282ee7f3613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotaoEscalavel
+  escalaSelecionado: 1.2
+  velocidade: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
